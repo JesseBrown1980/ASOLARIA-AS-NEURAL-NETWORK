@@ -49,8 +49,9 @@ The supervisor collision router converged in doctrine before it converged in byt
 - sentinel runtime values (`none`, `null`, `false`, `0`, empty, etc.) are absent and do not override logical labels
 - token inference is boundary-aware, so `fireworker` does not match `worker`
 - fallback token inference only reads dedicated classification fields (`kind`, `type`, `layer`, `class`, `role`, `scope`, `agent_kind`, `agent_type`, `collision`), not freeform names/routes/reasons
+- canonical logical vocabulary includes `supervisor`, `prof`, `professor`, and `council`; `write` is deliberately not a logical inference token
 - verdicts: logical preserve, real block until free address, real reroute draft when a free address is attested, mixed split
-- verification: `node --check`, CLI `--self-test` (`11/11`), and the portable test pyramid: unit (`12/12`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
+- verification: `node --check`, CLI `--self-test` (`13/13`), and the portable test pyramid: unit (`14/14`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
 
 ## Authority
 

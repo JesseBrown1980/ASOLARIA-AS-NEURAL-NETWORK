@@ -55,7 +55,10 @@ const LOGICAL_TOKENS = Object.freeze([
   'judgment',
   'scout',
   'review',
-  'write',
+  'supervisor',
+  'prof',
+  'professor',
+  'council',
   'test_report',
   'test-report',
   'bh_overlay',
@@ -476,6 +479,20 @@ export function selfTest() {
     !dedicatedRole.ok &&
     dedicatedRole.classification === 'REAL_AGENT' &&
     dedicatedRole.state === 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
+
+  const canonicalLogicalRoles = ['supervisor', 'prof', 'professor', 'council'].map((role) =>
+    planCollisionRoute(`COLLISION|role=${role}|json=0`));
+  add('canonical-logical-vocab-delta',
+    canonicalLogicalRoles.every((plan) =>
+      plan.ok &&
+      plan.classification === 'LOGICAL_AGENT' &&
+      plan.state === 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR'));
+
+  const removedWriteToken = planCollisionRoute('COLLISION|role=write|json=0');
+  add('write-token-no-longer-logical',
+    !removedWriteToken.ok &&
+    removedWriteToken.classification === 'UNCLASSIFIED' &&
+    removedWriteToken.target_router === 'file-level-review');
 
   const mixed = planCollisionRoute('COLLISION|kind=free_agent|role=logical_18|json=0');
   add('mixed-held-for-split', !mixed.ok && mixed.state === 'MIXED_COLLISION_HELD_SPLIT_REQUIRED');

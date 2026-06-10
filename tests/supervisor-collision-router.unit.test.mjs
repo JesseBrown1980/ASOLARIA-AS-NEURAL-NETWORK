@@ -94,6 +94,23 @@ test('dedicated classification fields still allow token inference', () => {
   assert.equal(kindPlan.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
 });
 
+test('canonical logical vocabulary infers agreed supervisor roles', () => {
+  for (const role of ['supervisor', 'prof', 'professor', 'council']) {
+    const plan = planCollisionRoute(`COLLISION|role=${role}|json=0`);
+    assert.equal(plan.ok, true, role);
+    assert.equal(plan.classification, 'LOGICAL_AGENT', role);
+    assert.equal(plan.state, 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR', role);
+    assert.equal(plan.target_router, 'logical-overlay-router', role);
+  }
+});
+
+test('write is not a logical inference token', () => {
+  const plan = planCollisionRoute('COLLISION|role=write|json=0');
+  assert.equal(plan.ok, false);
+  assert.equal(plan.classification, 'UNCLASSIFIED');
+  assert.equal(plan.target_router, 'file-level-review');
+});
+
 test('mixed rows are held for split instead of guessed', () => {
   const classified = classifyCollision('COLLISION|kind=free_agent|role=logical_18|json=0');
   assert.equal(classified.classification, 'MIXED_OR_AMBIGUOUS');
