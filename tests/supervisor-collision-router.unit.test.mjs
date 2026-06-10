@@ -17,6 +17,14 @@ test('parses HBP rows without JSON hot path', () => {
   assert.equal(parsed.fields.role, 'sector-agent');
 });
 
+test('non-collision HBP heads are held instead of routed', () => {
+  const plan = planCollisionRoute('STATUS|agent_system=logical|role=sector-agent|json=0');
+  assert.equal(plan.ok, false);
+  assert.equal(plan.classification, 'UNCLASSIFIED');
+  assert.equal(plan.classification_state, 'HELD_NON_COLLISION_HEAD');
+  assert.equal(plan.target_router, 'file-level-review');
+});
+
 test('logical collision is preserved and routed to supervisor planning', () => {
   const plan = planCollisionRoute('COLLISION|agent_system=logical|role=sector-agent|collision_with=operator_GAC|json=0');
   assert.equal(plan.ok, true);
@@ -41,11 +49,25 @@ test('runtime-bound rows are real even when labeled as logical roles', () => {
   assert.equal(plan.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
 });
 
+test('sentinel runtime values are absent and do not override logical labels', () => {
+  const plan = planCollisionRoute('COLLISION|agent_system=logical|role=supervisor|port=none|json=0');
+  assert.equal(plan.ok, true);
+  assert.equal(plan.classification, 'LOGICAL_AGENT');
+  assert.equal(plan.state, 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR');
+});
+
 test('real collision can become draft-ready with an attested free range', () => {
   const plan = planCollisionRoute('COLLISION|agent_system=real|kind=free_agent|free_hilbert=1604-1621|json=0');
   assert.equal(plan.ok, true);
   assert.equal(plan.state, 'REAL_COLLISION_REROUTE_READY_DRAFT');
   assert.match(plan.required, /1604-1621/);
+});
+
+test('token inference uses boundaries instead of substrings', () => {
+  const plan = planCollisionRoute('COLLISION|role=fireworker|json=0');
+  assert.equal(plan.ok, false);
+  assert.equal(plan.classification, 'UNCLASSIFIED');
+  assert.equal(plan.target_router, 'file-level-review');
 });
 
 test('mixed rows are held for split instead of guessed', () => {

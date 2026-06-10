@@ -44,9 +44,12 @@ The supervisor collision router converged in doctrine before it converged in byt
 
 - input: `COLLISION|...|json=0` HBP rows, with JS-object input only as compatibility
 - rule: a collision is only an error after classification
+- head guard: non-`COLLISION` HBP rows are held, not routed as collisions
 - precedence: runtime-bound fields (`os_pid`, `process_id`, `runtime_pid`, `port`, `flywheel_slot`, `port_port`) classify as REAL before any logical label
+- sentinel runtime values (`none`, `null`, `false`, `0`, empty, etc.) are absent and do not override logical labels
+- token inference is boundary-aware, so `fireworker` does not match `worker`
 - verdicts: logical preserve, real block until free address, real reroute draft when a free address is attested, mixed split
-- verification: `node --check`, `node --test tests/supervisor-collision-router.unit.test.mjs`, and CLI `--self-test`
+- verification: `node --check`, CLI `--self-test` (`9/9`), and the portable test pyramid: unit (`10/10`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
 
 ## Authority
 

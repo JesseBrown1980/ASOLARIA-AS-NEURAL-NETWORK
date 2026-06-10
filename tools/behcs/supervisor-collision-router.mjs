@@ -92,13 +92,31 @@ function lowerValue(value) {
   return cleanValue(value).toLowerCase();
 }
 
-function hasAnyToken(text, tokens) {
-  return tokens.some((token) => text.includes(token));
-}
-
 function truthy(value) {
   return ['1', 'true', 'yes', 'y', 'ok'].includes(lowerValue(value));
 }
+
+const SENTINELS = new Set(['', '0', 'none', 'null', 'false', 'undefined', 'na', 'n/a', '-']);
+
+function presentValue(value) {
+  return !SENTINELS.has(lowerValue(value));
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function boundaryRe(tokens) {
+  return new RegExp(`(?:^|[^a-z0-9])(?:${tokens.map(escapeRegExp).join('|')})(?:[^a-z0-9]|$)`);
+}
+
+function hasAnyToken(text, tokenRe) {
+  return tokenRe.test(text);
+}
+
+const REAL_RE = boundaryRe(REAL_TOKENS);
+const LOGICAL_RE = boundaryRe(LOGICAL_TOKENS);
+const SURFACE_RE = boundaryRe(SURFACE_TOKENS);
 
 export function parseHbpRow(row) {
   const parts = String(row || '').trim().split('|').filter(Boolean);
@@ -141,12 +159,12 @@ function explicitSystem(fields) {
 
 function hasRuntimeBinding(fields) {
   return Boolean(
-    fields.os_pid ||
-    fields.process_id ||
-    fields.runtime_pid ||
-    fields.port ||
-    fields.flywheel_slot ||
-    fields.port_port
+    presentValue(fields.os_pid) ||
+    presentValue(fields.process_id) ||
+    presentValue(fields.runtime_pid) ||
+    presentValue(fields.port) ||
+    presentValue(fields.flywheel_slot) ||
+    presentValue(fields.port_port)
   );
 }
 
@@ -175,6 +193,18 @@ function evidenceText(head, fields) {
 
 export function classifyCollision(input) {
   const { head, fields } = normalizeCollisionInput(input);
+  if (head !== 'COLLISION' && head !== 'OBJECT') {
+    return {
+      ok: false,
+      head,
+      fields,
+      classification: 'UNCLASSIFIED',
+      state: 'HELD_NON_COLLISION_HEAD',
+      confidence: 'none',
+      reason: `non-collision-head:${head}`,
+    };
+  }
+
   if (hasRuntimeBinding(fields)) {
     return {
       ok: true,
@@ -212,8 +242,8 @@ export function classifyCollision(input) {
   }
 
   const text = evidenceText(head, fields);
-  const hasReal = hasAnyToken(text, REAL_TOKENS);
-  const hasLogical = hasAnyToken(text, LOGICAL_TOKENS);
+  const hasReal = hasAnyToken(text, REAL_RE);
+  const hasLogical = hasAnyToken(text, LOGICAL_RE);
 
   if (hasReal && hasLogical) {
     return {
@@ -261,7 +291,7 @@ export function classifyCollision(input) {
 
 function hasSurfaceBridge(fields) {
   const text = [fields.from, fields.to, fields.surface, fields.target_surface, fields.required, fields.action].map(lowerValue).join(' ');
-  return hasAnyToken(text, SURFACE_TOKENS);
+  return hasAnyToken(text, SURFACE_RE);
 }
 
 function freeRealAddress(fields) {
@@ -410,6 +440,12 @@ export function selfTest() {
   const logical = planCollisionRoute('COLLISION|agent_system=logical|role=sector-agent|collision_with=operator_GAC|json=0');
   add('logical-preserved', logical.ok && logical.state === 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR');
 
+  const nonCollisionHead = planCollisionRoute('STATUS|agent_system=logical|role=sector-agent|json=0');
+  add('non-collision-head-held',
+    !nonCollisionHead.ok &&
+    nonCollisionHead.classification === 'UNCLASSIFIED' &&
+    nonCollisionHead.classification_state === 'HELD_NON_COLLISION_HEAD');
+
   const realBlocked = planCollisionRoute('COLLISION|agent_system=real|kind=free_agent|occupied=1|json=0');
   add('real-blocked-without-free-address', !realBlocked.ok && realBlocked.state === 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
 
@@ -419,8 +455,20 @@ export function selfTest() {
     runtimeBound.classification === 'REAL_AGENT' &&
     runtimeBound.reason === 'runtime-bound-os-pid-port-or-flywheel');
 
+  const sentinelRuntime = planCollisionRoute('COLLISION|agent_system=logical|role=supervisor|port=none|json=0');
+  add('sentinel-runtime-value-ignored',
+    sentinelRuntime.ok &&
+    sentinelRuntime.classification === 'LOGICAL_AGENT' &&
+    sentinelRuntime.state === 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR');
+
   const realReady = planCollisionRoute('COLLISION|agent_system=real|kind=free_agent|free_hilbert=1604-1621|json=0');
   add('real-reroute-ready-with-free-address', realReady.ok && realReady.state === 'REAL_COLLISION_REROUTE_READY_DRAFT');
+
+  const substring = planCollisionRoute('COLLISION|role=fireworker|json=0');
+  add('boundary-token-match-no-substring',
+    !substring.ok &&
+    substring.classification === 'UNCLASSIFIED' &&
+    substring.target_router === 'file-level-review');
 
   const mixed = planCollisionRoute('COLLISION|kind=free_agent|role=logical_18|json=0');
   add('mixed-held-for-split', !mixed.ok && mixed.state === 'MIXED_COLLISION_HELD_SPLIT_REQUIRED');
