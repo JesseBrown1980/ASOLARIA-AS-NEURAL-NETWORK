@@ -70,6 +70,30 @@ test('token inference uses boundaries instead of substrings', () => {
   assert.equal(plan.target_router, 'file-level-review');
 });
 
+test('fallback token inference ignores freeform identity and route fields', () => {
+  const namePlan = planCollisionRoute('COLLISION|agent=sup-dan_omniflywheel_router|json=0');
+  assert.equal(namePlan.ok, false);
+  assert.equal(namePlan.classification, 'UNCLASSIFIED');
+  assert.equal(namePlan.target_router, 'file-level-review');
+
+  const reasonPlan = planCollisionRoute('COLLISION|reason=needs_omniflywheel_review|json=0');
+  assert.equal(reasonPlan.ok, false);
+  assert.equal(reasonPlan.classification, 'UNCLASSIFIED');
+  assert.equal(reasonPlan.target_router, 'file-level-review');
+});
+
+test('dedicated classification fields still allow token inference', () => {
+  const rolePlan = planCollisionRoute('COLLISION|role=omniflywheel|json=0');
+  assert.equal(rolePlan.ok, false);
+  assert.equal(rolePlan.classification, 'REAL_AGENT');
+  assert.equal(rolePlan.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
+
+  const kindPlan = planCollisionRoute('COLLISION|kind=free_agent_007|json=0');
+  assert.equal(kindPlan.ok, false);
+  assert.equal(kindPlan.classification, 'REAL_AGENT');
+  assert.equal(kindPlan.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
+});
+
 test('mixed rows are held for split instead of guessed', () => {
   const classified = classifyCollision('COLLISION|kind=free_agent|role=logical_18|json=0');
   assert.equal(classified.classification, 'MIXED_OR_AMBIGUOUS');

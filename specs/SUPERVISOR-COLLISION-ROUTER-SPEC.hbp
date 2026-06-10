@@ -5,7 +5,7 @@ INPUT|compat=JS-object-accepted-by-normalizeCollisionInput|status=compat-only-no
 CLASSORDER|step=0|rule=head-must-be-COLLISION-or-OBJECT-compat|non_collision_heads=HELD_NON_COLLISION_HEAD|json=0
 CLASSORDER|step=1|rule=runtime-bound-fields-win-REAL-before-any-logical-label|fields=os_pid+process_id+runtime_pid+port+flywheel_slot+port_port|sentinels_absent=empty+0+none+null+false+undefined+na+n/a+dash|json=0
 CLASSORDER|step=2|rule=explicit-agent_system-logical-or-real|logical_state=LOGICAL_AGENT_COLLISION_ALLOWED|real_state=REAL_AGENT_NO_COLLISION_REQUIRED|json=0
-CLASSORDER|step=3|rule=evidence-token-inference-boundary-aware-not-substring|mixed=real-and-logical-markers-held-for-split|example=fireworker-does-not-match-worker|json=0
+CLASSORDER|step=3|rule=evidence-token-inference-boundary-aware-not-substring-and-dedicated-fields-only|fields=kind+type+layer+class+role+scope+agent_kind+agent_type+collision|ignored_freeform=agent+front+address+route+reason+subject+required+action|mixed=real-and-logical-markers-held-for-split|examples=fireworker-does-not-match-worker;agent_sup-dan_omniflywheel_router_does-not-infer-real|json=0
 CLASSORDER|step=4|rule=unclassified-held-for-file-level-review|no_guessing=1|json=0
 VERDICT|logical=LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR|ok=1|target_router=logical-overlay-router|target_route=/api/constructions/atlas/system/council/dispatch-plan|json=0
 VERDICT|real_without_free_address=REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS|ok=0|target_router=real-runtime-address-router|target_route=/api/omniflywheel|gate=operator-pair-cosign-before-real-mint-or-launch|json=0
@@ -14,7 +14,7 @@ VERDICT|mixed=MIXED_COLLISION_HELD_SPLIT_REQUIRED|ok=0|required=emit-separate-lo
 VERDICT|unclassified=UNCLASSIFIED_COLLISION_HELD|ok=0|required=add-agent_system-real-or-logical-or-review-source-diff|json=0
 OUTPUT|plan_rows=SUPCOLLIDEHDR+SUPCOLLIDEROUTE+SUPCOLLIDEGATES|row_format=HBP|json_object_on_wire=0|json=0
 SAFETY|mutates=0|executable=0|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
-VERIFY|required=node--check-router+router-cli-selftest-9of9|unit=10of10|integration=3of3|suite=8of8|system=3of3|fabric_contract=4of4|all_repo_tests=28of28|json=0
+VERIFY|required=node--check-router+router-cli-selftest-11of11|unit=12of12|integration=3of3|suite=8of8|system=3of3|fabric_contract=4of4|all_repo_tests=30of30|json=0
 CONVERGENCE|recommendation=acer-adopt-liris-HBP-row-input+4-state-real-taxonomy+unit-test-file|byte_convergence=copy-this-source-or-rebuild-to-this-spec-then-compare-sha256|json=0
-HARDENING|source=liris-adversarial-review+acer-confirmed-inherited-bugs|fixes=non_collision_head_guard+boundary_token_matching+runtime_sentinel_absent|json=0
+HARDENING|source=liris-adversarial-review+acer-confirmed-inherited-bugs+acer-real-office-system-probe|fixes=non_collision_head_guard+boundary_token_matching+runtime_sentinel_absent+freeform_identity_token_ignored|json=0
 END|state=SPEC_READY_FOR_BILATERAL_CONVERGENCE_HARDENED|json=0

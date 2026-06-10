@@ -169,6 +169,9 @@ function hasRuntimeBinding(fields) {
 }
 
 function evidenceText(head, fields) {
+  // Token inference is intentionally limited to classification-like fields.
+  // Freeform identity/route/reason text can contain words like "omniflywheel"
+  // in logical supervisor names; those must not imply a real runtime collision.
   return [
     head,
     fields.kind,
@@ -177,17 +180,9 @@ function evidenceText(head, fields) {
     fields.class,
     fields.role,
     fields.scope,
-    fields.agent,
     fields.agent_kind,
     fields.agent_type,
-    fields.front,
-    fields.address,
-    fields.route,
     fields.collision,
-    fields.reason,
-    fields.subject,
-    fields.required,
-    fields.action,
   ].map(lowerValue).join(' ');
 }
 
@@ -469,6 +464,18 @@ export function selfTest() {
     !substring.ok &&
     substring.classification === 'UNCLASSIFIED' &&
     substring.target_router === 'file-level-review');
+
+  const freeformName = planCollisionRoute('COLLISION|agent=sup-dan_omniflywheel_router|json=0');
+  add('freeform-identity-token-ignored',
+    !freeformName.ok &&
+    freeformName.classification === 'UNCLASSIFIED' &&
+    freeformName.target_router === 'file-level-review');
+
+  const dedicatedRole = planCollisionRoute('COLLISION|role=omniflywheel|json=0');
+  add('dedicated-role-token-still-infers-real',
+    !dedicatedRole.ok &&
+    dedicatedRole.classification === 'REAL_AGENT' &&
+    dedicatedRole.state === 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
 
   const mixed = planCollisionRoute('COLLISION|kind=free_agent|role=logical_18|json=0');
   add('mixed-held-for-split', !mixed.ok && mixed.state === 'MIXED_COLLISION_HELD_SPLIT_REQUIRED');

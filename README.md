@@ -48,8 +48,9 @@ The supervisor collision router converged in doctrine before it converged in byt
 - precedence: runtime-bound fields (`os_pid`, `process_id`, `runtime_pid`, `port`, `flywheel_slot`, `port_port`) classify as REAL before any logical label
 - sentinel runtime values (`none`, `null`, `false`, `0`, empty, etc.) are absent and do not override logical labels
 - token inference is boundary-aware, so `fireworker` does not match `worker`
+- fallback token inference only reads dedicated classification fields (`kind`, `type`, `layer`, `class`, `role`, `scope`, `agent_kind`, `agent_type`, `collision`), not freeform names/routes/reasons
 - verdicts: logical preserve, real block until free address, real reroute draft when a free address is attested, mixed split
-- verification: `node --check`, CLI `--self-test` (`9/9`), and the portable test pyramid: unit (`10/10`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
+- verification: `node --check`, CLI `--self-test` (`11/11`), and the portable test pyramid: unit (`12/12`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
 
 ## Authority
 
