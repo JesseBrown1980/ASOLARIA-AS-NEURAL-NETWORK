@@ -1,0 +1,5 @@
+SUPCOLLIDEROUTERINDEX|host=liris|target=supervisor-collision-router.hbp|tool=supervisor-collision-router.mjs|rows=9|json=0
+INDEXROW|row=1|kind=hdr|state=collision_classifier_declared|json=0
+INDEXROW|row=3|kind=logical|route=/api/constructions/atlas/system/council/dispatch-plan|json=0
+INDEXROW|row=4|kind=real|route=/api/omniflywheel|json=0
+INDEXROW|row=7|kind=verify|state=node_check+unit_7of7+combined_11of11+cli_6of6_pass|runtime_bound_precedence=REAL_before_logical_label|json=0

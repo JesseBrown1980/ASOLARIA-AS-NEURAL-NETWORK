@@ -34,6 +34,19 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `canon/laws/LAW-ASOLARIA-NEURAL-NETWORK.md` — the CLASS-1 LAW (+ `.sha256`).
 - `docs/ASOLARIA-AS-NEURAL-NETWORK.hbp` — the substrate layer (how it IS a network).
 - `docs/TARGET-ARCHITECTURE-VISION.hbp` — the integration layer (how agents use it).
+- `specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp` — shared bilateral router contract.
+- `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
+- `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
+
+## Current convergence target
+
+The supervisor collision router converged in doctrine before it converged in bytes. The target shape is now the Liris HBP-native version:
+
+- input: `COLLISION|...|json=0` HBP rows, with JS-object input only as compatibility
+- rule: a collision is only an error after classification
+- precedence: runtime-bound fields (`os_pid`, `process_id`, `runtime_pid`, `port`, `flywheel_slot`, `port_port`) classify as REAL before any logical label
+- verdicts: logical preserve, real block until free address, real reroute draft when a free address is attested, mixed split
+- verification: `node --check`, `node --test tests/supervisor-collision-router.unit.test.mjs`, and CLI `--self-test`
 
 ## Authority
 
