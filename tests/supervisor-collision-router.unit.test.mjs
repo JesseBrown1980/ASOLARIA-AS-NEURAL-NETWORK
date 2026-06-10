@@ -56,11 +56,35 @@ test('sentinel runtime values are absent and do not override logical labels', ()
   assert.equal(plan.state, 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR');
 });
 
+test('numeric-zero-equivalent runtime values are absent', () => {
+  for (const value of ['0.0', '00', '+0', '-0', '0x0']) {
+    const plan = planCollisionRoute(`COLLISION|agent_system=logical|role=supervisor|port=${value}|json=0`);
+    assert.equal(plan.ok, true, value);
+    assert.equal(plan.classification, 'LOGICAL_AGENT', value);
+    assert.equal(plan.state, 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR', value);
+  }
+});
+
 test('real collision can become draft-ready with an attested free range', () => {
   const plan = planCollisionRoute('COLLISION|agent_system=real|kind=free_agent|free_hilbert=1604-1621|json=0');
   assert.equal(plan.ok, true);
   assert.equal(plan.state, 'REAL_COLLISION_REROUTE_READY_DRAFT');
   assert.match(plan.required, /1604-1621/);
+});
+
+test('sentinel and zero-equivalent free addresses do not unblock real collisions', () => {
+  for (const field of ['free_real_address', 'free_hilbert', 'next_free_hilbert', 'target_free_range', 'free_range']) {
+    for (const value of ['-', '0', '0.0', '00', '+0', '-0', 'none', 'null', 'false']) {
+      const plan = planCollisionRoute(`COLLISION|agent_system=real|kind=free_agent|${field}=${value}|json=0`);
+      assert.equal(plan.ok, false, `${field}=${value}`);
+      assert.equal(plan.classification, 'REAL_AGENT', `${field}=${value}`);
+      assert.equal(plan.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS', `${field}=${value}`);
+    }
+  }
+  const livePort = planCollisionRoute('COLLISION|port=4949|free_real_address=-|json=0');
+  assert.equal(livePort.ok, false);
+  assert.equal(livePort.classification, 'REAL_AGENT');
+  assert.equal(livePort.state, 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS');
 });
 
 test('token inference uses boundaries instead of substrings', () => {

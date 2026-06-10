@@ -46,12 +46,13 @@ The supervisor collision router converged in doctrine before it converged in byt
 - rule: a collision is only an error after classification
 - head guard: non-`COLLISION` HBP rows are held, not routed as collisions
 - precedence: runtime-bound fields (`os_pid`, `process_id`, `runtime_pid`, `port`, `flywheel_slot`, `port_port`) classify as REAL before any logical label
-- sentinel runtime values (`none`, `null`, `false`, `0`, empty, etc.) are absent and do not override logical labels
+- sentinel and zero-equivalent runtime values (`none`, `null`, `false`, `0`, `0.0`, `00`, `+0`, `-0`, empty, etc.) are absent and do not override logical labels
+- free-address fields must pass the same presence check before a real collision can become reroute-ready; `-`, `0`, `none`, `null`, `false`, and zero-equivalents stay blocked
 - token inference is boundary-aware, so `fireworker` does not match `worker`
 - fallback token inference only reads dedicated classification fields (`kind`, `type`, `layer`, `class`, `role`, `scope`, `agent_kind`, `agent_type`, `collision`), not freeform names/routes/reasons
 - canonical logical vocabulary includes `supervisor`, `prof`, `professor`, and `council`; `write` is deliberately not a logical inference token
 - verdicts: logical preserve, real block until free address, real reroute draft when a free address is attested, mixed split
-- verification: `node --check`, CLI `--self-test` (`13/13`), and the portable test pyramid: unit (`14/14`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
+- verification: `node --check`, CLI `--self-test` (`15/15`), and the portable test pyramid: unit (`16/16`), integration (`3/3`), suite (`8/8`), system (`3/3`), fabric-contract (`4/4`)
 
 ## Authority
 

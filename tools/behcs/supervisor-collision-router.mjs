@@ -102,7 +102,11 @@ function truthy(value) {
 const SENTINELS = new Set(['', '0', 'none', 'null', 'false', 'undefined', 'na', 'n/a', '-']);
 
 function presentValue(value) {
-  return !SENTINELS.has(lowerValue(value));
+  const lowered = lowerValue(value);
+  if (SENTINELS.has(lowered)) return false;
+  const numeric = Number(lowered);
+  if (Number.isFinite(numeric) && numeric === 0) return false;
+  return true;
 }
 
 function escapeRegExp(value) {
@@ -293,7 +297,10 @@ function hasSurfaceBridge(fields) {
 }
 
 function freeRealAddress(fields) {
-  return fields.free_real_address || fields.free_hilbert || fields.next_free_hilbert || fields.target_free_range || fields.free_range || '';
+  for (const key of ['free_real_address', 'free_hilbert', 'next_free_hilbert', 'target_free_range', 'free_range']) {
+    if (presentValue(fields[key])) return cleanValue(fields[key]);
+  }
+  return '';
 }
 
 export function planCollisionRoute(input) {
@@ -459,8 +466,24 @@ export function selfTest() {
     sentinelRuntime.classification === 'LOGICAL_AGENT' &&
     sentinelRuntime.state === 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR');
 
+  const zeroEquivalentRuntime = ['0.0', '00', '+0', '-0', '0x0'].map((port) =>
+    planCollisionRoute(`COLLISION|agent_system=logical|role=supervisor|port=${port}|json=0`));
+  add('zero-equivalent-runtime-values-ignored',
+    zeroEquivalentRuntime.every((plan) =>
+      plan.ok &&
+      plan.classification === 'LOGICAL_AGENT' &&
+      plan.state === 'LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR'));
+
   const realReady = planCollisionRoute('COLLISION|agent_system=real|kind=free_agent|free_hilbert=1604-1621|json=0');
   add('real-reroute-ready-with-free-address', realReady.ok && realReady.state === 'REAL_COLLISION_REROUTE_READY_DRAFT');
+
+  const freeAddressSentinels = ['-', '0', '0.0', '00', '+0', '-0', 'none', 'null', 'false'].map((free_hilbert) =>
+    planCollisionRoute(`COLLISION|agent_system=real|kind=free_agent|free_hilbert=${free_hilbert}|json=0`));
+  add('sentinel-free-addresses-do-not-unblock-real-collision',
+    [...freeAddressSentinels, planCollisionRoute('COLLISION|port=4949|free_real_address=-|json=0')].every((plan) =>
+      !plan.ok &&
+      plan.classification === 'REAL_AGENT' &&
+      plan.state === 'REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS'));
 
   const substring = planCollisionRoute('COLLISION|role=fireworker|json=0');
   add('boundary-token-match-no-substring',

@@ -3,7 +3,7 @@ LAW|rule=collision-is-only-error-after-classification|composes=LAW-ASOLARIA-NEUR
 INPUT|primary=HBP-row-string|shape=COLLISION|fields=agent_system+kind+role+os_pid+process_id+runtime_pid+port+flywheel_slot+port_port+free_hilbert+free_real_address|json=0
 INPUT|compat=JS-object-accepted-by-normalizeCollisionInput|status=compat-only-not-bilateral-wire|json=0
 CLASSORDER|step=0|rule=head-must-be-COLLISION-or-OBJECT-compat|non_collision_heads=HELD_NON_COLLISION_HEAD|json=0
-CLASSORDER|step=1|rule=runtime-bound-fields-win-REAL-before-any-logical-label|fields=os_pid+process_id+runtime_pid+port+flywheel_slot+port_port|sentinels_absent=empty+0+none+null+false+undefined+na+n/a+dash|json=0
+CLASSORDER|step=1|rule=runtime-bound-fields-win-REAL-before-any-logical-label|fields=os_pid+process_id+runtime_pid+port+flywheel_slot+port_port|sentinels_absent=empty+0+none+null+false+undefined+na+n/a+dash|zero_equivalents_absent=0.0+00+plus0+minus0+0x0|json=0
 CLASSORDER|step=2|rule=explicit-agent_system-logical-or-real|logical_state=LOGICAL_AGENT_COLLISION_ALLOWED|real_state=REAL_AGENT_NO_COLLISION_REQUIRED|json=0
 CLASSORDER|step=3|rule=evidence-token-inference-boundary-aware-not-substring-and-dedicated-fields-only|fields=kind+type+layer+class+role+scope+agent_kind+agent_type+collision|ignored_freeform=agent+front+address+route+reason+subject+required+action|mixed=real-and-logical-markers-held-for-split|examples=fireworker-does-not-match-worker;agent_sup-dan_omniflywheel_router_does-not-infer-real|json=0
 SCRVOCABREAL|canonical=real_agent+real-agent+realagent+runtime+physical+process+process_backed+daemon+free_agent+free-agent+shelless+worker+pid_runtime+runtime_pid+port.port+omniflywheel+revolver|json=0
@@ -13,12 +13,13 @@ CLASSORDER|step=4|rule=unclassified-held-for-file-level-review|no_guessing=1|jso
 VERDICT|logical=LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR|ok=1|target_router=logical-overlay-router|target_route=/api/constructions/atlas/system/council/dispatch-plan|json=0
 VERDICT|real_without_free_address=REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS|ok=0|target_router=real-runtime-address-router|target_route=/api/omniflywheel|gate=operator-pair-cosign-before-real-mint-or-launch|json=0
 VERDICT|real_with_free_address=REAL_COLLISION_REROUTE_READY_DRAFT|ok=1|target_router=real-runtime-address-router|target_route=/api/omniflywheel|gate=operator-pair-cosign-before-real-mint-or-launch|json=0
+FREEADDRESS|rule=free-address-fields-must-pass-presentValue-before-reroute-ready|fields=free_real_address+free_hilbert+next_free_hilbert+target_free_range+free_range|blocked_if=empty+0+0.0+00+plus0+minus0+none+null+false+undefined+na+n/a+dash|valid_example=1604-1621|json=0
 VERDICT|mixed=MIXED_COLLISION_HELD_SPLIT_REQUIRED|ok=0|required=emit-separate-logical-and-real-HBP-rows-before-routing|json=0
 VERDICT|unclassified=UNCLASSIFIED_COLLISION_HELD|ok=0|required=add-agent_system-real-or-logical-or-review-source-diff|json=0
 OUTPUT|plan_rows=SUPCOLLIDEHDR+SUPCOLLIDEROUTE+SUPCOLLIDEGATES|row_format=HBP|json_object_on_wire=0|json=0
 SAFETY|mutates=0|executable=0|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
-VERIFY|required=node--check-router+router-cli-selftest-13of13|unit=14of14|integration=3of3|suite=8of8|system=3of3|fabric_contract=4of4|all_repo_tests=32of32|json=0
+VERIFY|required=node--check-router+router-cli-selftest-15of15|unit=16of16|integration=3of3|suite=8of8|system=3of3|fabric_contract=4of4|all_repo_tests=34of34|json=0
 CONVERGENCE|recommendation=acer-adopt-liris-HBP-row-input+4-state-real-taxonomy+unit-test-file|byte_convergence=copy-this-source-or-rebuild-to-this-spec-then-compare-sha256|json=0
-HARDENING|source=liris-adversarial-review+acer-confirmed-inherited-bugs+acer-real-office-system-probe|fixes=non_collision_head_guard+boundary_token_matching+runtime_sentinel_absent+freeform_identity_token_ignored|json=0
+HARDENING|source=liris-adversarial-review+acer-confirmed-inherited-bugs+acer-real-office-system-probe+acer-adversarial-sweep-wf_27029b9b|fixes=non_collision_head_guard+boundary_token_matching+runtime_sentinel_absent+zero_equivalent_runtime_absent+free_address_sentinel_guard+freeform_identity_token_ignored|json=0
 VOCABDELTA|source=acer-poc+operator-decision|logical_add=supervisor+prof+professor+council|logical_remove=write|proof=acer_pyramid_29of29+liris_local_unit_14of14+cli_13of13+combined_18of18|json=0
 END|state=SPEC_READY_FOR_BILATERAL_CONVERGENCE_HARDENED|json=0

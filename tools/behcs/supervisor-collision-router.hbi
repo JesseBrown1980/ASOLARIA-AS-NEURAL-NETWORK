@@ -2,4 +2,4 @@ SUPCOLLIDEROUTERINDEX|host=liris|target=supervisor-collision-router.hbp|tool=sup
 INDEXROW|row=1|kind=hdr|state=collision_classifier_declared|json=0
 INDEXROW|row=3|kind=logical|route=/api/constructions/atlas/system/council/dispatch-plan|json=0
 INDEXROW|row=4|kind=real|route=/api/omniflywheel|json=0
-INDEXROW|row=7|kind=verify|state=node_check+unit_14of14+combined_18of18+cli_13of13_pass|hardening=head_guard+boundary_tokens+runtime_sentinels+freeform_identity_ignored+canonical_vocab_delta|vocab=logical_add_supervisor_prof_professor_council_remove_write|runtime_bound_precedence=REAL_before_logical_label|json=0
+INDEXROW|row=7|kind=verify|state=node_check+unit_16of16+combined_20of20+cli_15of15_pass|hardening=head_guard+boundary_tokens+runtime_sentinels+zero_equivalent_runtime_absent+free_address_sentinel_guard+freeform_identity_ignored+canonical_vocab_delta|vocab=logical_add_supervisor_prof_professor_council_remove_write|runtime_bound_precedence=REAL_before_logical_label|json=0
