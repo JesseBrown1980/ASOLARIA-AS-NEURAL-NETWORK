@@ -1,0 +1,8 @@
+LIRISTOKLANERB|host=liris|date=2026-06-11|pulled_commit=e62a9d4|topic=component-3-lane-ppow-classifier-readback|json=0
+LIRISTOKLANEVERIFY|blob_level_sidecars=ALL_OK|pyramid_at_pull=91of91_PASS|acer_32case_baseline=BYTE_MATCHED_ON_LIRIS|binder_selftest=9of9_PASS|json=0
+LIRISTOKLANEFINDING|F1=blocked-rows-with-valid-cube_bh-leaked-bh_lane+bh_ppow-on-unrelated-block-gates|examples=unknown-token-kind+malformed-digest+unknown-scope+unknown-catalog|verdict=REAL_PATCHED|json=0
+LIRISTOKLANEPATCH|rule=classify-only-non-blocked-rows|blocked_rows=bh_lane-none+bh_ppow-none|defer_rows=classification-preserved-for-operator-context|ready_rows=classification-preserved|json=0
+LIRISTOKLANEPROBES|extended=PASS|large_powers=994009-p2+912673-p3+923521-pk|boundary=999999-composite+999983-prime|verdict_invariance=READY-and-DEFER-unchanged|json=0
+LIRISTOKLANEPRIME|assessment=mod3-lane-plus-von-mangoldt-prime-power-classifier-is-valid-informational-skeleton|p3_collision_reserve=keep-as-PROPOSAL-until-canon-mint|undefined_terms_still_held=centipediality+PTP+cylindrical-eros|json=0
+LIRISTOKLANESAFETY|repo_side_only=1|untouched=live-MCP+fabric+cubes+keys+mint+USB+engine|rows_executable=0|json=0
+LIRISTOKLANEFTR|state=COMPONENT_3_LIRIS_BLOCKED_ROW_CLASSIFIER_PATCH_READY_FOR_ACER_PULL|json=0

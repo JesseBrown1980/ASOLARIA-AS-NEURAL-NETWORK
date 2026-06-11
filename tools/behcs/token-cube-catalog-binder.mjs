@@ -117,7 +117,8 @@ function echoField(value, validator) {
 function buildResult(inp, verdict, gates) {
   const bhClean = cleanString(inp.cube_bh);
   const bhMatch = bhClean ? CUBE_BH_RE.exec(bhClean) : null;
-  const bhClass = bhMatch ? classifyBhIndex(Number(bhMatch[2])) : { lane: 'none', ppow: 'none' };
+  const canClassify = verdict !== 'DRAFT_BINDING_BLOCKED';
+  const bhClass = canClassify && bhMatch ? classifyBhIndex(Number(bhMatch[2])) : { lane: 'none', ppow: 'none' };
   const fields = {
     token_id: echoField(inp.token_id, (v) => TOKEN_ID_RE.test(v)),
     token_kind: echoField(inp.token_kind, (v) => TOKEN_KINDS.includes(v)),
@@ -226,7 +227,7 @@ export function statusRows() {
   for (const band of DISPUTED_BANDS) {
     rows.push(`TOKCUBEDISPUTED|lo=${band.lo}|hi=${band.hi}|why=${band.why}|verdict=DEFER_TO_OPERATOR|json=0`);
   }
-  rows.push('TOKCUBELANE|bh_lane=index-mod-3(permutation-invariant-10-eq-1-mod-3)|bh_ppow=unit+prime+p2+p3+pk+composite(von-mangoldt-aligned)|status=INFORMATIONAL_V1_NOT_GATING|p3_collision_reserve=PROPOSAL-pending-canon-mint|source=OP-JESSE-2026-06-11-bilateral-refined|json=0');
+  rows.push('TOKCUBELANE|bh_lane=index-mod-3(permutation-invariant-10-eq-1-mod-3)|bh_ppow=unit+prime+p2+p3+pk+composite(von-mangoldt-aligned)|status=INFORMATIONAL_V1_NOT_GATING|blocked_rows=none+none|p3_collision_reserve=PROPOSAL-pending-canon-mint|source=OP-JESSE-2026-06-11-bilateral-refined|json=0');
   rows.push('TOKCUBESAFETY|mutates=0|pure_function=1|no_live_publish=1|no_fabric_call=1|no_mint=1|no_cube_mutation=1|no_key_generation=1|no_secret_material=1|json=0');
   rows.push('TOKCUBEEND|state=COMPONENT_3_SEED_DRAFT_CONTRACT|json=0');
   return rows;

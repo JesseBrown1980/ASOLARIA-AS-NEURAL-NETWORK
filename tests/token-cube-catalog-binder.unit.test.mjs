@@ -161,6 +161,11 @@ test('operator-derived bh classifier: von-Mangoldt-aligned prime-power classes',
   assert.deepEqual(classifyBhIndex(27), { lane: 0, ppow: 'p3' });
   assert.deepEqual(classifyBhIndex(16), { lane: 1, ppow: 'pk' });
   assert.deepEqual(classifyBhIndex(754), { lane: 1, ppow: 'composite' });
+  assert.deepEqual(classifyBhIndex(994009), { lane: 1, ppow: 'p2' });
+  assert.deepEqual(classifyBhIndex(912673), { lane: 1, ppow: 'p3' });
+  assert.deepEqual(classifyBhIndex(923521), { lane: 1, ppow: 'pk' });
+  assert.deepEqual(classifyBhIndex(999999), { lane: 0, ppow: 'composite' });
+  assert.deepEqual(classifyBhIndex(999983), { lane: 2, ppow: 'prime' });
   assert.deepEqual(classifyBhIndex(0), { lane: 0, ppow: 'unit' });
   assert.deepEqual(classifyBhIndex(1), { lane: 1, ppow: 'unit' });
   // Reference sweep 2..200: ppow is a prime-power class exactly when some
@@ -192,6 +197,22 @@ test('classification is informational, never gating: rows carry lanes, verdicts 
   const disputed = bindToken({ ...GOOD, cube_bh: 'BH-ACER-942' });
   assert.equal(disputed.bh_ppow, 'composite');
   assert.equal(disputed.verdict, 'DEFER_TO_OPERATOR', 'disputed band still defers; class adds info only');
+});
+
+test('blocked rows never expose bh lane or prime-power class', () => {
+  for (const patch of [
+    { token_kind: 'jwt-bearer' },
+    { digest_sha16: '794B8C68EC512F9E' },
+    { scope: 'root' },
+    { source_catalog: 'catalog-of-doom' },
+    { token_id: 'TOK-EVIL|json=1' },
+  ]) {
+    const out = bindToken({ ...GOOD, ...patch });
+    assert.equal(out.verdict, 'DRAFT_BINDING_BLOCKED');
+    assert.equal(out.bh_lane, 'none');
+    assert.equal(out.bh_ppow, 'none');
+    assert.ok(out.row.includes('|bh_lane=none|bh_ppow=none|'));
+  }
 });
 
 // Component-3 parity, STEP|166 pattern: a green pyramid run on liris IS the
