@@ -1,0 +1,7 @@
+ACERTOKRB2HDR|host=acer|date=2026-06-11|pulled_commit=3cf62138297cf495efc46e141be1c966cab58143|topic=liris-component-3-patch-readback-PLUS-operator-derived-lane-ppow-classifier|json=0
+ACERTOKRB2VERIFY|blob_level_sidecars=ALL_OK|pyramid_at_pull=88of88_PASS|liris_26case_baseline=BYTE_MATCHED_ON_ACER|json=0
+ACERTOKRB2CONCEDE|liris_F1=separator-split-hex-token-id-accepted|liris_F2=leading-zero-bh-aliases(non-canonical-spellings)|liris_F3=disputed-band-gate-lost-under-live-mint-defer|verdict=ALL_THREE_REAL_ALL_CORRECTLY_PATCHED|catches-8-9-10-of-workstream|json=0
+ACERTOKRB2PROBES|extended=7of7_PASS|colon-and-underscore-split-hex-blocked+BH-ACER-0-canonical-ok+01-alias-rejected+triple-defer-accumulates-all-3-gates+legit-hexish-id-not-overblocked|json=0
+ACERTOKRB2LANE|increment=classifyBhIndex(bh_lane=index-mod-3+bh_ppow=unit-prime-p2-p3-pk-composite)|fields-added-to-every-row|status=INFORMATIONAL_V1_NOT_GATING|verified=von-mangoldt-reference-sweep-2-to-200-exact+permutation-invariance-21-12-120-102-201-210-same-lane|p3_collision_reserve=PROPOSAL-pending-canon-mint|parity_now=32cases|source=OP-JESSE-digit-sum-insight+liris-proposal+acer-implementation=TRILATERAL|json=0
+ACERTOKRB2OPEN|undefined-terms-held-not-load-bearing=centipediality+PTP+cylindrical-eros|registry-membership=DRAFT_ASSUMPTION-stands|live-binding+mint+write=operator-gated|json=0
+ACERTOKRB2FTR|state=COMPONENT_3_READBACK_SEALED_PLUS_CLASSIFIER_FOR_LIRIS_VERIFY|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0

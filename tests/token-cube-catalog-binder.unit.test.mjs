@@ -8,6 +8,7 @@ import {
   SCOPES,
   TOKEN_KINDS,
   bindToken,
+  classifyBhIndex,
   emitParityRows,
   selfTest,
   statusRows,
@@ -143,6 +144,54 @@ test('blocked and deferred rows leak no extra context: closed verdict set, no ho
     const v = bindToken(c).verdict;
     assert.ok(['DRAFT_BINDING_READY', 'DEFER_TO_OPERATOR', 'DRAFT_BINDING_BLOCKED'].includes(v));
   }
+});
+
+test('operator-derived bh classifier: mod-3 lane fold is permutation-invariant', () => {
+  // 21/12/33 observation: digit order never changes the lane (10 === 1 mod 3).
+  for (const index of [21, 12, 120, 102, 201, 210]) {
+    assert.equal(classifyBhIndex(index).lane, 0, `index ${index}`);
+  }
+  assert.equal(classifyBhIndex(754).lane, 1);
+  assert.equal(classifyBhIndex(942).lane, 0);
+});
+
+test('operator-derived bh classifier: von-Mangoldt-aligned prime-power classes', () => {
+  assert.deepEqual(classifyBhIndex(7), { lane: 1, ppow: 'prime' });
+  assert.deepEqual(classifyBhIndex(49), { lane: 1, ppow: 'p2' });
+  assert.deepEqual(classifyBhIndex(27), { lane: 0, ppow: 'p3' });
+  assert.deepEqual(classifyBhIndex(16), { lane: 1, ppow: 'pk' });
+  assert.deepEqual(classifyBhIndex(754), { lane: 1, ppow: 'composite' });
+  assert.deepEqual(classifyBhIndex(0), { lane: 0, ppow: 'unit' });
+  assert.deepEqual(classifyBhIndex(1), { lane: 1, ppow: 'unit' });
+  // Reference sweep 2..200: ppow is a prime-power class exactly when some
+  // p^k reproduces n -- LAMBDA(n) != 0 iff class is prime/p2/p3/pk.
+  for (let n = 2; n <= 200; n += 1) {
+    let isPP = false;
+    for (let p = 2; p <= n; p += 1) {
+      let q = p;
+      let prime = true;
+      for (let d = 2; d * d <= p; d += 1) if (p % d === 0) { prime = false; break; }
+      if (!prime) continue;
+      while (q < n) q *= p;
+      if (q === n) { isPP = true; break; }
+    }
+    const got = ['prime', 'p2', 'p3', 'pk'].includes(classifyBhIndex(n).ppow);
+    assert.equal(got, isPP, `von-Mangoldt alignment failed at n=${n}`);
+  }
+});
+
+test('classification is informational, never gating: rows carry lanes, verdicts unchanged', () => {
+  const p3row = bindToken({ ...GOOD, cube_bh: 'BH-LIRIS-27' });
+  assert.equal(p3row.verdict, 'DRAFT_BINDING_READY', 'p3 class must NOT gate in v1 (collision-reserve is a PROPOSAL)');
+  assert.equal(p3row.bh_lane, 0);
+  assert.equal(p3row.bh_ppow, 'p3');
+  assert.ok(p3row.row.includes('|bh_lane=0|bh_ppow=p3|'));
+  const blockedRow = bindToken({ ...GOOD, cube_bh: 'BH-942' });
+  assert.equal(blockedRow.bh_lane, 'none');
+  assert.equal(blockedRow.bh_ppow, 'none');
+  const disputed = bindToken({ ...GOOD, cube_bh: 'BH-ACER-942' });
+  assert.equal(disputed.bh_ppow, 'composite');
+  assert.equal(disputed.verdict, 'DEFER_TO_OPERATOR', 'disputed band still defers; class adds info only');
 });
 
 // Component-3 parity, STEP|166 pattern: a green pyramid run on liris IS the

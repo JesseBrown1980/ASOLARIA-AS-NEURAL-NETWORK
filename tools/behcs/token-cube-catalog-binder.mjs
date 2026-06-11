@@ -51,6 +51,37 @@ export const SCOPES = Object.freeze({
 export const BH_VANTAGES = Object.freeze(['ACER', 'LIRIS', 'SHARED']);
 export const DISPUTED_BANDS = Object.freeze([Object.freeze({ lo: 930, hi: 1229, why: 'acer-liris-overlap-bilateral-ack-pending' })]);
 
+// Operator-derived classifier (OP-JESSE 2026-06-11, bilateral-refined):
+// bh_lane = index mod 3 -- the three-phase cylinder fold. Permutation-
+// invariant because 10 === 1 (mod 3): digit order never changes the lane,
+// which is exactly the 21/12/33 digit-sum observation.
+// bh_ppow = prime-power class, von-Mangoldt-aligned: LAMBDA(n) != 0 exactly
+// when the class is prime/p2/p3/pk. p3-as-collision-reserve is a PROPOSAL
+// pending canon mint -- v1 classification is INFORMATIONAL, never gating.
+export function classifyBhIndex(index) {
+  if (!Number.isInteger(index) || index < 0 || index > 999999) {
+    return { lane: 'none', ppow: 'none' };
+  }
+  const lane = index % 3;
+  if (index < 2) return { lane, ppow: 'unit' };
+  let n = index;
+  let smallest = 0;
+  for (let d = 2; d * d <= n; d += 1) {
+    if (n % d === 0) {
+      smallest = d;
+      break;
+    }
+  }
+  if (smallest === 0) return { lane, ppow: 'prime' };
+  let k = 0;
+  while (n % smallest === 0) {
+    n /= smallest;
+    k += 1;
+  }
+  if (n !== 1) return { lane, ppow: 'composite' };
+  return { lane, ppow: k === 2 ? 'p2' : k === 3 ? 'p3' : 'pk' };
+}
+
 const TOKEN_ID_RE = /^TOK-[A-Z0-9][A-Z0-9-]{2,38}$/;
 const DIGEST_RE = /^[0-9a-f]{16}$/;
 const CUBE_BH_RE = /^BH-(ACER|LIRIS|SHARED)-(0|[1-9]\d{0,5})$/;
@@ -84,11 +115,16 @@ function echoField(value, validator) {
 }
 
 function buildResult(inp, verdict, gates) {
+  const bhClean = cleanString(inp.cube_bh);
+  const bhMatch = bhClean ? CUBE_BH_RE.exec(bhClean) : null;
+  const bhClass = bhMatch ? classifyBhIndex(Number(bhMatch[2])) : { lane: 'none', ppow: 'none' };
   const fields = {
     token_id: echoField(inp.token_id, (v) => TOKEN_ID_RE.test(v)),
     token_kind: echoField(inp.token_kind, (v) => TOKEN_KINDS.includes(v)),
     digest_sha16: echoField(inp.digest_sha16, (v) => DIGEST_RE.test(v)),
     cube_bh: echoField(inp.cube_bh, (v) => CUBE_BH_RE.test(v)),
+    bh_lane: bhClass.lane,
+    bh_ppow: bhClass.ppow,
     scope: echoField(inp.scope, (v) => Object.hasOwn(SCOPES, v)),
     source_catalog: echoField(inp.source_catalog, (v) => CATALOGS.includes(v)),
     mode: echoField(inp.mode ?? 'draft', (v) => v === 'draft' || v === 'live'),
@@ -101,6 +137,8 @@ function buildResult(inp, verdict, gates) {
     `token_kind=${fields.token_kind}`,
     `digest_sha16=${fields.digest_sha16}`,
     `cube_bh=${fields.cube_bh}`,
+    `bh_lane=${fields.bh_lane}`,
+    `bh_ppow=${fields.bh_ppow}`,
     `scope=${fields.scope}`,
     `source_catalog=${fields.source_catalog}`,
     `mode=${fields.mode}`,
@@ -188,6 +226,7 @@ export function statusRows() {
   for (const band of DISPUTED_BANDS) {
     rows.push(`TOKCUBEDISPUTED|lo=${band.lo}|hi=${band.hi}|why=${band.why}|verdict=DEFER_TO_OPERATOR|json=0`);
   }
+  rows.push('TOKCUBELANE|bh_lane=index-mod-3(permutation-invariant-10-eq-1-mod-3)|bh_ppow=unit+prime+p2+p3+pk+composite(von-mangoldt-aligned)|status=INFORMATIONAL_V1_NOT_GATING|p3_collision_reserve=PROPOSAL-pending-canon-mint|source=OP-JESSE-2026-06-11-bilateral-refined|json=0');
   rows.push('TOKCUBESAFETY|mutates=0|pure_function=1|no_live_publish=1|no_fabric_call=1|no_mint=1|no_cube_mutation=1|no_key_generation=1|no_secret_material=1|json=0');
   rows.push('TOKCUBEEND|state=COMPONENT_3_SEED_DRAFT_CONTRACT|json=0');
   return rows;
@@ -230,6 +269,12 @@ const PARITY_CASES = Object.freeze([
   { id: '24', input: { ...BASE, cube_bh: 'BH-ACER-000930' } },
   { id: '25', input: { ...BASE, cube_bh: 'BH-ACER-942', mode: 'live' } },
   { id: '26', input: { ...BASE, cube_bh: 'BH-ACER-942', scope: 'mint' } },
+  { id: '27', input: { ...BASE, cube_bh: 'BH-ACER-7' } },
+  { id: '28', input: { ...BASE, cube_bh: 'BH-ACER-49' } },
+  { id: '29', input: { ...BASE, cube_bh: 'BH-LIRIS-27' } },
+  { id: '30', input: { ...BASE, cube_bh: 'BH-ACER-16' } },
+  { id: '31', input: { ...BASE, cube_bh: 'BH-ACER-21' } },
+  { id: '32', input: { ...BASE, cube_bh: 'BH-ACER-12' } },
 ]);
 
 export function emitParityRows() {
