@@ -1,0 +1,9 @@
+LOGICSTRESSHDR|tool=logical-extreme-stress.mjs|duration_requested_sec=600|batch=1000000|quant_message_mb=64|started=2026-06-11T21:50:42.957Z|json=0
+LOGICSTRESSENV|node=v24.13.1|platform=win32|arch=x64|cpu_count=4|pid=564|json=0
+LOGICSTRESSSPEED|section_sec=300.000|logical_agents=6356000000|ops_per_sec=21186441|rooms=10000|lane0=2118666667|lane1=2118666667|lane2=2118666666|residue6=1059333334,1059333334,1059333333,1059333333,1059333333,1059333333|genius_marks=127120000|mistake_marks=135234043|gc2000_survivors=2000|gc50000_survivors=50000|checksum=3667413017|json=0
+LOGICSTRESSTOKENS|section_sec=60.000|bindings=7090000|ops_per_sec=118012|ready=5893869|defer=1189019|blocked=7112|checksum=443|json=0
+LOGICSTRESSCOLLISIONS|section_sec=60.000|probes=14070000|ops_per_sec=234437|state_LOGICAL_AGENT_LOGICAL_COLLISION_PRESERVED_ROUTE_TO_SUPERVISOR=5628000|state_REAL_AGENT_REAL_COLLISION_BLOCKED_NEEDS_FREE_ADDRESS=2814000|state_REAL_AGENT_REAL_COLLISION_REROUTE_READY_DRAFT=2814000|state_UNCLASSIFIED_UNCLASSIFIED_COLLISION_HELD=2814000|checksum=0|json=0
+LOGICSTRESSZETA|section_sec=90.000|classifications=351350000|ops_per_sec=3903631|lane0=117116901|lane1=117116550|lane2=117116549|ppow_composite=323683523|ppow_p2=59075|ppow_p3=8794|ppow_pk=15129|ppow_prime=27582775|ppow_unit=704|external_lane_catches=688646|external_lane_consistent=681619|sweep_pairs=9589|sweep_violations=0|json=0
+LOGICSTRESSREDUCTION|section_sec=90.000|message_mb=64|cycles=3184|ingest_mbps=2263.4|raw_bytes_each=67108864|tuple_bytes_each=3200|reduction_x=20971.5|tail_payload_kb=3.1|checksum=0|json=0
+LOGICSTRESSPROCESS|host_processes_used=1|child_process_spawns=0|external_model_calls=0|rss_start_mb=43.7|rss_peak_mb=136.1|rss_end_mb=136.1|heap_end_mb=6.0|logical_ops_total=6728513184|json=0
+LOGICSTRESSVERDICT|status=PASS|limits=logical-only-no-live-mutation-no-per-agent-files|physical_claim=bounded-process-envelope-not-infinite-memory|elapsed_anchor_ms=600201|json=0
