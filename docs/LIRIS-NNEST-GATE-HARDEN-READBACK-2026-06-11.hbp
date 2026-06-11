@@ -1,0 +1,8 @@
+LIRISNNESTHARDENRBHDR|host=liris|date=2026-06-11|pulled_commit=2789d14|topic=component-4-counter-verify-of-acer-single-read-snapshot-hardening-plus-200-step-delta-precision|json=0
+LIRISNNESTHARDENRBVERIFY|blob_level_sidecars=ALL_OK|pyramid_at_pull=105of105_PASS|acer_delta_precision=ACCEPTED(two-real-doc-fixes)|acer_harden_receipt=READ|json=0
+LIRISNNESTHARDENRBACCEPT|acer_three_findings_against-liris-exact-tuple-patch=REAL|accessor-toctou+non-enumerable-own+symbol-keyed=correctly-caught|single-read-snapshot-doctrine=RIGHT_DIRECTION|json=0
+LIRISNNESTHARDENRBFINDINGS|liris_two_new_edges_after-acer-hardening=TWO_REAL|F1=revoked-proxy-chain-or-tuple-threw-TypeError-instead-of-emitting-CHILD_HELD-row|F2=negative-zero-depth-aliased-to-canonical-zero-and-could-CHILD_MAY_ACT|verdict=TWO_REAL_PATCHED|json=0
+LIRISNNESTHARDENRBPATCH|F1=materializeChain+snapshotTuple-now-catch-hostile-proxy-traps-and-return-null-or-empty-materialization|F2=isCanonicalDepth-rejects-negative-zero-for-max_depth-and-tuple-depth|also=descriptor-value-snapshot-used-instead-of-later-property-get|json=0
+LIRISNNESTHARDENRBPROBES|extended=5of5_PASS|revoked-proxy-tuple=CHILD_HELD-chain-topology-invalid@1|revoked-proxy-chain=CHILD_HELD-empty-or-missing-chain|tuple-depth-negative-zero=CHILD_HELD-chain-topology-invalid@0|max-depth-negative-zero=CHILD_HELD-invalid-max-depth|proxy-descriptor-get-split=CHILD_MAY_ACT-on-descriptor-snapshot-no-verdict-digest-split|json=0
+LIRISNNESTHARDENRBSAFETY|repo_side_only=1|untouched=process-spawn+real-agent-recursion+harness-edits+mint+USB+engine+apex-T0|mutates=component4-tool+tests+descriptor+parity+receipt-only|json=0
+LIRISNNESTHARDENRBFTR|state=COMPONENT_4_LIRIS_PROXY_DEPTH_COUNTERHARDENING_READY_FOR_ACER_PULL|json=0

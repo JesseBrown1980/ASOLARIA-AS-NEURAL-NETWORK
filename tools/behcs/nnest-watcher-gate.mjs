@@ -38,6 +38,10 @@ const HASH_RE = /^[0-9a-f]{16}$/;
 const DIRTY_RE = /[|\r\n]/;
 const TUPLE_KEYS = Object.freeze(['depth', 'reported_sha16', 'recomputed_sha16']);
 
+function isCanonicalDepth(value) {
+  return Number.isInteger(value) && value >= 0 && value <= MAX_DEPTH_BOUND && !Object.is(value, -0);
+}
+
 function sha16(value) {
   const text = typeof value === 'string' ? value : JSON.stringify(value);
   return createHash('sha256').update(text).digest('hex').slice(0, 16);
@@ -62,20 +66,22 @@ function echoField(value, validator) {
 // exact three-field plain data object. (acer hardening 2026-06-11: liris's
 // Object.keys check missed accessors, non-enumerable, and symbol own fields.)
 function snapshotTuple(raw) {
-  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
-  if (Object.getPrototypeOf(raw) !== Object.prototype) return null;
-  if (Object.getOwnPropertySymbols(raw).length !== 0) return null;
-  const names = Object.getOwnPropertyNames(raw);
-  if (names.length !== TUPLE_KEYS.length) return null;
-  for (const key of TUPLE_KEYS) {
-    const desc = Object.getOwnPropertyDescriptor(raw, key);
-    if (!desc || !Object.hasOwn(desc, 'value')) return null; // reject accessors
+  try {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+    if (Object.getPrototypeOf(raw) !== Object.prototype) return null;
+    if (Object.getOwnPropertySymbols(raw).length !== 0) return null;
+    const names = Object.getOwnPropertyNames(raw);
+    if (names.length !== TUPLE_KEYS.length) return null;
+    const snap = Object.create(null);
+    for (const key of TUPLE_KEYS) {
+      const desc = Object.getOwnPropertyDescriptor(raw, key);
+      if (!desc || !Object.hasOwn(desc, 'value')) return null; // reject accessors
+      snap[key] = desc.value;
+    }
+    return Object.freeze(snap);
+  } catch {
+    return null;
   }
-  return Object.freeze({
-    depth: raw.depth,
-    reported_sha16: raw.reported_sha16,
-    recomputed_sha16: raw.recomputed_sha16,
-  });
 }
 
 // The reported chain is materialized ONCE: each index is read a single time and
@@ -83,11 +89,17 @@ function snapshotTuple(raw) {
 // the topology pass, the hash pass, and the digest. Everything downstream reads
 // only this frozen snapshot, never the caller's original object.
 function materializeChain(rawChain) {
-  if (!Array.isArray(rawChain)) return { len: 0, snaps: [] };
-  const len = rawChain.length;
-  const snaps = new Array(len);
-  for (let i = 0; i < len; i += 1) snaps[i] = snapshotTuple(rawChain[i]);
-  return { len, snaps };
+  try {
+    if (!Array.isArray(rawChain)) return { isArray: false, len: 0, snaps: [] };
+    const len = rawChain.length;
+    if (!Number.isSafeInteger(len) || len < 0) return { isArray: false, len: 0, snaps: [] };
+    const snapLen = Math.min(len, MAX_DEPTH_BOUND + 2);
+    const snaps = new Array(snapLen);
+    for (let i = 0; i < snapLen; i += 1) snaps[i] = snapshotTuple(rawChain[i]);
+    return { isArray: true, len, snaps };
+  } catch {
+    return { isArray: false, len: 0, snaps: [] };
+  }
 }
 
 // chain_sha16 is the only chain-derived value a row may carry: a digest of
@@ -99,7 +111,7 @@ function chainDigest(mat) {
   if (mat.len === 0) return 'none';
   for (const t of mat.snaps) {
     if (!t
-      || !Number.isInteger(t.depth)
+      || !isCanonicalDepth(t.depth)
       || typeof t.reported_sha16 !== 'string'
       || typeof t.recomputed_sha16 !== 'string'
       || !HASH_RE.test(t.reported_sha16)
@@ -112,7 +124,7 @@ function buildResult(inp, verdict, gates, firstBadDepth, mat) {
   const fields = {
     agent: echoField(inp.agent, (v) => AGENT_ID_RE.test(v)),
     action: echoField(inp.action, (v) => Object.hasOwn(ACTIONS, v)),
-    max_depth: Number.isInteger(inp.max_depth) && inp.max_depth >= 0 && inp.max_depth <= MAX_DEPTH_BOUND ? inp.max_depth : 'invalid',
+    max_depth: isCanonicalDepth(inp.max_depth) ? inp.max_depth : 'invalid',
     chain_len: mat.len,
     chain_sha16: chainDigest(mat),
     verdict,
@@ -153,12 +165,12 @@ export function gateChain(input) {
   if (!Object.hasOwn(ACTIONS, inp.action ?? '')) return held('unknown-action');
 
   // Rung 4: depth bound is the proven depth, never beyond.
-  if (!Number.isInteger(inp.max_depth) || inp.max_depth < 0 || inp.max_depth > MAX_DEPTH_BOUND) {
+  if (!isCanonicalDepth(inp.max_depth)) {
     return held('invalid-max-depth');
   }
 
   // Rung 5: a chain must exist.
-  if (!Array.isArray(inp.chain) || mat.len === 0) return held('empty-or-missing-chain');
+  if (!mat.isArray || mat.len === 0) return held('empty-or-missing-chain');
 
   // Rung 6: OPERATOR INVARIANT -- topology before hashes, read off the frozen
   // snapshot. The chain must be complete, contiguous, unique, and ordered:
@@ -172,7 +184,7 @@ export function gateChain(input) {
   }
   for (let i = 0; i <= inp.max_depth; i += 1) {
     const tuple = mat.snaps[i];
-    if (!tuple || tuple.depth !== i) {
+    if (!tuple || !isCanonicalDepth(tuple.depth) || tuple.depth !== i) {
       return held('chain-topology-invalid', i);
     }
     if (!HASH_RE.test(tuple.reported_sha16 ?? '') || !HASH_RE.test(tuple.recomputed_sha16 ?? '')) {
@@ -201,13 +213,13 @@ export function gateChain(input) {
 export function statusRows() {
   const rows = [
     `NNESTGATEHDR|ok=1|id=${GATE_ID}|component=4|max_depth_bound=${MAX_DEPTH_BOUND}|actions=${Object.keys(ACTIONS).length}|invariant=every-row-executable-0|state=DRAFT_CONTRACT_NO_SPAWN_NO_HARNESS_EDIT|json=0`,
-    'NNESTGATELAW|may_act_requires=hash-match-at-every-level-AND-chain-complete-contiguous-unique-ordered|hashes=necessary-but-not-sufficient|topology_violations=CHILD_HELD-chain-topology-invalid-with-first_bad_depth|source=OP-JESSE-amendment-2026-06-11|json=0',
+    'NNESTGATELAW|may_act_requires=hash-match-at-every-level-AND-chain-complete-contiguous-unique-ordered+exact-data-snapshots+canonical-depths(no-negative-zero)|hashes=necessary-but-not-sufficient|topology_violations=CHILD_HELD-chain-topology-invalid-with-first_bad_depth|source=OP-JESSE-amendment-2026-06-11|json=0',
     'NNESTGATELADDER|rungs=9|order=dirty-HELD+malformed-agent-HELD+unknown-action-HELD+invalid-max-depth-HELD+empty-chain-HELD+topology-HELD(first_bad_depth)+hash-format-HELD(first_bad_depth)+hash-divergence-HELD(first_bad_depth)+consent-DEFER+honest-free-CHILD_MAY_ACT|json=0',
   ];
   for (const [id, meta] of Object.entries(ACTIONS)) {
     rows.push(`NNESTGATEACTION|id=${id}|consent=${meta.consent}|max_verdict=${meta.consent ? 'DEFER_TO_OPERATOR' : 'CHILD_MAY_ACT'}|json=0`);
   }
-  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|chain_sha16=none-for-noncanonical-or-invalid-hash-chains|level_hashes=NEVER-echoed|json=0');
+  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|chain_sha16=none-for-noncanonical-or-invalid-hash-chains|level_hashes=NEVER-echoed|hostile-proxy=HELD-not-thrown|json=0');
   rows.push('NNESTGATESAFETY|mutates=0|pure_function=1|no_spawn=1|no_recursion_into_real_agents=1|no_harness_edit=1|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0');
   rows.push('NNESTGATEEND|state=COMPONENT_4_SEED_DRAFT_CONTRACT|json=0');
   return rows;
@@ -251,6 +263,11 @@ const PARITY_CASES = Object.freeze([
   { id: '19', input: { ...BASE, chain: (() => { const c = goodChain(3); c[1] = Object.defineProperty({ depth: 1, recomputed_sha16: level(1) }, 'reported_sha16', { enumerable: true, get() { return level(1); } }); return c; })() } },
   { id: '20', input: { ...BASE, chain: (() => { const c = goodChain(3); Object.defineProperty(c[2], 'hidden_own_field', { value: 'smuggled', enumerable: false }); return c; })() } },
   { id: '21', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = { ...c[0] }; c[0][Symbol.for('nnest-smuggle')] = 'payload'; return c; })() } },
+  // 22-24 (liris counter-hardening 2026-06-11): revoked proxies must become
+  // HELD rows instead of thrown exceptions, and -0 is not canonical depth 0.
+  { id: '22', input: { ...BASE, chain: (() => { const c = goodChain(3); const r = Proxy.revocable(c[1], {}); r.revoke(); c[1] = r.proxy; return c; })() } },
+  { id: '23', input: { ...BASE, max_depth: -0, chain: goodChain(0) } },
+  { id: '24', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = { ...c[0], depth: -0 }; return c; })() } },
 ]);
 
 export function emitParityRows() {
@@ -303,6 +320,20 @@ export function selfTest() {
     const o = gateChain({ ...BASE, chain: c });
     const expected = sha16(JSON.stringify(c.map((t) => [t.depth, t.reported_sha16, t.recomputed_sha16])));
     return o.verdict === 'CHILD_MAY_ACT' && o.chain_sha16 === expected;
+  })());
+  add('revoked-proxy-held-not-thrown', (() => {
+    const c = goodChain(3);
+    const r = Proxy.revocable(c[1], {});
+    r.revoke();
+    c[1] = r.proxy;
+    const o = gateChain({ ...BASE, chain: c });
+    return o.verdict === 'CHILD_HELD' && o.gate === 'chain-topology-invalid' && o.chain_sha16 === 'none';
+  })());
+  add('negative-zero-depth-held', (() => {
+    const c = goodChain(3);
+    c[0] = { ...c[0], depth: -0 };
+    const o = gateChain({ ...BASE, chain: c });
+    return o.verdict === 'CHILD_HELD' && o.gate === 'chain-topology-invalid' && o.chain_sha16 === 'none';
   })());
 
   return { ok: checks.every((check) => check.ok), checks };

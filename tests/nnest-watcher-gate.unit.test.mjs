@@ -69,6 +69,39 @@ test('tuple shape is exact: extra fields and inherited fields are topology viola
   assert.equal(protoOut.chain_sha16, 'none');
 });
 
+test('hostile proxy inputs are held as rows, never thrown exceptions', () => {
+  const tupleProxy = goodChain(3);
+  const tupleRevoke = Proxy.revocable(tupleProxy[1], {});
+  tupleRevoke.revoke();
+  tupleProxy[1] = tupleRevoke.proxy;
+  assert.doesNotThrow(() => gateChain({ ...GOOD, chain: tupleProxy }));
+  const tupleOut = gateChain({ ...GOOD, chain: tupleProxy });
+  assert.equal(tupleOut.verdict, 'CHILD_HELD');
+  assert.equal(tupleOut.gate, 'chain-topology-invalid');
+  assert.equal(tupleOut.first_bad_depth, 1);
+  assert.equal(tupleOut.chain_sha16, 'none');
+
+  const chainRevoke = Proxy.revocable(goodChain(3), {});
+  chainRevoke.revoke();
+  assert.doesNotThrow(() => gateChain({ ...GOOD, chain: chainRevoke.proxy }));
+  assert.equal(gateChain({ ...GOOD, chain: chainRevoke.proxy }).gate, 'empty-or-missing-chain');
+});
+
+test('canonical depths reject negative zero instead of aliasing it to zero', () => {
+  const tupleNegativeZero = goodChain(3);
+  tupleNegativeZero[0] = { ...tupleNegativeZero[0], depth: -0 };
+  const tupleOut = gateChain({ ...GOOD, chain: tupleNegativeZero });
+  assert.equal(tupleOut.verdict, 'CHILD_HELD');
+  assert.equal(tupleOut.gate, 'chain-topology-invalid');
+  assert.equal(tupleOut.first_bad_depth, 0);
+  assert.equal(tupleOut.chain_sha16, 'none');
+
+  const maxOut = gateChain({ ...GOOD, max_depth: -0, chain: goodChain(0) });
+  assert.equal(maxOut.verdict, 'CHILD_HELD');
+  assert.equal(maxOut.gate, 'invalid-max-depth');
+  assert.equal(maxOut.max_depth, 'invalid');
+});
+
 test('mismatch-at-depth-k precision: divergence named at the exact level, every k', () => {
   for (let k = 0; k <= 5; k += 1) {
     const chain = goodChain(5);
