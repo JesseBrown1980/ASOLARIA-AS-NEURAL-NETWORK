@@ -53,22 +53,41 @@ function echoField(value, validator) {
   return validator(clean) ? clean : 'invalid';
 }
 
-function isExactTuple(tuple) {
-  if (!tuple || typeof tuple !== 'object' || Array.isArray(tuple)) return false;
-  if (Object.getPrototypeOf(tuple) !== Object.prototype) return false;
-  const keys = Object.keys(tuple);
-  return keys.length === TUPLE_KEYS.length && TUPLE_KEYS.every((key) => Object.hasOwn(tuple, key));
+// Each reported tuple is read EXACTLY ONCE into an immutable, prototype-free
+// snapshot. Accessor (getter/setter) fields, non-enumerable own fields, symbol
+// keys, extra keys, and non-plain objects are all rejected here -- so a tuple
+// cannot present one value to the verifier and another to the digest (a
+// time-of-check/time-of-use split), nor smuggle hidden own material past the
+// exact-shape rule. Returns the frozen snapshot, or null if the shape is not an
+// exact three-field plain data object. (acer hardening 2026-06-11: liris's
+// Object.keys check missed accessors, non-enumerable, and symbol own fields.)
+function snapshotTuple(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+  if (Object.getPrototypeOf(raw) !== Object.prototype) return null;
+  if (Object.getOwnPropertySymbols(raw).length !== 0) return null;
+  const names = Object.getOwnPropertyNames(raw);
+  if (names.length !== TUPLE_KEYS.length) return null;
+  for (const key of TUPLE_KEYS) {
+    const desc = Object.getOwnPropertyDescriptor(raw, key);
+    if (!desc || !Object.hasOwn(desc, 'value')) return null; // reject accessors
+  }
+  return Object.freeze({
+    depth: raw.depth,
+    reported_sha16: raw.reported_sha16,
+    recomputed_sha16: raw.recomputed_sha16,
+  });
 }
 
-function isDigestibleTuple(tuple) {
-  return isExactTuple(tuple)
-    && Number.isInteger(tuple.depth)
-    && typeof tuple.reported_sha16 === 'string'
-    && typeof tuple.recomputed_sha16 === 'string'
-    && !DIRTY_RE.test(tuple.reported_sha16)
-    && !DIRTY_RE.test(tuple.recomputed_sha16)
-    && HASH_RE.test(tuple.reported_sha16)
-    && HASH_RE.test(tuple.recomputed_sha16);
+// The reported chain is materialized ONCE: each index is read a single time and
+// each tuple snapshotted, so a proxy array or live object cannot vary between
+// the topology pass, the hash pass, and the digest. Everything downstream reads
+// only this frozen snapshot, never the caller's original object.
+function materializeChain(rawChain) {
+  if (!Array.isArray(rawChain)) return { len: 0, snaps: [] };
+  const len = rawChain.length;
+  const snaps = new Array(len);
+  for (let i = 0; i < len; i += 1) snaps[i] = snapshotTuple(rawChain[i]);
+  return { len, snaps };
 }
 
 // chain_sha16 is the only chain-derived value a row may carry: a digest of
@@ -76,20 +95,26 @@ function isDigestibleTuple(tuple) {
 // name first_bad_depth (the proven catch-at-exact-level behavior) and
 // nothing else about the chain's content. Noncanonical or invalid-hash chains
 // produce chain_sha16=none so HELD rows cannot become digest oracles.
-function chainDigest(chain) {
-  if (!Array.isArray(chain) || chain.length === 0) return 'none';
-  if (!chain.every(isDigestibleTuple)) return 'none';
-  return sha16(JSON.stringify(chain.map((t) => [t.depth, t.reported_sha16, t.recomputed_sha16])));
+function chainDigest(mat) {
+  if (mat.len === 0) return 'none';
+  for (const t of mat.snaps) {
+    if (!t
+      || !Number.isInteger(t.depth)
+      || typeof t.reported_sha16 !== 'string'
+      || typeof t.recomputed_sha16 !== 'string'
+      || !HASH_RE.test(t.reported_sha16)
+      || !HASH_RE.test(t.recomputed_sha16)) return 'none';
+  }
+  return sha16(JSON.stringify(mat.snaps.map((t) => [t.depth, t.reported_sha16, t.recomputed_sha16])));
 }
 
-function buildResult(inp, verdict, gates, firstBadDepth) {
-  const chain = Array.isArray(inp.chain) ? inp.chain : [];
+function buildResult(inp, verdict, gates, firstBadDepth, mat) {
   const fields = {
     agent: echoField(inp.agent, (v) => AGENT_ID_RE.test(v)),
     action: echoField(inp.action, (v) => Object.hasOwn(ACTIONS, v)),
     max_depth: Number.isInteger(inp.max_depth) && inp.max_depth >= 0 && inp.max_depth <= MAX_DEPTH_BOUND ? inp.max_depth : 'invalid',
-    chain_len: chain.length,
-    chain_sha16: chainDigest(inp.chain),
+    chain_len: mat.len,
+    chain_sha16: chainDigest(mat),
     verdict,
     first_bad_depth: firstBadDepth ?? 'none',
     gate: gates.length ? gates.join('+') : 'none',
@@ -112,7 +137,8 @@ function buildResult(inp, verdict, gates, firstBadDepth) {
 
 export function gateChain(input) {
   const inp = input ?? {};
-  const held = (gate, firstBadDepth) => buildResult(inp, 'CHILD_HELD', [gate], firstBadDepth);
+  const mat = materializeChain(inp.chain);
+  const held = (gate, firstBadDepth) => buildResult(inp, 'CHILD_HELD', [gate], firstBadDepth, mat);
 
   // Rung 1: dirty top-level strings never reach a row.
   for (const field of ['agent', 'action']) {
@@ -132,19 +158,21 @@ export function gateChain(input) {
   }
 
   // Rung 5: a chain must exist.
-  if (!Array.isArray(inp.chain) || inp.chain.length === 0) return held('empty-or-missing-chain');
+  if (!Array.isArray(inp.chain) || mat.len === 0) return held('empty-or-missing-chain');
 
-  // Rung 6: OPERATOR INVARIANT -- topology before hashes. The chain must be
-  // complete, contiguous, unique, and ordered: position i carries depth i,
-  // for every i in 0..max_depth, and nothing beyond. The single ordered
-  // pass makes truncation, duplication, skips, and reorders all land here.
-  if (inp.chain.length !== inp.max_depth + 1) {
-    const firstBad = inp.chain.length < inp.max_depth + 1 ? inp.chain.length : inp.max_depth + 1;
+  // Rung 6: OPERATOR INVARIANT -- topology before hashes, read off the frozen
+  // snapshot. The chain must be complete, contiguous, unique, and ordered:
+  // position i carries depth i, for every i in 0..max_depth, and nothing
+  // beyond. A null snapshot (accessor/hidden/symbol/extra/non-plain tuple) is
+  // a topology violation too. The single ordered pass makes truncation,
+  // duplication, skips, reorders, and shape smuggling all land here.
+  if (mat.len !== inp.max_depth + 1) {
+    const firstBad = mat.len < inp.max_depth + 1 ? mat.len : inp.max_depth + 1;
     return held('chain-topology-invalid', firstBad);
   }
   for (let i = 0; i <= inp.max_depth; i += 1) {
-    const tuple = inp.chain[i];
-    if (!isExactTuple(tuple) || tuple.depth !== i) {
+    const tuple = mat.snaps[i];
+    if (!tuple || tuple.depth !== i) {
       return held('chain-topology-invalid', i);
     }
     if (!HASH_RE.test(tuple.reported_sha16 ?? '') || !HASH_RE.test(tuple.recomputed_sha16 ?? '')) {
@@ -155,7 +183,7 @@ export function gateChain(input) {
   // Rung 7: hash agreement at EVERY level -- first divergence is named
   // exactly (the planted-confab-caught-at-exact-level behavior).
   for (let i = 0; i <= inp.max_depth; i += 1) {
-    if (inp.chain[i].reported_sha16 !== inp.chain[i].recomputed_sha16) {
+    if (mat.snaps[i].reported_sha16 !== mat.snaps[i].recomputed_sha16) {
       return held('hash-divergence', i);
     }
   }
@@ -163,11 +191,11 @@ export function gateChain(input) {
   // Rung 8: consent anchors only at apex-T0. A perfect chain does not
   // confer consent -- it only proves the report is honest.
   if (ACTIONS[inp.action].consent) {
-    return buildResult(inp, 'DEFER_TO_OPERATOR', ['consent-anchors-at-apex-T0-only'], null);
+    return buildResult(inp, 'DEFER_TO_OPERATOR', ['consent-anchors-at-apex-T0-only'], null, mat);
   }
 
   // Rung 9: honest report + free action -> the child may act.
-  return buildResult(inp, 'CHILD_MAY_ACT', [], null);
+  return buildResult(inp, 'CHILD_MAY_ACT', [], null, mat);
 }
 
 export function statusRows() {
@@ -217,6 +245,12 @@ const PARITY_CASES = Object.freeze([
   { id: '16', input: { ...BASE, max_depth: 0, chain: goodChain(0) } },
   { id: '17', input: { ...BASE, chain: (() => { const c = goodChain(3); c[1] = { ...c[1], extra: 'ignored-field-must-hold' }; return c; })() } },
   { id: '18', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = Object.assign(Object.create({ ...c[0] }), {}); return c; })() } },
+  // 19-21 (acer hardening 2026-06-11): an accessor tuple that could split
+  // check-time from use-time, a non-enumerable own field, and a symbol-keyed
+  // field -- all three passed liris's Object.keys check; all three must HELD.
+  { id: '19', input: { ...BASE, chain: (() => { const c = goodChain(3); c[1] = Object.defineProperty({ depth: 1, recomputed_sha16: level(1) }, 'reported_sha16', { enumerable: true, get() { return level(1); } }); return c; })() } },
+  { id: '20', input: { ...BASE, chain: (() => { const c = goodChain(3); Object.defineProperty(c[2], 'hidden_own_field', { value: 'smuggled', enumerable: false }); return c; })() } },
+  { id: '21', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = { ...c[0] }; c[0][Symbol.for('nnest-smuggle')] = 'payload'; return c; })() } },
 ]);
 
 export function emitParityRows() {
@@ -245,6 +279,31 @@ export function selfTest() {
   add('depth-bound-16-held', gateChain({ ...BASE, max_depth: 17, chain: goodChain(3) }).gate === 'invalid-max-depth');
   add('every-row-executable-0', emitParityRows().slice(1, -1).every((row) => row.includes('|executable=0|')));
   add('rows-hbp-only', [...statusRows(), ...emitParityRows()].every((row) => row.endsWith('json=0') && !row.includes('{"')));
+
+  // acer hardening: accessor / hidden / symbol tuples are topology violations.
+  add('accessor-tuple-held-not-trusted', (() => {
+    const c = goodChain(3);
+    c[1] = Object.defineProperty({ depth: 1, recomputed_sha16: level(1) }, 'reported_sha16', { enumerable: true, get() { return level(1); } });
+    const o = gateChain({ ...BASE, chain: c });
+    return o.verdict === 'CHILD_HELD' && o.gate === 'chain-topology-invalid' && o.first_bad_depth === 1;
+  })());
+  add('non-enumerable-own-field-held', (() => {
+    const c = goodChain(3);
+    Object.defineProperty(c[2], 'hidden_own_field', { value: 'x', enumerable: false });
+    return gateChain({ ...BASE, chain: c }).gate === 'chain-topology-invalid';
+  })());
+  add('symbol-keyed-field-held', (() => {
+    const c = goodChain(3);
+    c[0] = { ...c[0] };
+    c[0][Symbol.for('nnest-smuggle')] = 'x';
+    return gateChain({ ...BASE, chain: c }).gate === 'chain-topology-invalid';
+  })());
+  add('single-read-digest-matches-verified-content', (() => {
+    const c = goodChain(3);
+    const o = gateChain({ ...BASE, chain: c });
+    const expected = sha16(JSON.stringify(c.map((t) => [t.depth, t.reported_sha16, t.recomputed_sha16])));
+    return o.verdict === 'CHILD_MAY_ACT' && o.chain_sha16 === expected;
+  })());
 
   return { ok: checks.every((check) => check.ok), checks };
 }
