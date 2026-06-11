@@ -1,0 +1,9 @@
+DASHRESHDR|host=acer|component=architecture-component-1|tool=tools/behcs/dashboard-resolver.mjs|purpose=deterministic-(pid,device,ts)-to-tightest-scoped-dashboard-route|json=0
+DASHRESLAW|rule=tightest-possible-but-NEVER-tighter-than-evidence|never=guess-on-dirty-conflicting-or-stale-input|composes=TARGET-ARCHITECTURE-VISION-2026-06-10(COMPONENT-1)+LAW-ASOLARIA-NEURAL-NETWORK|json=0
+DASHRESLADDER|rungs=8|order=dirty-input-INVALID+unknown-device-GLOBAL_READONLY+pid-device-conflict-GLOBAL_READONLY+invalid-pid-DEVICE+malformed-ts-DEVICE+future-ts-DEVICE+stale-ts-DEVICE+full-tuple-proven-AGENT_TIGHT|json=0
+DASHRESTABLE|devices=acer+liris+falcon|room_bands=scout00-03+review04-07+write08-15+test16-23|room_source=P-field-of-PID(DRAFT-ASSUMPTION-bilateral-contest-welcome)|fresh_window_s=3600|operator_pids=OP-prefix-valid-on-any-device|json=0
+DASHRESROUTES|agent=/dash/DEVICE/pid/PID-with-room-suffix-when-band-known|device=/dash/DEVICE|global=/dash/global/readonly|eyes=route-plus-/hbp(free-read)|hands=route-plus-/post(gated-POST-operator-cosign)|global_hands=none|route_inputs=table-keys+regex-validated-pid+fixed-literals-only|json=0
+DASHRESSAFETY|mutates=0|pure_function=1|no_live_dashboard_launch=1|no_fabric_call=1|no_disk_write=1|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|json=0
+DASHRESVERIFY|required=node-check+node-test+self-test+parity-byte-compare|parity_baseline=docs/DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp|bundle_sha16=eb3e518644a672e0|json=0
+DASHRESSHA|resolver_sha256=2FD380B4A6353AB1A4E8682BD97510698755408785A7111E2C4F75168FF75D7D|test_sha256=0C67544C201380786F249DB4C1783EAE4F95E6A8E5729AC777CF40A66F65B589|json=0
+DASHRESFTR|state=COMPONENT_1_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|json=0

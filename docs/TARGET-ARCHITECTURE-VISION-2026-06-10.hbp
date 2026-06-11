@@ -4,6 +4,7 @@ TARGETARCHNOTE|each-component-HAS-a-proven-primitive|the-gap-is-INTEGRATION-not-
 COMPONENT|1|name=LOCALIZED-PID-DEVICE-TIMESTAMP-SCOPED-DASHBOARDS|vision=every-agent-uses-the-RIGHT-dashboard-scoped-tightest-possible-to-ITS-PID+device+timestamp-tuple-NOT-one-global-dashboard
 PROVEN|1|AgentTerms-:5054-already-scopes-by-EVENTRISK-PID-set+per-agent-guides+BH-room-scoping(scout00-03/review04-07/write08-15/test16-23)|each-URL-is-Brown-Hilbert-addressable-point(PID-first-doctrine)
 GAP|1|agents-do-NOT-yet-auto-resolve-to-THEIR-scoped-dashboard-by-(PID,device,timestamp)-tuple|FIX=dashboard-resolver(pid,device,ts)->tightest-dashboard-route|each-agent-guide-points-eyes(hbp-reads)+hands(gated-POST)-scoped-to-its-tuple
+PROGRESS|1|resolver_seed=tools/behcs/dashboard-resolver.mjs|law=tightest-possible-never-tighter-than-evidence|ladder=8-rungs(dirty-INVALID+unknown-device-GLOBAL+conflict-GLOBAL+bad-pid-DEVICE+bad-or-stale-ts-DEVICE+proven-AGENT_TIGHT)|eyes_hands=per-GAP-1|parity_baseline=DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp|draft_only=1|no_launch=1|no_fabric_call=1|json=0
 
 COMPONENT|2|name=OMNIDIRECTIONAL-TRANSLATORS|vision=ANY-level-talks-to-ANY-type-of-thing-in-the-fabric(human<->AI<->subagent<->PID<->component<->kernel<->cube)
 PROVEN|2|D22-TRANSLATION-dimension(7-verbs:tuple_to_english,english_to_tuple,ix_to_tuple,hilbert_to_human,crlt_merge,auto_transition_all_languages,namespace_walk)+7-layer-auto-translate(06-AUTO-TRANSLATE-LAYERS:L0-human..L6-cube,glyph-table-lookup-not-LLM)+BEHCS-1024-glyph

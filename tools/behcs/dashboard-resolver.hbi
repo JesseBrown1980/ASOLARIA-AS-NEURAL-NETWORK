@@ -1,0 +1,10 @@
+DASHRESINDEX|host=acer|target=dashboard-resolver.hbp|tool=dashboard-resolver.mjs|rows=9|json=0
+INDEXROW|row=1|kind=header|component=architecture-component-1|json=0
+INDEXROW|row=2|kind=law|rule=tightest-possible-never-tighter-than-evidence|json=0
+INDEXROW|row=3|kind=ladder|rungs=8|json=0
+INDEXROW|row=4|kind=table|devices=3|bands=4|fresh_window_s=3600|json=0
+INDEXROW|row=5|kind=routes|scopes=AGENT+DEVICE+GLOBAL_READONLY|injection_safe=table-keys-and-validated-pid-only|json=0
+INDEXROW|row=6|kind=safety|mutates=0|pure_function=1|no_launch=1|no_fabric_call=1|json=0
+INDEXROW|row=7|kind=verify|required=node-check+node-test+self-test+parity-byte-compare|json=0
+INDEXROW|row=8|kind=sha|fields=resolver_sha256+test_sha256|json=0
+INDEXROW|row=9|kind=footer|state=COMPONENT_1_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|json=0

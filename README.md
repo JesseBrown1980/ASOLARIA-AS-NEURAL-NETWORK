@@ -38,6 +38,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `tools/omni-processor/omnitranslator-v0.js` — deterministic omnilanguage/json translator core.
 - `tools/behcs/omnidirectional-translator-router.mjs` — component-2 router: implemented pairs execute, fabric endpoints stay draft-only.
 - `tools/behcs/d22-verb-adapter.mjs` — thin D22 verb surface over the deterministic router/core.
+- `tools/behcs/dashboard-resolver.mjs` — component-1 resolver: `(pid, device, ts)` → tightest-scoped dashboard route, 8-rung demotion ladder.
 - `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
 - `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
 
@@ -47,6 +48,7 @@ The supervisor collision router converged in doctrine before it converged in byt
 
 - component-2 translation router now exists in-repo: `omnilanguage<->json` executes deterministically through table/core logic; HBP/HBI/MCP/WebMCP/cube/whiteroom/Shannon/frozen-slice/geospatial/HRM endpoints return draft routes only until token bindings and required cosigns exist
 - D22 verb adapter now exposes `tuple_to_english`, `english_to_tuple`, `ix_to_tuple`, `hilbert_to_human`, `crlt_merge`, `auto_transition_all_languages`, and `namespace_walk`; true natural-language and IX parsing remain explicit drafts
+- component-1 dashboard resolver: tightest-possible-but-never-tighter-than-evidence — dirty input never routes, conflicts and unknown devices demote to global read-only, stale/malformed timestamps demote to device scope; routes are built only from table keys, regex-validated PIDs, and fixed literals
 - input: `COLLISION|...|json=0` HBP rows, with JS-object input only as compatibility
 - rule: a collision is only an error after classification
 - head guard: non-`COLLISION` HBP rows are held, not routed as collisions

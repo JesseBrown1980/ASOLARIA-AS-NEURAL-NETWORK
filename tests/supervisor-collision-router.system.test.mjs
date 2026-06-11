@@ -23,6 +23,7 @@ const sealedFiles = [
   'docs/LIRIS-D22-VERB-ADAPTER-2026-06-11.hbp',
   'docs/ACER-READBACK-D22-2026-06-11.hbp',
   'docs/D22-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp',
   'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
@@ -35,9 +36,13 @@ const sealedFiles = [
   'tools/behcs/d22-verb-adapter.hbp',
   'tools/behcs/d22-verb-adapter.hbi',
   'tools/behcs/d22-parity-probe.mjs',
+  'tools/behcs/dashboard-resolver.mjs',
+  'tools/behcs/dashboard-resolver.hbp',
+  'tools/behcs/dashboard-resolver.hbi',
   'tools/omni-processor/omnitranslator-v0.js',
   'tests/d22-verb-adapter.unit.test.mjs',
   'tests/d22-parity-probe.unit.test.mjs',
+  'tests/dashboard-resolver.unit.test.mjs',
   'tests/supervisor-collision-router.unit.test.mjs',
   'tests/supervisor-collision-router.integration.test.mjs',
   'tests/supervisor-collision-router.suite.test.mjs',
@@ -71,6 +76,12 @@ test('D22 adapter descriptor records the current source and unit-test hashes', (
   const hbp = readFileSync(join(repo, 'tools/behcs/d22-verb-adapter.hbp'), 'utf8');
   assert.match(hbp, new RegExp(`adapter_sha256=${sha256('tools/behcs/d22-verb-adapter.mjs')}`));
   assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/d22-verb-adapter.unit.test.mjs')}`));
+});
+
+test('dashboard resolver descriptor records the current source and unit-test hashes', () => {
+  const hbp = readFileSync(join(repo, 'tools/behcs/dashboard-resolver.hbp'), 'utf8');
+  assert.match(hbp, new RegExp(`resolver_sha256=${sha256('tools/behcs/dashboard-resolver.mjs')}`));
+  assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/dashboard-resolver.unit.test.mjs')}`));
 });
 
 test('sidecar filenames point at their target basenames', () => {
