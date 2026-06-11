@@ -2,7 +2,7 @@ OMNITRANSROUTERHDR|host=liris|component=architecture-component-2|tool=tools/behc
 OMNITRANSLAW|rule=known-glyphs-and-implemented-pairs-use-table-lookup-not-llm|composes=TARGET-ARCHITECTURE-VISION-2026-06-10+LAW-ASOLARIA-NEURAL-NETWORK|json=0
 OMNITRANSCORE|source=tools/omni-processor/omnitranslator-v0.js|implemented_pairs=omnilanguage->json+json->omnilanguage|planned_dialects=IX+LX+XL+plain_english|shield=novalum-token-preserved-with-redacted-across-host-flag|json=0
 OMNITRANSFABRIC|planned_endpoints=hbp+hbi+mcp_pipe+webmcp+cube+whiteroom+shannon+frozen_slice+geospatial_agent+hrm_agent|execution=DRAFT_ROUTE_ONLY_NOT_EXECUTABLE|gate=fabric-token-binding-required+cosign-for-T0-T1-engine-remap|json=0
-OMNITRANSSAFETY|mutates=0|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|json=0
+OMNITRANSSAFETY|mutates=audit-hbp-append-only(logs/omnitranslator-audit.hbp)|audit_format=hbp-pipe-rows-content-by-sha16|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|json=0
 OMNITRANSVERIFY|required=node--check-router+node-test-router+router-self-test|json=0
-OMNITRANSSHA|core_sha256=83F472E2A70BF55DEDE93F93E2D828835D13E3E7FA343204543283D2F418957C|router_sha256=C0A7DDA0ED0827C6275B9A715F19E1E2B97CA9D682194E1D7DC70F5640EC762D|test_sha256=24D869A2B8CF0EDBE8F5DD842B1E81A4436116E55DE73B513F6AB51183ACE9A2|json=0
-OMNITRANSFTR|state=READY_FOR_BILATERAL_PULL_AND_ACER_COMPARE|json=0
+OMNITRANSSHA|core_sha256=E589BB9A21F4F2BDA3594801FDDDE3524D5E6D7409A8F610E8B2A367EC1B72FC|router_sha256=C0A7DDA0ED0827C6275B9A715F19E1E2B97CA9D682194E1D7DC70F5640EC762D|test_sha256=449C76F2140674581E08E4A5CABB0F7C07172BE4E2B2A3DA0F4D3B2F0EA2D10E|json=0
+OMNITRANSFTR|state=AUDIT_LANE_HBP_SAFETY_ROW_HONEST_BILATERAL_F1_F2_CLOSED|json=0

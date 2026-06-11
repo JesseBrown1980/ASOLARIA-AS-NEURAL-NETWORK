@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import {
@@ -39,6 +40,17 @@ test('unknown endpoints are blocked', () => {
   assert.equal(plan.executable, false);
   assert.equal(plan.state, 'UNKNOWN_ENDPOINT');
   assert.ok(plan.gates.includes('unknown-to:not_a_surface'));
+});
+
+test('audit lane emits HBP pipe rows, not JSON', () => {
+  routeTranslate('@packet from=acer verb=audit.probe input_a=2', 'omnilanguage', 'json');
+  const auditUrl = new URL('../logs/omnitranslator-audit.hbp', import.meta.url);
+  const rows = readFileSync(auditUrl, 'utf8').trim().split('\n');
+  const last = rows[rows.length - 1];
+  assert.ok(last.startsWith('OMNITRANSAUDIT|'), 'audit row must be an HBP pipe row');
+  assert.ok(last.endsWith('|json=0'), 'audit row must close with json=0');
+  assert.ok(!last.includes('{"'), 'audit lane must carry no JSON');
+  assert.match(last, /\|output_sha16=[0-9a-f]{16}\|/, 'content referenced by sha16, never inlined');
 });
 
 test('status emits HBP rows and self-test passes', () => {

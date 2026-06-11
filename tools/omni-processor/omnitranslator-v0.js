@@ -1,11 +1,12 @@
 "use strict";
 
+const crypto = require("node:crypto");
 const fs = require("node:fs");
 const path = require("node:path");
 
 const ASOLARIA_ROOT = path.resolve(__dirname, "..", "..");
 const LOG_DIR = path.join(ASOLARIA_ROOT, "logs");
-const LOG_FILE = path.join(LOG_DIR, "omnitranslator.ndjson");
+const LOG_FILE = path.join(LOG_DIR, "omnitranslator-audit.hbp");
 
 const NOVALUM_PATTERN = /novalum/i;
 const NOVALUM_CUBE_MARKERS = [103823, 389017, 704969];
@@ -33,17 +34,27 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+function sha16(value) {
+  const text = typeof value === "string" ? value : JSON.stringify(value);
+  return crypto.createHash("sha256").update(text).digest("hex").slice(0, 16);
+}
+
+// Audit is a hot receipt lane: HBP pipe-rows only, JSON stays cold.
+// Content is referenced by sha16, never inlined, so rows stay pipe-safe.
 function logAudit(entry) {
   ensureDir(LOG_DIR);
-  fs.appendFileSync(
-    LOG_FILE,
-    JSON.stringify({
-      ...entry,
-      ts: new Date().toISOString(),
-      chain: "LX-491",
-      cube_tags: ["D12_ECHO", "D11_PROOF"],
-    }) + "\n",
-  );
+  const row = [
+    "OMNITRANSAUDIT",
+    `ts=${new Date().toISOString()}`,
+    `verb=${entry.verb}`,
+    `pair=${entry.pair}`,
+    `shielded=${entry.shielded ? 1 : 0}`,
+    `output_sha16=${entry.output_sha16}`,
+    "chain=LX-491",
+    "cube_tags=D12_ECHO+D11_PROOF",
+    "json=0",
+  ].join("|");
+  fs.appendFileSync(LOG_FILE, row + "\n");
 }
 
 function containsNovalumToken(value) {
@@ -142,7 +153,7 @@ function translate(input, fromDialect, toDialect) {
     verb: "omnitranslate",
     pair: key,
     shielded,
-    output_preview: (typeof output === "string" ? output : JSON.stringify(output)).slice(0, 200),
+    output_sha16: sha16(output),
   });
 
   return result;
