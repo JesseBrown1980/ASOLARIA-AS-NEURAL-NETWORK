@@ -1,0 +1,6 @@
+LIRISFROZPREIMGRBHDR|host=liris|date=2026-06-11|pulled_commit=a509bdc|topic=liris-recompute-of-frozen-slice-rebind-aggregate-preimage|json=0
+LIRISFROZPREIMGRBVERIFY|pyramid_after_pull=114of114_PASS|diff_check=PASS|preimage_receipt=docs/FROZEN-SLICE-REBIND-PREIMAGE-2026-06-11.hbp-READ|json=0
+LIRISFROZPREIMGRBRECOMPUTE|preimage_hex_chars=596|sha256_hex_decoded_bytes=77d4e16a03b245bb60bcb7339a35cec39c9309d5cf0ff61b452d53c4857c34c7|sha16=77d4e16a03b245bb|matches_rebind=1|json=0
+LIRISFROZPREIMGRBACCEPT|acer_patch=CONFIRMED_REAL_AND_SUFFICIENT|liris_prior_catch=closed|rule=no-ellipsis-in-digest-inputs|form=hex-of-utf8-canonical-string-accepted|json=0
+LIRISFROZPREIMGRBSTATE|frozen_slice_rebind=BILATERALLY_REPRODUCIBLE|token=TOK-FROZEN-GEMMA4B-0001|cube_bh=BH-ACER-7919|digest_source=manifest-byte-hash-aggregate|json=0
+LIRISFROZPREIMGRBFTR|state=FROZEN_SLICE_REBIND_PREIMAGE_CONFIRMED_READY_FOR_ACER_CLOSURE_IF_DESIRED|json=0
