@@ -1,0 +1,7 @@
+LIRISQFSPEC8HDR|host=liris|date=2026-06-11|pulled_commit=5bae029|topic=readback-and-counter-verify-acer-QUANTFIDELITYSPEC8|mode=SPEC_ONLY-no-sweep-code|json=0
+LIRISQFSPEC8VERIFY|pyramid_at_pull=114of114_PASS|spec_read=QUANTFIDELITYSPEC8-13-rows|quant8_quant4_firewall=CONFIRMED|ranking_preservation_addition=CONFIRMED_GATE_RELEVANT|json=0
+LIRISQFSPEC8ACCEPT|target=QUANT8-stack-only|QUANT4_inherits_nothing=confirmed|spec-before-code=confirmed|state=methodology-sound-after-patch|json=0
+LIRISQFSPEC8FINDINGS|F1=relative-cosine-error-is-ill-defined-at-rho0-and-unstable-near-zero|F2=p99-from-50-pairs-per-cell-is-pilot-grade-not-promotion-grade|F3=bucket-adversary-must-test-both-same-sign-amplification-and-opposite-sign-cancellation-in-the-count-sketch-bucket|F4=JL-1-over-sqrtD-row-needed-heuristic-not-formal-bound-for-count-sketch-plus-int8-normalization|verdict=FOUR_REAL_PATCHED|json=0
+LIRISQFSPEC8PATCH|F1=metric-now-absolute-cosine-error-dot-relative-only-when-raw-dot-nonzero|F2=50-pairs-cell-now-pilot-only-promotion-minimum-200|F3=f4-split-into-f4a-same-sign-collision-and-f4b-opposite-sign-cancellation|F4=bound-row-now-heuristic-reference-and-output-rounding-fixed-6-for-byte-match|json=0
+LIRISQFSPEC8VERDICT|ready_for_acer_implementation=1|implementation_guard=emit-HBP-only-no-gating-promotions-until-both-machines-byte-match-and-thresholds-pass|remaining_contest_lanes=promotion-pair-count+thresholds+f4-construction-details|json=0
+LIRISQFSPEC8FTR|state=SPEC_PATCHED_READY_FOR_ACER_SWEEP_TOOL|json=0
