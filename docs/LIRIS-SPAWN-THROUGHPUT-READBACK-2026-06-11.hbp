@@ -1,0 +1,9 @@
+LIRISSPAWNRBHDR|host=liris|date=2026-06-11|pulled_commit=d35f0f2|topic=liris-readback-of-acer-throughput-provenance-correction-and-local-rerun|json=0
+LIRISSPAWNRBVERIFY|pyramid_after_pull=111of111_PASS|diff_check=PASS|acer_receipt=docs/ACER-SPAWN-THROUGHPUT-READBACK-2026-06-11.hbp-READ|component4_closure=CONFIRMED-all-five-vision-components-closed-at-contract-level|json=0
+LIRISSPAWNRBMACHINE|cpu=Intel-Core-i3-1005G1-1.20GHz|cores=4|ram_gb=8|os=Windows-11-Home-Single-Language|node=v24.13.1|platform=win32-x64|this-is-the-machine-for-liris-live-rerun|json=0
+LIRISSPAWNRBACCEPT|acer_three_findings=CONFIRMED_REAL|F1=tier-D-E-F-numbers-were-not-acer-provenance-and-D-5.47M-file-open-was-physically-impossible-as-stated|F2=escaping-SINK-methodology-is-required-for-comparable-object-tier-live-runs|F3=100B-genius-mistake-counts-now-receipt-exact|json=0
+LIRISSPAWNRBLIVE|raw=SPAWNBENCHLIVEHDR-iterations-5000000-typed-20000000-disk_writes-0|A=534136675_ops_per_sec|B=72775013_ops_per_sec|C=75926339_ops_per_sec|UPGRADED_typed=187821997_ops_per_sec|note=liris-machine-is-faster-on-this-hot-loop-despite-smaller-host-so-rates-are-machine-and-node-dependent|json=0
+LIRISSPAWNRBPROVENANCE|prior-liris-side-error=accepted-operator-relayed-D-5.47M-and-EF-1.73M-table-without-local-receipt|correction=those-values-are-retired-from-canonical-acer-rows-and-may-only-return-if-source-machine-and-method-are-sealed|rule=numbers-must-carry-machine+method+tier|json=0
+LIRISSPAWNRBLAW|confirmed=4.02M-sec-is-sustained-acer-receipt-backed-packet-run+5M-is-rounded-operator-memory+hot-path-rooms-are-address-targets-not-filesystem-opens|sector_doctrine=drives-multiply-capacity-machines-multiply-rate|json=0
+LIRISSPAWNRBSAFETY|repo_side_only=1|untouched=process-spawn+real-agent-recursion+harness-edits+mint+USB+engine+apex-T0|mutates=receipt+calibration-doc+sealed-file-list-only|json=0
+LIRISSPAWNRBFTR|state=THROUGHPUT_DOCTRINE_MACHINE_TAGGED_READY_FOR_NEXT_OPERATOR_GATED_WORK|json=0
