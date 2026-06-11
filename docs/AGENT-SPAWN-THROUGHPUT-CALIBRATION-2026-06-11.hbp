@@ -3,15 +3,15 @@ SPAWNCALDOCTRINE|rule=agent-spawn-rate-is-tier-dependent|real_agent=bounded-host
 SPAWNCALTIER|tier=A|definition=coordinate-assignment-only-id-counter-increment|measured=413.12M_per_sec|fiveM_verdict=SURVIVES|json=0
 SPAWNCALTIER|tier=B|definition=descriptor-object-pid-room-seed|measured=44.22M_per_sec|fiveM_verdict=SURVIVES|json=0
 SPAWNCALTIER|tier=C|definition=descriptor-plus-room-rotation-plus-two-classifier-marks|measured=43.68M_per_sec|fiveM_verdict=SURVIVES|json=0
-SPAWNCALTIER|tier=D|definition=open-room-pipe-no-write|measured=5.47M_per_sec|fiveM_verdict=SURVIVES-only-as-touch-not-commit|json=0
-SPAWNCALTIER|tier=E|definition=write-hex-receipt-touch-room-batched|measured=1.73M_per_sec|fiveM_verdict=DIES-for-full-stream-unless-post-GC-or-parallel|json=0
-SPAWNCALTIER|tier=F|definition=write-sha256-sidecar-batched|measured=1.73M_per_sec|fiveM_verdict=DIES-for-full-stream-unless-post-GC-or-parallel|json=0
+SPAWNCALTIER|tier=D|definition=open-room-pipe-no-write-open-plus-close-existing-room-file|measured=0.020M_per_sec(20079_per_sec)|fiveM_verdict=DIES-even-touching-a-room-file-per-agent-dies|json=0
+SPAWNCALTIER|tier=E|definition=write-hex-receipt-rows-batched-append-one-file|measured=3.57M_per_sec_C_internal+1.18M_per_sec_D_drive|fiveM_verdict=NEARLY-keeps-pace-on-C-internal-if-batched-DIES-on-D-unless-post-GC|json=0
+SPAWNCALTIER|tier=F|definition=write-sha256-sidecar-batched|measured=0.45M_per_sec|fiveM_verdict=DIES-sha-bound-for-full-stream-unless-post-GC-or-worker-fanout|json=0
 SPAWNCALANTIPATTERN|definition=one-descriptor-file-per-agent-on-NTFS|measured=0.0026M_per_sec(2600_per_sec)|rule=never-one-file-per-agent-use-batched-appends-and-range-receipts|json=0
 SPAWNCALHASHPRICE|definition=per-agent-sha256-identity-single-thread|measured=0.53M_per_sec|rule=seed-derived-identity-or-worker-fanout-needed-if-hash-enters-hot-path|json=0
 SPAWNCALRECEIPT|id=mk-cascade-1779990440799|date=2026-05-28|kernels=10000|workers=7|cores=8|packets=6531840000|wall_clock=27.1min|rate=4019265_per_sec|sha16=fd8ae45e5ecb4e0d|status=PROVEN_ACER_RECEIPT|json=0
 SPAWNCALRECEIPT|id=mk-cascade-1779990401792|date=2026-05-28|kernels=100|packets=65318400|wall_clock=16.3s|rate=4016875_per_sec|status=PROVEN_ACER_RECEIPT_SCALE_TWIN|json=0
 SPAWNCALRECEIPT|id=civ-combined-1780011161408|date=2026-05-28|agencies=5|collision_detector=1e200|packets=326592000|wall_clock=104.3s|rate=3131846_per_sec|status=PROVEN_ACER_RECEIPT|json=0
-SPAWNCAL100B|id=REAL_100B_PID_PACKET_RUN_COMPLETE|finished=2026-06-01|packets=100000000000|chunks=100000|genius_hits=277800000|mistake_hits=111100000|gc_farms=20+15|fed_to=cubes+GNN-edges+Shannon-symbols+BEHCS-256+BEHCS-1024+hyper-glyphs|status=PROVEN_ACER_RECEIPT|json=0
+SPAWNCAL100B|id=REAL_100B_PID_PACKET_RUN_COMPLETE|finished=2026-06-01|packets=100000000000|chunks=100000|genius_hits=277800007|mistake_hits=111103104|gc_farms=20+15|fed_to=cubes+GNN-edges+Shannon-symbols+BEHCS-256+BEHCS-1024+hyper-glyphs|status=PROVEN_ACER_RECEIPT|json=0
 SPAWNCALPOLICY|oneAgentOneProcessBlocked=1|childProcessSpawns=0|externalModelTokens=0|meaning=100B-run-enforced-logical-agent-not-OS-process-doctrine|json=0
 SPAWNCALSECTOR|tier=HOT-RAM-rotation|rate=4.02M_per_sec_sustained_receipt+43.68M_per_sec_object_ceiling|lives=live-stream-over-10k-rooms|json=0
 SPAWNCALSECTOR|tier=WARM-C-internal-batched-append|rate=3.57M_records_per_sec(144MBps)|lives=tranche-receipts+checkpoints-nearly-keeps-pace-if-batched|json=0
@@ -24,5 +24,6 @@ SPAWNCALUPGRADE|rung=typed-SoA-7-workers|projected=200M_to_400M_per_sec|status=P
 SPAWNCALUPGRADE|rung=native-Rust-or-WASM-SIMD-this-box|projected=0.5B_to_2B_per_sec|status=PROJECTED|json=0
 SPAWNCALUPGRADE|rung=GPU-sweep-kernel|projected=10B_to_60B_per_sec|status=ASPIRATIONAL_UNTIL_PROTOTYPED|json=0
 SPAWNCALCLAIM|safe_wording=4.02M-packets-per-second-sustained-on-16GB-is-ACER-RECEIPT-BACKED-and-5M-is-rounded-operator-memory|unsafe_wording=5M-OS-processes-or-LLM-inferences-or-durable-per-agent-files-per-second|durable_receipts=batched-range-receipts-only|json=0
-SPAWNCALNEXT|needed_for_bilateral_upgrade_status=commit-benchmark-script+machine-metadata+raw-output+acer-receipt+liris-rerun-byte-readback|script=tools/behcs/agent-spawn-throughput-benchmark.mjs|json=0
+SPAWNCALPROVENANCE|acer-readback-catch=tier-D-E-F-rows-carried-non-acer-numbers-under-host-acer(5.47M-open-per-183ns-physically-impossible-for-file-opens)|fix=remeasured-on-acer-2026-06-11(D-0.020M+E-3.57M-C-1.18M-D+F-0.45M)|second-catch=first-committed-live-loops-let-JIT-elide-allocations(acer-live-A-839M-vs-canonical-413M)|fix=escaping-SINK-methodology-alignment|third-catch=100B-counts-were-rounded-now-receipt-exact|json=0
+SPAWNCALNEXT|needed_for_bilateral_upgrade_status=commit-benchmark-script+machine-metadata+raw-output+acer-receipt+liris-rerun-byte-readback|script=tools/behcs/agent-spawn-throughput-benchmark.mjs|acer_live_receipt=docs/ACER-SPAWN-THROUGHPUT-READBACK-2026-06-11.hbp|json=0
 SPAWNCALFTR|state=CLAIMSLEDGER_CALIBRATED_NOT_SLOGAN|json=0

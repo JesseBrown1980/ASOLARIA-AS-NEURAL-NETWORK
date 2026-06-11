@@ -12,9 +12,9 @@ export const CALIBRATION_ROWS = Object.freeze([
   'SPAWNBENCHTIER|tier=A|definition=coordinate-assignment-only-id-counter-increment|class=logical-spawn|canonical_acer_measurement=413.12M_per_sec|json=0',
   'SPAWNBENCHTIER|tier=B|definition=descriptor-object-pid-room-seed|class=logical-spawn-small-allocation|canonical_acer_measurement=44.22M_per_sec|json=0',
   'SPAWNBENCHTIER|tier=C|definition=descriptor-plus-room-rotation-plus-two-modulo-classifier-marks|class=logical-spawn-with-room-address|canonical_acer_measurement=43.68M_per_sec|json=0',
-  'SPAWNBENCHTIER|tier=D|definition=open-room-pipe-no-write|class=filesystem-touch-no-commit|canonical_acer_measurement=5.47M_per_sec|json=0',
-  'SPAWNBENCHTIER|tier=E|definition=write-hex-receipt-touch-room-batched|class=batched-persistence|canonical_acer_measurement=1.73M_per_sec|json=0',
-  'SPAWNBENCHTIER|tier=F|definition=write-sha256-sidecar-batched|class=batched-persistence-plus-sidecar|canonical_acer_measurement=1.73M_per_sec|json=0',
+  'SPAWNBENCHTIER|tier=D|definition=open-room-pipe-no-write-open-plus-close-existing-room-file|class=filesystem-touch-no-commit|canonical_acer_measurement=0.020M_per_sec(20079_per_sec)|note=prior-5.47M-figure-was-NOT-an-acer-measurement-and-is-physically-impossible-for-file-opens(183ns-per-open)|json=0',
+  'SPAWNBENCHTIER|tier=E|definition=write-hex-receipt-rows-batched-append-one-file|class=batched-persistence|canonical_acer_measurement=3.57M_per_sec_C_internal+1.18M_per_sec_D_drive|note=prior-1.73M-figure-was-NOT-an-acer-measurement|json=0',
+  'SPAWNBENCHTIER|tier=F|definition=write-sha256-sidecar-batched|class=batched-persistence-plus-sidecar|canonical_acer_measurement=0.45M_per_sec|note=sha-bound-prior-1.73M-figure-was-NOT-an-acer-measurement|json=0',
   'SPAWNBENCHRECEIPT|id=mk-cascade-1779990440799|packets=6531840000|wall_clock=27.1min|rate=4019265_per_sec|sha16=fd8ae45e5ecb4e0d|status=ACER_RECEIPT_BACKED|json=0',
   'SPAWNBENCHRECEIPT|id=mk-cascade-1779990401792|packets=65318400|wall_clock=16.3s|rate=4016875_per_sec|status=ACER_RECEIPT_BACKED_SCALE_TWIN|json=0',
   'SPAWNBENCHRECEIPT|id=civ-combined-1780011161408|packets=326592000|wall_clock=104.3s|rate=3131846_per_sec|status=ACER_RECEIPT_BACKED|json=0',
@@ -42,49 +42,53 @@ function bench(name, iterations, work) {
   return `SPAWNBENCHLIVE|tier=${name}|iterations=${iterations}|elapsed_ms=${elapsedMs.toFixed(3)}|ops_per_sec=${perSecond(iterations, elapsedMs)}|checksum=${checksum}|json=0`;
 }
 
+// Module-level escaping sink: the canonical acer rows were measured with
+// allocations that ESCAPE the loop (assigned to an outer binding), so the JIT
+// cannot scalar-replace the descriptor objects away. The first committed
+// version XORed local fields instead, which let escape analysis delete the
+// allocation -- its --run produced ~5x lighter numbers (acer live A=839M vs
+// canonical 413M) that were incomparable to the canonical rows. (acer
+// methodology-alignment patch 2026-06-11.)
+let SINK = null;
+
 function runA(iterations) {
-  let id = 0;
-  for (let i = 0; i < iterations; i += 1) id = i;
-  return id;
+  for (let i = 0; i < iterations; i += 1) SINK = i + 1;
+  return SINK >>> 0;
 }
 
 function runB(iterations) {
-  let checksum = 0;
   for (let i = 0; i < iterations; i += 1) {
-    const descriptor = { pid: i, room: i % ROOM_COUNT, seed: (i * 2654435761) >>> 0 };
-    checksum ^= descriptor.pid ^ descriptor.room ^ descriptor.seed;
+    SINK = { pid: i, room: i % ROOM_COUNT, seed: (i * 2654435761) >>> 0 };
   }
-  return checksum;
+  return SINK.seed >>> 0;
 }
 
 function runC(iterations) {
-  let checksum = 0;
   for (let i = 0; i < iterations; i += 1) {
     const room = i % ROOM_COUNT;
-    const lane = i % 3;
-    const genius = i % 50 === 0 ? 1 : 0;
-    const mistake = i % 47 === 0 ? 1 : 0;
-    checksum ^= (room << 16) ^ (lane << 8) ^ (genius << 1) ^ mistake;
+    const genius = (i % 50) === 0;
+    const mistake = (i % 47) === 0;
+    SINK = { pid: i, room, g: genius, m: mistake };
   }
-  return checksum;
+  return (SINK.room ^ (SINK.g ? 1 : 0) ^ (SINK.m ? 2 : 0)) >>> 0;
 }
 
 function runTypedC(iterations) {
-  const cap = Math.min(iterations, 1_000_000);
-  const rooms = new Uint16Array(cap);
-  const marks = new Uint8Array(cap);
-  let checksum = 0;
+  const marks = new Uint8Array(1 << 16);
+  let g = 0;
+  let m = 0;
+  let roomAcc = 0;
   for (let i = 0; i < iterations; i += 1) {
-    const idx = i % cap;
     const room = i % ROOM_COUNT;
-    const lane = i % 3;
-    const genius = i % 50 === 0 ? 1 : 0;
-    const mistake = i % 47 === 0 ? 1 : 0;
-    rooms[idx] = room;
-    marks[idx] = lane | (genius << 2) | (mistake << 3);
-    checksum ^= rooms[idx] ^ marks[idx];
+    const genius = (i % 50) === 0;
+    const mistake = (i % 47) === 0;
+    marks[i & 65535] = (genius ? 1 : 0) | (mistake ? 2 : 0);
+    if (genius) g += 1;
+    if (mistake) m += 1;
+    roomAcc += room;
   }
-  return checksum;
+  SINK = marks;
+  return (g ^ m ^ (roomAcc % 997)) >>> 0;
 }
 
 export function emitDefinitionRows() {
