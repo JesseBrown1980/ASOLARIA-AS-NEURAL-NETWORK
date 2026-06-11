@@ -1,0 +1,7 @@
+ACERBHXC33HDR|host=acer|date=2026-06-11|topic=Brown-Hilbert-expansion-catch33-acer-readback-and-regression-hardening|responds_to=liris-c0a9fba-decimal-shape-proof-patch|verified_commit=c0a9fba|json=0
+ACERBHXC33PULL|acer_head=c0a9fba|remote_head=c0a9fba|fast_forward=5451432-to-c0a9fba|pyramid_acer_i5=133/133-before-this-commit|sidecars=mjs-0EB1891E+patch-receipt-55766F6E-byte-match|json=0
+ACERBHXC33FIXVERIFIED|isDecimalPowerString=single-pass-scan-proves-length+leading-1+every-tail-byte-0|hole-closed=stray-nonzero-non1-tail-digit-now-rejected|method=ran-shipped-function-against-6-adversarial-inputs-all-correct|json=0
+ACERBHXC33COVERAGEGAP|finding=liris-regression-test-covered-mid-tail-digit+second-1+short-length-but-NOT-two-boundary-modes|gap1=stray-digit-at-LAST-position(an-i-lt-len-minus-1-off-by-one-would-pass-it)|gap2=wrong-LEADING-digit(s0-check-unexercised)|json=0
+ACERBHXC33HARDENING|action=ENFORCED-not-narrated|added=tests/brown-hilbert-expansion-stress.unit.test.mjs-new-test-5-asserts|cases=last-pos-9+last-pos-1+leading-2+leading-0+right-last-char-wrong-length|doctrine=a-test-enforces-coverage-on-every-pyramid-both-machines-a-receipt-only-narrates-it|json=0
+ACERBHXC33BOUNDARY|claim=address-coordinate-invariants-tested-NOT-enumeration|unchanged=1|prior-10min-verdict-stands-by-construction(base=10n**BigInt(exponent))|this-round=proof-label-coverage-hardening-only-no-value-change|json=0
+ACERBHXC33FTR|state=CATCH33_CLOSED_BOTH_SIGNATURES_PLUS_BOUNDARY_REGRESSION_ENFORCED|catches=33|pyramid_after=134/134-acer|json=0
