@@ -1,0 +1,8 @@
+LIRISFROZCONFHDR|host=liris|date=2026-06-11|pulled_commit=23c8749|topic=first-frozen-slice-binding-readback|json=0
+LIRISFROZCONFVERIFY|blob_level_sidecars=ALL_OK|pyramid=92of92_PASS|frozen_slice_receipt=READ|json=0
+LIRISFROZCONFACCEPT|token=TOK-FROZEN-GEMMA4B-0001|cube_bh=BH-ACER-7919|bh_lane=2|bh_ppow=prime|scope=bind-draft|verdict=DRAFT_BINDING_READY|executable=0|json=0
+LIRISFROZCONFHONESTY|digest_source=name-reference-NOT-manifest-bytes|reason=expected-D-model-path-is-empty-socket|accepted_as=draft-reference-placeholder-not-model-byte-freeze|upgrade_required=rebind-with-manifest-byte-hash-when-socket-filled|json=0
+LIRISFROZCONFSTACK|components_touched=1-route+3-binder+5-suggestion|component2_sockets=frozen_slice+geospatial_agent+hrm_agent|watcher_row=WATCHSUGGEST-executable-0|fabric_claim=coherent-draft-composition-not-live-wiring|json=0
+LIRISFROZCONFORGANS|fischer=judge-fire-seal-output|omnishannon=novelty-gate|omnihermes+hyperhermes+spindles=transport-pulse|gnn=edges-between-addressed-nodes|whiterooms+mints=promote-after-gates|hookwalls=gates|glyphs+languages=translation-surface|pixels_first=perception-law|json=0
+LIRISFROZCONFGUARD|not_asi=1|not_live_slice=1|not_mint=1|not_fabric_post=1|operator_gated=live-slice-fill+manifest-rebind+mint+white-room-promotion|json=0
+LIRISFROZCONFFTR|state=FIRST_FROZEN_SLICE_BINDING_CONFIRMED_AS_DRAFT_PLACEHOLDER_READY_FOR_COMPONENT_4|json=0
