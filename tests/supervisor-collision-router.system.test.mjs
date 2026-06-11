@@ -20,6 +20,7 @@ const sealedFiles = [
   'docs/TARGET-ARCHITECTURE-VISION-2026-06-10.hbp',
   'docs/ACER-CONVERGENCE-COMPONENT-2-2026-06-11.hbp',
   'docs/LIRIS-D22-VERB-ADAPTER-2026-06-11.hbp',
+  'docs/ACER-READBACK-D22-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
   'tools/behcs/supervisor-collision-router.hbp',

@@ -1,0 +1,8 @@
+ACERRBHDR|host=acer|date=2026-06-11|pulled_commit=203364a3dd341576ee82ed2a0e86274193978b5b|topic=liris-F1-hardening-plus-F5-D22-adapter-readback|json=0
+ACERRBLATTICE|blob_level_sidecar_verify=ALL_OK|working_copy_equals_blobs=1|gitattributes_star_minus_text=EFFECTIVE(no-drift-possible)|json=0
+ACERRBPYRAMID|tests=49of49_PASS|router_cli_selftest=5of5_PASS|d22_cli_selftest=6of6_PASS|node_check=adapter+core+router_PASS|json=0
+ACERRBADVERSARY|probes=12of12_PASS|reproved=pipe-id+newline-id+pair-injection-rejected|extended=empty-id+non-string-id+leading-dash-id+space-id+non-fn-pair-rejected|key_extra=translate-with-raw-pipe-dialect-throws-BEFORE-audit-write+unknown-d22-verb-returned-pipe-cleaned|json=0
+ACERRBSYMMETRY|note=liris-refuted-acers-pipe-safe-all-inputs-claim-with-real-injection-then-patched|acer-reproved-patch-plus-extended-probe-set|corrective-gate-fired-both-directions=LAW-RECURRENCE-IS-MIND-live|json=0
+ACERRBPARITY|step166_basis=same-bytes-both-machines(sha-sealed)+deterministic-functions+unit-tests-encode-expected-outputs-and-pass-both-vantages|state=PARITY_BY_TEST_EQUALITY_FULL_LIVE_BYTE_COMPARE_REMAINS_OPEN|json=0
+ACERRBNEXT|open=full-cross-machine-output-byte-compare-per-STEP166+plain_english/IX-parse-remain-honest-drafts+identity-route-plan(omnilanguage-to-omnilanguage)-reports-draft-not-identity(nit)|gate=non-gated-draft-apex-T0-untouched|json=0
+ACERRBFTR|state=COMPONENT_2_BILATERALLY_CONVERGED_F1_F2_F5_F6_CLOSED|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
