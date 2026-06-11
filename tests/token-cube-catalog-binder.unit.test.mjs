@@ -42,6 +42,11 @@ test('secret leakage: material-shaped values are redacted, never echoed', () => 
   const fullHash = bindToken({ ...GOOD, digest_sha16: FULL_SHA256 });
   assert.equal(fullHash.digest_sha16, 'redacted');
   assert.ok(!fullHash.row.includes(FULL_SHA256), 'full sha256 material must not reach the row');
+
+  const splitHex = bindToken({ ...GOOD, token_id: 'TOK-DEADBEEF-DEADBEEF-DEADBEEF-DEADBEEF' });
+  assert.equal(splitHex.token_id, 'redacted');
+  assert.ok(splitHex.gate.includes('material-not-reference-suspected'));
+  assert.ok(!splitHex.row.includes('DEADBEEF'), 'separator-split hex material must not reach the row');
 });
 
 test('hash-length spoofing and digest normalization: exactly 16 lowercase hex or blocked', () => {
@@ -90,7 +95,7 @@ test('live-binding semantics: mode=live defers, unknown mode blocks, default is 
 });
 
 test('cube address ambiguity: vantage qualification required per hilbert-collision canon', () => {
-  for (const cube_bh of ['BH-942', 'BH-acer-754', 'BH-OTHER-754', '754', 'BH-ACER-', 'BH-ACER-1234567', null]) {
+  for (const cube_bh of ['BH-942', 'BH-acer-754', 'BH-OTHER-754', '754', 'BH-ACER-', 'BH-ACER-1234567', 'BH-ACER-000930', null]) {
     const out = bindToken({ ...GOOD, cube_bh });
     assert.equal(out.verdict, 'DRAFT_BINDING_BLOCKED', `cube_bh=${cube_bh}`);
     assert.equal(out.gate, 'missing-or-unqualified-cube-address');
@@ -104,6 +109,14 @@ test('disputed hilbert band 930-1229 defers regardless of vantage, exact boundar
   assert.equal(bindToken({ ...GOOD, cube_bh: 'BH-LIRIS-1229' }).verdict, 'DEFER_TO_OPERATOR');
   assert.equal(bindToken({ ...GOOD, cube_bh: 'BH-LIRIS-1230' }).verdict, 'DRAFT_BINDING_READY');
   assert.equal(bindToken({ ...GOOD, cube_bh: 'BH-SHARED-1000' }).verdict, 'DEFER_TO_OPERATOR', 'SHARED vantage does not bypass the disputed band');
+  assert.equal(
+    bindToken({ ...GOOD, cube_bh: 'BH-ACER-942', mode: 'live' }).gate,
+    'live-binding-requires-operator+disputed-hilbert-band-930-1229-bilateral-ack-pending',
+  );
+  assert.equal(
+    bindToken({ ...GOOD, cube_bh: 'BH-ACER-942', scope: 'mint' }).gate,
+    'scope-escalation-requires-operator+disputed-hilbert-band-930-1229-bilateral-ack-pending',
+  );
 });
 
 test('registry case sensitivity: exact-match only, case-flips rejected', () => {

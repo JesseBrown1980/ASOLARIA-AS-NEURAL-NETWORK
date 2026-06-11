@@ -1,0 +1,8 @@
+LIRISTOKCUBERB|host=liris|commit=c25f0fd|topic=component-3-token-cube-catalog-binder-adversarial-readback|json=0
+LIRISTOKCUBEVERIFY|seed_pull=sidecars_ALL_OK|pyramid_seed=88of88_PASS|binder_selftest_seed=9of9_PASS|parity_seed=22cases_BYTE_MATCH|json=0
+LIRISTOKCUBEFINDINGS|F1=separator-split-long-hex-token-id-accepted-as-reference|F2=leading-zero-BH-alias-accepted|F3=disputed-band-gate-lost-when-live-or-mint-also-deferred|verdict=THREE_REAL_PATCHED|json=0
+LIRISTOKCUBEPATCH|F1=material-detector-catches-separated-32hex-and-token-id-material-blocks-before-format-acceptance|F2=cube_bh-regex-requires-canonical-no-leading-zero-index|F3=defer-gates-accumulate-live+scope+disputed|json=0
+LIRISTOKCUBEPROBES|parity_cases=26|added=split-hex-token-id+leading-zero-bh+live-disputed+mint-disputed|expected=blocked+blocked+combined-defer+combined-defer|json=0
+LIRISTOKCUBEPRIME|operator_food_for_thought=prime-power-partitioning-valid-followup-not-this-patch|classifier=von-mangoldt-prime-power-base+exponent|proposal=bh_class-prime+p2+p3+composite|p3_collision_reserve=promising-needs-canon-definition|terms_need_definition=centipediality+cylindrical-eros+PTP|json=0
+LIRISTOKCUBESAFETY|repo_side_only=1|untouched=live-MCP+fabric+cubes+keys+mint+USB+engine|rows_executable=0|json=0
+LIRISTOKCUBEFTR|state=COMPONENT_3_LIRIS_ADVERSARIAL_PATCH_READY_FOR_ACER_PULL|json=0

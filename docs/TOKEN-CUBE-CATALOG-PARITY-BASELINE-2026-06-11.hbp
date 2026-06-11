@@ -1,4 +1,4 @@
-TOKCUBEPARITYHDR|component=3|cases=22|clock=none-time-free-contract|rule=rows-byte-identical-on-every-machine|json=0
+TOKCUBEPARITYHDR|component=3|cases=26|clock=none-time-free-contract|rule=rows-byte-identical-on-every-machine|json=0
 TOKCUBEPARITY|case=01|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-754|scope=read|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_READY|gate=none|executable=0|json=0
 TOKCUBEPARITY|case=02|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-754|scope=attest|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_READY|gate=none|executable=0|json=0
 TOKCUBEPARITY|case=03|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-754|scope=bind-draft|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_READY|gate=none|executable=0|json=0
@@ -21,4 +21,8 @@ TOKCUBEPARITY|case=19|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|diges
 TOKCUBEPARITY|case=20|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=invalid|scope=read|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_BLOCKED|gate=missing-or-unqualified-cube-address|executable=0|json=0
 TOKCUBEPARITY|case=21|token_id=redacted|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-754|scope=read|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_BLOCKED|gate=malformed-token-id+material-not-reference-suspected|executable=0|json=0
 TOKCUBEPARITY|case=22|token_id=TOK-GNN-EDGE-0001|token_kind=cosign-seal|digest_sha16=794b8c68ec512f9e|cube_bh=BH-SHARED-1|scope=read|source_catalog=d22-translation|mode=draft|verdict=DRAFT_BINDING_READY|gate=none|executable=0|json=0
-TOKCUBEPARITYFTR|cases=22|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0
+TOKCUBEPARITY|case=23|token_id=redacted|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-754|scope=read|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_BLOCKED|gate=malformed-token-id+material-not-reference-suspected|executable=0|json=0
+TOKCUBEPARITY|case=24|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=invalid|scope=read|source_catalog=atlas-v55|mode=draft|verdict=DRAFT_BINDING_BLOCKED|gate=missing-or-unqualified-cube-address|executable=0|json=0
+TOKCUBEPARITY|case=25|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-942|scope=read|source_catalog=atlas-v55|mode=live|verdict=DEFER_TO_OPERATOR|gate=live-binding-requires-operator+disputed-hilbert-band-930-1229-bilateral-ack-pending|executable=0|json=0
+TOKCUBEPARITY|case=26|token_id=TOK-GNN-EDGE-0001|token_kind=sha16-row-hash|digest_sha16=794b8c68ec512f9e|cube_bh=BH-ACER-942|scope=mint|source_catalog=atlas-v55|mode=draft|verdict=DEFER_TO_OPERATOR|gate=scope-escalation-requires-operator+disputed-hilbert-band-930-1229-bilateral-ack-pending|executable=0|json=0
+TOKCUBEPARITYFTR|cases=26|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0

@@ -53,12 +53,14 @@ export const DISPUTED_BANDS = Object.freeze([Object.freeze({ lo: 930, hi: 1229, 
 
 const TOKEN_ID_RE = /^TOK-[A-Z0-9][A-Z0-9-]{2,38}$/;
 const DIGEST_RE = /^[0-9a-f]{16}$/;
-const CUBE_BH_RE = /^BH-(ACER|LIRIS|SHARED)-(\d{1,6})$/;
+const CUBE_BH_RE = /^BH-(ACER|LIRIS|SHARED)-(0|[1-9]\d{0,5})$/;
 const DIRTY_RE = /[|\r\n]/;
 // Material detectors: long contiguous hex, key-block markers, bearer shapes,
-// long base64 runs. Anything matching is redacted from rows entirely.
+// separator-split long hex, long base64 runs. Anything matching is redacted
+// from rows entirely.
 const MATERIAL_RES = Object.freeze([
   /[0-9a-fA-F]{32,}/,
+  /(?:[0-9a-fA-F][:_-]?){32,}/,
   /BEGIN[ -]?[A-Z -]*PRIVATE[ -]?KEY/i,
   /bearer[ :=-]/i,
   /[A-Za-z0-9+/]{40,}={0,2}/,
@@ -124,6 +126,9 @@ export function bindToken(input) {
 
   // Rung 2: token_id is a bounded reference id -- material cannot hide in it.
   const tokenId = inp.token_id ?? '';
+  if (looksLikeMaterial(tokenId)) {
+    return blocked('malformed-token-id', 'material-not-reference-suspected');
+  }
   if (!TOKEN_ID_RE.test(tokenId)) {
     return looksLikeMaterial(tokenId)
       ? blocked('malformed-token-id', 'material-not-reference-suspected')
@@ -154,20 +159,17 @@ export function bindToken(input) {
   const mode = inp.mode ?? 'draft';
   if (mode !== 'draft' && mode !== 'live') return blocked('unknown-mode');
 
-  // Rung 9: live binding is operator territory.
-  if (mode === 'live') return buildResult(inp, 'DEFER_TO_OPERATOR', ['live-binding-requires-operator']);
-
-  // Rung 10: scope escalation (mint/write) is cosign territory.
-  if (SCOPES[inp.scope].escalates) {
-    return buildResult(inp, 'DEFER_TO_OPERATOR', ['scope-escalation-requires-operator']);
-  }
-
-  // Rung 11: disputed hilbert band defers regardless of vantage or scope.
+  // Rungs 9-11: all deferral reasons are preserved. A live or mint/write
+  // request in the disputed band must still carry the disputed-band gate.
+  const deferGates = [];
+  if (mode === 'live') deferGates.push('live-binding-requires-operator');
+  if (SCOPES[inp.scope].escalates) deferGates.push('scope-escalation-requires-operator');
   const index = Number(bhMatch[2]);
   const disputed = DISPUTED_BANDS.find((band) => index >= band.lo && index <= band.hi);
   if (disputed) {
-    return buildResult(inp, 'DEFER_TO_OPERATOR', [`disputed-hilbert-band-${disputed.lo}-${disputed.hi}-bilateral-ack-pending`]);
+    deferGates.push(`disputed-hilbert-band-${disputed.lo}-${disputed.hi}-bilateral-ack-pending`);
   }
+  if (deferGates.length) return buildResult(inp, 'DEFER_TO_OPERATOR', deferGates);
 
   // Rung 12: clean draft binding, still executable=0 by contract.
   return buildResult(inp, 'DRAFT_BINDING_READY', []);
@@ -224,6 +226,10 @@ const PARITY_CASES = Object.freeze([
   { id: '20', input: { ...BASE, cube_bh: null } },
   { id: '21', input: { ...BASE, token_id: 'BEGIN-PRIVATE-KEY-MATERIAL-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' } },
   { id: '22', input: { ...BASE, cube_bh: 'BH-SHARED-1', token_kind: 'cosign-seal', source_catalog: 'd22-translation' } },
+  { id: '23', input: { ...BASE, token_id: 'TOK-DEADBEEF-DEADBEEF-DEADBEEF-DEADBEEF' } },
+  { id: '24', input: { ...BASE, cube_bh: 'BH-ACER-000930' } },
+  { id: '25', input: { ...BASE, cube_bh: 'BH-ACER-942', mode: 'live' } },
+  { id: '26', input: { ...BASE, cube_bh: 'BH-ACER-942', scope: 'mint' } },
 ]);
 
 export function emitParityRows() {
