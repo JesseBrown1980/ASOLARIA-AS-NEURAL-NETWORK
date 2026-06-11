@@ -1,0 +1,11 @@
+D22PARITYHDR|step=166|verbs_covered=7of7|cases=9|rule=rows-byte-identical-on-every-machine|json=0
+D22PARITY|case=01|verb=tuple_to_english|input_sha16=590b80583f801fc5|output_sha16=dc044d91927cc6f5|state=IMPLEMENTED_THIN_ADAPTER|json=0
+D22PARITY|case=02|verb=tuple_to_english|input_sha16=5adbcab43a8aca52|output_sha16=8750b3f3dc16acd6|state=IMPLEMENTED_THIN_ADAPTER|json=0
+D22PARITY|case=03|verb=english_to_tuple|input_sha16=e49b6d849e9547a1|output_sha16=d8908880d34a934c|state=IMPLEMENTED_ALREADY_TUPLE_PACKET|json=0
+D22PARITY|case=04|verb=english_to_tuple|input_sha16=9b7fba624d0ddefd|output_sha16=bf63c61980f36ab7|state=DRAFT_ROUTE_ONLY_NOT_EXECUTABLE|json=0
+D22PARITY|case=05|verb=ix_to_tuple|input_sha16=b5fa93a1c83dcb1b|output_sha16=eb768c05e536db20|state=DRAFT_ROUTE_ONLY_NOT_EXECUTABLE|json=0
+D22PARITY|case=06|verb=hilbert_to_human|input_sha16=b3858eb42f52ecc1|output_sha16=f86d1808f1d5c2ee|state=IMPLEMENTED_SHALLOW_DESCRIPTOR|json=0
+D22PARITY|case=07|verb=crlt_merge|input_sha16=aab8eb2dc67ab270|output_sha16=6308e3c68b9fbc10|state=IMPLEMENTED_SHALLOW_MERGE|json=0
+D22PARITY|case=08|verb=auto_transition_all_languages|input_sha16=67079a38dfb024d4|output_sha16=58e125b618b2a9b4|state=PLAN_MATRIX_ONLY|json=0
+D22PARITY|case=09|verb=namespace_walk|input_sha16=74234e98afe7498f|output_sha16=8931acc659829323|state=IMPLEMENTED_NAMESPACE_READ|json=0
+D22PARITYFTR|cases=9|bundle_sha16=335a1023ceec4946|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0
