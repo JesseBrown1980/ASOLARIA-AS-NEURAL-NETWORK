@@ -36,6 +36,8 @@ const sealedFiles = [
   'docs/ACER-TOKEN-CUBE-LANE-CONFIRM-2026-06-11.hbp',
   'docs/FROZEN-SLICE-FIRST-BINDING-2026-06-11.hbp',
   'docs/LIRIS-FROZEN-SLICE-BINDING-CONFIRM-2026-06-11.hbp',
+  'docs/NNEST-WATCHER-GATE-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/ACER-NNEST-GATE-SEED-2026-06-11.hbp',
   'docs/LIRIS-WATCHER-SUPERVISOR-READBACK-2026-06-11.hbp',
   'docs/ACER-READBACK-WATCHER-SUPERVISOR-2026-06-11.hbp',
   'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
@@ -59,12 +61,16 @@ const sealedFiles = [
   'tools/behcs/token-cube-catalog-binder.mjs',
   'tools/behcs/token-cube-catalog-binder.hbp',
   'tools/behcs/token-cube-catalog-binder.hbi',
+  'tools/behcs/nnest-watcher-gate.mjs',
+  'tools/behcs/nnest-watcher-gate.hbp',
+  'tools/behcs/nnest-watcher-gate.hbi',
   'tools/omni-processor/omnitranslator-v0.js',
   'tests/d22-verb-adapter.unit.test.mjs',
   'tests/d22-parity-probe.unit.test.mjs',
   'tests/dashboard-resolver.unit.test.mjs',
   'tests/watcher-supervisor-suggestion-emitter.unit.test.mjs',
   'tests/token-cube-catalog-binder.unit.test.mjs',
+  'tests/nnest-watcher-gate.unit.test.mjs',
   'tests/supervisor-collision-router.unit.test.mjs',
   'tests/supervisor-collision-router.integration.test.mjs',
   'tests/supervisor-collision-router.suite.test.mjs',
@@ -116,6 +122,12 @@ test('token-cube binder descriptor records the current source and unit-test hash
   const hbp = readFileSync(join(repo, 'tools/behcs/token-cube-catalog-binder.hbp'), 'utf8');
   assert.match(hbp, new RegExp(`binder_sha256=${sha256('tools/behcs/token-cube-catalog-binder.mjs')}`));
   assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/token-cube-catalog-binder.unit.test.mjs')}`));
+});
+
+test('nnest watcher-gate descriptor records the current source and unit-test hashes', () => {
+  const hbp = readFileSync(join(repo, 'tools/behcs/nnest-watcher-gate.hbp'), 'utf8');
+  assert.match(hbp, new RegExp(`gate_sha256=${sha256('tools/behcs/nnest-watcher-gate.mjs')}`));
+  assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/nnest-watcher-gate.unit.test.mjs')}`));
 });
 
 test('sidecar filenames point at their target basenames', () => {

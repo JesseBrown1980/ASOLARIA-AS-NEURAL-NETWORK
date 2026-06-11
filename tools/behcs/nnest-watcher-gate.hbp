@@ -1,0 +1,11 @@
+NNESTGATEHDR|host=acer|component=architecture-component-4|tool=tools/behcs/nnest-watcher-gate.mjs|purpose=n-nest-watcher-gate-child-acts-only-if-reported-equals-recomputed-at-every-level|json=0
+NNESTGATELAW|may_act_requires=BOTH(hash-match-every-level)AND(chain-complete-contiguous-unique-ordered-depth-0-to-max)|hashes=necessary-but-NOT-sufficient|topology_violations=CHILD_HELD-chain-topology-invalid-with-first_bad_depth(never-merely-malformed)|source=OP-JESSE-amendment-2026-06-11|composes=TARGET-ARCHITECTURE-VISION-2026-06-10(COMPONENT-4)+N-Nest-Prime-proof(depth-16-2732-files-131071-nodes)+LAW-RECURRENCE-IS-MIND|json=0
+NNESTGATESCOPE_DOC|repo_side_draft_only=1|never=process-spawn+recursion-into-real-agents+harness-edits|gate-emits-verdict-rows-it-never-acts|live_harness_embedding=SEPARATE-GATED-FOLLOW-UP-operator-signoff|json=0
+NNESTGATELADDER|rungs=9|order=dirty-HELD+malformed-agent-HELD+unknown-action-HELD+invalid-max-depth-HELD+empty-chain-HELD+TOPOLOGY-HELD(first_bad_depth)+hash-format-HELD(first_bad_depth)+hash-divergence-HELD(first_bad_depth)+consent-DEFER+honest-free-CHILD_MAY_ACT|topology_before_hashes=BY-DESIGN|json=0
+NNESTGATETABLE|actions_free=observe+report-up+draft-row|actions_consent=act-on-world+spawn-child+modify-self|consent_cap=DEFER_TO_OPERATOR-even-on-perfect-chain(consent-anchors-at-apex-T0-only)|membership=DRAFT_ASSUMPTION-bilateral-contest-welcome|json=0
+NNESTGATEBOUND|max_depth=16|why=the-PROVEN-N-Nest-Prime-depth|beyond=CHILD_HELD-invalid-max-depth|json=0
+NNESTGATELEAK_DOC|held_rows_carry=first_bad_depth+chain_sha16-only|level_hashes=NEVER-echoed-into-rows|catch-at-exact-level=preserved(first_bad_depth-names-the-divergent-depth)|json=0
+NNESTGATESAFETY|mutates=0|pure_function=1|time_free_contract=1|no_spawn=1|no_recursion_into_real_agents=1|no_harness_edit=1|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|json=0
+NNESTGATEVERIFY|required=node-check+node-test+self-test+parity-byte-compare|parity_baseline=docs/NNEST-WATCHER-GATE-PARITY-BASELINE-2026-06-11.hbp|clock=none-time-free|json=0
+NNESTGATESHA|gate_sha256=2933CBEBACA55272D6352F16915F5224456F8C8B5DC4E753DF05821CF021007B|test_sha256=49B2E08219D9CF24EC53D856B3A34D29E6F35A4C451E74F4AC5B041F0E57B5BA|json=0
+NNESTGATEFTR|state=COMPONENT_4_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|json=0

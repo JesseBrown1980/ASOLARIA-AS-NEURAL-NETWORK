@@ -1,0 +1,6 @@
+ACERNNESTSEEDHDR|host=acer|date=2026-06-11|component=architecture-component-4|topic=n-nest-watcher-gate-contract-seed|lane=operator-approved-with-topology-amendment-acer-seeds-liris-attacks|json=0
+ACERNNESTSEEDLAW|operator_amendment=CHILD_MAY_ACT-requires-BOTH-hash-match-every-level-AND-chain-complete-contiguous-unique-ordered|truncation+duplicate+skip+reorder=CHILD_HELD-chain-topology-invalid-with-first_bad_depth|hashes=necessary-but-not-sufficient|makes-the-brown-hilbert-nested-curve-auditable-as-a-CHAIN-not-a-bag-of-hashes|json=0
+ACERNNESTSEEDPROOF|determinism=double-run-byte-identical|parity_cases=16|time_free=no-clock-in-rows|gate_tests=11of11_PASS|selftest=8of8_PASS|divergence-precision=tested-at-every-k-0-to-5|json=0
+ACERNNESTSEEDDEFENSE|topology-before-hashes-by-design|consent-actions-DEFER-even-on-perfect-chain(apex-T0-only)|depth-bound-16-proven|held-rows-leak-only-first_bad_depth+chain_sha16(level-hashes-never-echoed)|executable-0-every-row|json=0
+ACERNNESTSEEDOPEN|action-registry=DRAFT_ASSUMPTION|live-harness-embedding=operator-gated-follow-up|json=0
+ACERNNESTSEEDFTR|state=COMPONENT_4_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
