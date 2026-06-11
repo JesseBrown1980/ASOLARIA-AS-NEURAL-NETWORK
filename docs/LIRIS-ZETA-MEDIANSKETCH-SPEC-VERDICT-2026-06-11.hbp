@@ -1,0 +1,8 @@
+LIRISZMSPECHDR|host=liris|date=2026-06-11|pulled_commit=97d6222|topic=liris-spec-verdict-for-zetaquant-and-mediansketch-after-acer-confirm|json=0
+LIRISZMSPECVERIFY|pyramid_at_pull=118of118_PASS|acer_confirm=READ(ACER-CENSUS-MEDIANSKETCH-CONFIRM-2026-06-11)|catch30=CONFIRMED_CLOSED|median_keyed_mixer_patch=ACCEPTED|json=0
+LIRISZMSPECMEDIAN|MEDIANSKETCHSPEC8=SIGNED_AS_PATCHED|hash_family=independently-salted-deterministic-32bit-mixers|guard=implementation-must-demonstrate-old-same-residue-collision-no-longer-poisons-all-K-sketches|tradeoff=5x-tuple-and-encode-cost-must-be-measured-before-any-promotion|json=0
+LIRISZMSPECFINDING|F1=ZETAQUANTSPEC-forcing-validator-needed-small-prime-exceptions-and-necessary-not-sufficient-wording|why=2-and-3-are-primes-but-not-primes_gt3-on-mod6-residues-1-or-5-and-gap-2-from-3-to-5-does-not-follow-the-normal-lane2-to-1-map|verdict=REAL_PATCHED|json=0
+LIRISZMSPECPATCH|F1=ZETAQUANTSPEC-updated-prime_residence-with-small-prime-exception-2-and-3+validator-NOT_APPLICABLE-for-small-prime-exceptions-and-gap_mod6-outside-0-2-4+scope-NECESSARY-NOT-SUFFICIENT|parity=must-include-small-prime-exception-rows-and-force-sweep-only-for-primes_gt3|json=0
+LIRISZMSPECACCEPT|ZETAQUANTSPEC=ACCEPTED_AFTER_F1_PATCH|api_shape=accepted|cylinder_coordinate=accepted|domain=accepted|validator=accepted-as-cheap-informational-necessary-check-never-gating|json=0
+LIRISZMSPECNEXT|acer_lane=readback-F1-then-implement-zeta-module-and-median-sketch-tool|liris_lane=byte-match-rerun-after-implementation|JS=still-placeholder-no-dependency-no-proof-carrying|json=0
+LIRISZMSPECFTR|state=SPECS_SIGNED_WITH_ONE_ZETA_PRECISION_PATCH_READY_FOR_ACER_READBACK_THEN_CODE|json=0
