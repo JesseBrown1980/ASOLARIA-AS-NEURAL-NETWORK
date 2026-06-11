@@ -1,0 +1,7 @@
+ACERTOKCUBESEEDHDR|host=acer|date=2026-06-11|component=architecture-component-3|topic=token-cube-catalog-binder-seed|lane=operator-relayed-liris-recommendation-acer-seeds-liris-attacks|json=0
+ACERTOKCUBESEEDSCOPE|repo_side_draft_only=1|untouched=live-MCP+fabric+cubes+keys|tokens=REFERENCES-ONLY(token_id+kind+digest_sha16+cube_bh+scope+catalog)|no-material-no-secrets-no-bearers-ever-inlined|json=0
+ACERTOKCUBESEEDDEFENSE|material-guard=long-hex+key-block-markers+bearer-shapes+base64-runs-REDACTED-not-echoed|digest=exactly-16-lowercase-hex-kills-length-spoofing|cube_bh=vantage-qualified-REQUIRED-per-hilbert-collision-canon|disputed-band-930-1229-DEFERS-always(bilateral-ack-pending)|scope-mint-write-DEFERS|mode-live-DEFERS|json=0
+ACERTOKCUBESEEDPROOF|determinism=double-run-byte-identical|parity_cases=22|time_free_contract=no-clock-in-any-row|binder_tests=12of12_PASS|selftest=9of9_PASS|json=0
+ACERTOKCUBESEEDSELFCORRECT|acer-own-test-initially-claimed-all-registries-lowercase|hilbert-omni-47D-carries-canonical-capital-D-from-real-artifact|fixed-test-to-exact-match-semantics-not-the-registry|json=0
+ACERTOKCUBESEEDOPEN|registry_membership=DRAFT_ASSUMPTION-declared(kinds+catalogs-from-fabric-canon)|live-binding+mint+write=gated-follow-up-operator-signoff|json=0
+ACERTOKCUBESEEDFTR|state=COMPONENT_3_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0

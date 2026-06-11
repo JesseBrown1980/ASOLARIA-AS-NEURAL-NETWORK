@@ -28,6 +28,8 @@ const sealedFiles = [
   'docs/ACER-READBACK-DASHBOARD-RESOLVER-2026-06-11.hbp',
   'docs/WATCHER-SUPERVISOR-SUGGESTION-PARITY-BASELINE-2026-06-11.hbp',
   'docs/ACER-WATCHER-SUPERVISOR-SEED-2026-06-11.hbp',
+  'docs/TOKEN-CUBE-CATALOG-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/ACER-TOKEN-CUBE-CATALOG-SEED-2026-06-11.hbp',
   'docs/LIRIS-WATCHER-SUPERVISOR-READBACK-2026-06-11.hbp',
   'docs/ACER-READBACK-WATCHER-SUPERVISOR-2026-06-11.hbp',
   'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
@@ -48,11 +50,15 @@ const sealedFiles = [
   'tools/behcs/watcher-supervisor-suggestion-emitter.mjs',
   'tools/behcs/watcher-supervisor-suggestion-emitter.hbp',
   'tools/behcs/watcher-supervisor-suggestion-emitter.hbi',
+  'tools/behcs/token-cube-catalog-binder.mjs',
+  'tools/behcs/token-cube-catalog-binder.hbp',
+  'tools/behcs/token-cube-catalog-binder.hbi',
   'tools/omni-processor/omnitranslator-v0.js',
   'tests/d22-verb-adapter.unit.test.mjs',
   'tests/d22-parity-probe.unit.test.mjs',
   'tests/dashboard-resolver.unit.test.mjs',
   'tests/watcher-supervisor-suggestion-emitter.unit.test.mjs',
+  'tests/token-cube-catalog-binder.unit.test.mjs',
   'tests/supervisor-collision-router.unit.test.mjs',
   'tests/supervisor-collision-router.integration.test.mjs',
   'tests/supervisor-collision-router.suite.test.mjs',
@@ -98,6 +104,12 @@ test('suggestion emitter descriptor records the current source and unit-test has
   const hbp = readFileSync(join(repo, 'tools/behcs/watcher-supervisor-suggestion-emitter.hbp'), 'utf8');
   assert.match(hbp, new RegExp(`emitter_sha256=${sha256('tools/behcs/watcher-supervisor-suggestion-emitter.mjs')}`));
   assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/watcher-supervisor-suggestion-emitter.unit.test.mjs')}`));
+});
+
+test('token-cube binder descriptor records the current source and unit-test hashes', () => {
+  const hbp = readFileSync(join(repo, 'tools/behcs/token-cube-catalog-binder.hbp'), 'utf8');
+  assert.match(hbp, new RegExp(`binder_sha256=${sha256('tools/behcs/token-cube-catalog-binder.mjs')}`));
+  assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/token-cube-catalog-binder.unit.test.mjs')}`));
 });
 
 test('sidecar filenames point at their target basenames', () => {
