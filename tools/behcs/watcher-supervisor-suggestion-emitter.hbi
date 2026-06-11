@@ -1,0 +1,12 @@
+WSUGINDEX|host=acer|target=watcher-supervisor-suggestion-emitter.hbp|tool=watcher-supervisor-suggestion-emitter.mjs|rows=11|json=0
+INDEXROW|row=1|kind=header|component=architecture-component-5|json=0
+INDEXROW|row=2|kind=law|invariant=every-row-executable-0|json=0
+INDEXROW|row=3|kind=scope|repo_side_draft_only=1|no_live_surface=1|json=0
+INDEXROW|row=4|kind=ladder|rungs=10|json=0
+INDEXROW|row=5|kind=table|watchers=3|supervisors=4|registries=closed-sets|json=0
+INDEXROW|row=6|kind=actions|free=3|live_fabric=3|live_cap=DEFER_TO_OPERATOR|json=0
+INDEXROW|row=7|kind=row-contract|fields=13|evidence=sha16-only|bands=3|json=0
+INDEXROW|row=8|kind=safety|mutates=0|pure_function=1|no_live_post=1|json=0
+INDEXROW|row=9|kind=verify|required=node-check+node-test+self-test+parity-byte-compare|json=0
+INDEXROW|row=10|kind=sha|fields=emitter_sha256+test_sha256|json=0
+INDEXROW|row=11|kind=footer|state=COMPONENT_5_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|json=0

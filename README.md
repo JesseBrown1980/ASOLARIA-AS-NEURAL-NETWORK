@@ -39,6 +39,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `tools/behcs/omnidirectional-translator-router.mjs` — component-2 router: implemented pairs execute, fabric endpoints stay draft-only.
 - `tools/behcs/d22-verb-adapter.mjs` — thin D22 verb surface over the deterministic router/core.
 - `tools/behcs/dashboard-resolver.mjs` — component-1 resolver: `(pid, device, ts)` → tightest-scoped dashboard route, 8-rung demotion ladder.
+- `tools/behcs/watcher-supervisor-suggestion-emitter.mjs` — component-5 suggestion-row contract: watcher → supervisor draft rows, `executable=0` invariant, live actions cap at DEFER_TO_OPERATOR.
 - `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
 - `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
 

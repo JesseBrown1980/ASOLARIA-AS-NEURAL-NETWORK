@@ -1,0 +1,7 @@
+ACERWSUGSEEDHDR|host=acer|date=2026-06-11|component=architecture-component-5|topic=watcher-supervisor-suggestion-row-contract-seed|lane=operator-assigned-acer-seeds-liris-attacks|json=0
+ACERWSUGSEEDSCOPE|repo_side_draft_only=1|untouched=live-/hbp/supervisors+office-705-feed+fabric-bus+runtime-watchers|inherits=component-1-route-discipline(resolver-pure-import)|json=0
+ACERWSUGSEEDCONTRACT|row=WATCHSUGGEST-13-fields|invariant=executable-0-on-every-row-all-verdicts|verdicts=DRAFT_SUGGESTION_READY+DEFER_TO_OPERATOR+DRAFT_SUGGESTION_BLOCKED(closed-set)|live_actions_cap=DEFER_TO_OPERATOR|json=0
+ACERWSUGSEEDDEFENSE|registries=closed-sets-raw-input-never-reaches-rows|evidence=sha16-only-never-inlined|ts=strict-UTC-roundtrip(liris-calendar-catch-inherited)|confidence=integer-0-100-bands-tile-no-gap-no-overlap|json=0
+ACERWSUGSEEDPROOF|determinism=double-run-byte-identical|parity_cases=21|bundle_sha16=d1dc69dc1c823a29|emitter_tests=11of11_PASS|selftest=8of8_PASS|json=0
+ACERWSUGSEEDOPEN|registry_membership=DRAFT-ASSUMPTION(watcher+supervisor-ids-from-fabric-memory-liris-contest-welcome)|room_band_P-field-assumption=still-standing-from-component-1|live_wiring=gated-follow-up-operator-signoff|json=0
+ACERWSUGSEEDFTR|state=COMPONENT_5_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0

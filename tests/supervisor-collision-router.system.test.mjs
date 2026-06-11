@@ -26,6 +26,8 @@ const sealedFiles = [
   'docs/DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp',
   'docs/LIRIS-DASHBOARD-RESOLVER-READBACK-2026-06-11.hbp',
   'docs/ACER-READBACK-DASHBOARD-RESOLVER-2026-06-11.hbp',
+  'docs/WATCHER-SUPERVISOR-SUGGESTION-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/ACER-WATCHER-SUPERVISOR-SEED-2026-06-11.hbp',
   'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
@@ -41,10 +43,14 @@ const sealedFiles = [
   'tools/behcs/dashboard-resolver.mjs',
   'tools/behcs/dashboard-resolver.hbp',
   'tools/behcs/dashboard-resolver.hbi',
+  'tools/behcs/watcher-supervisor-suggestion-emitter.mjs',
+  'tools/behcs/watcher-supervisor-suggestion-emitter.hbp',
+  'tools/behcs/watcher-supervisor-suggestion-emitter.hbi',
   'tools/omni-processor/omnitranslator-v0.js',
   'tests/d22-verb-adapter.unit.test.mjs',
   'tests/d22-parity-probe.unit.test.mjs',
   'tests/dashboard-resolver.unit.test.mjs',
+  'tests/watcher-supervisor-suggestion-emitter.unit.test.mjs',
   'tests/supervisor-collision-router.unit.test.mjs',
   'tests/supervisor-collision-router.integration.test.mjs',
   'tests/supervisor-collision-router.suite.test.mjs',
@@ -84,6 +90,12 @@ test('dashboard resolver descriptor records the current source and unit-test has
   const hbp = readFileSync(join(repo, 'tools/behcs/dashboard-resolver.hbp'), 'utf8');
   assert.match(hbp, new RegExp(`resolver_sha256=${sha256('tools/behcs/dashboard-resolver.mjs')}`));
   assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/dashboard-resolver.unit.test.mjs')}`));
+});
+
+test('suggestion emitter descriptor records the current source and unit-test hashes', () => {
+  const hbp = readFileSync(join(repo, 'tools/behcs/watcher-supervisor-suggestion-emitter.hbp'), 'utf8');
+  assert.match(hbp, new RegExp(`emitter_sha256=${sha256('tools/behcs/watcher-supervisor-suggestion-emitter.mjs')}`));
+  assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/watcher-supervisor-suggestion-emitter.unit.test.mjs')}`));
 });
 
 test('sidecar filenames point at their target basenames', () => {

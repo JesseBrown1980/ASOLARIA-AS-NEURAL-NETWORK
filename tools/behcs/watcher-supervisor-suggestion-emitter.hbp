@@ -1,0 +1,11 @@
+WSUGHDR|host=acer|component=architecture-component-5|tool=tools/behcs/watcher-supervisor-suggestion-emitter.mjs|purpose=deterministic-watcher-to-supervisor-suggestion-row-contract|json=0
+WSUGLAW|rule=a-suggestion-is-something-a-supervisor-READS-never-something-this-tool-DOES|invariant=every-row-executable-0|composes=TARGET-ARCHITECTURE-VISION-2026-06-10(COMPONENT-5)+component-1-route-discipline+LAW-RECURRENCE-IS-MIND(watcher-suggests-corrective-gate-decides)|json=0
+WSUGSCOPE|repo_side_draft_only=1|never_touches=live-/hbp/supervisors-surface+office-705-feed+fabric-bus+runtime-watchers|live_wiring=SEPARATE-GATED-FOLLOW-UP-operator-signoff|json=0
+WSUGLADDER|rungs=10|order=dirty-input-BLOCKED+unknown-watcher-BLOCKED+unknown-supervisor-BLOCKED+unknown-action-BLOCKED+unknown-reason-BLOCKED+missing-evidence-BLOCKED+invalid-confidence-BLOCKED+malformed-future-stale-ts-BLOCKED+live-fabric-action-DEFER_TO_OPERATOR+clean-DRAFT_SUGGESTION_READY|json=0
+WSUGTABLE|watchers=WATCH-SELFREFLECT-60S+WATCH-PROF-AUTOCHRONE+WATCH-NNEST-DEPTH-GATE|supervisors=SUP-OFFICE-705-COUNCIL+SUP-PROF-AI-MEMORY+SUP-PROF-X-DOUBLE-CRITIC+SUP-HELM-AGT-L3-H8EF7|registries=CLOSED-SETS-raw-input-never-reaches-rows|json=0
+WSUGACTIONS|free=observe-again+read-route-hbp+draft-correction-row|live_fabric=dispatch-agent+restart-daemon+request-cosign-mint|live_cap=DEFER_TO_OPERATOR-regardless-of-input-quality|json=0
+WSUGROW|fields=watcher+supervisor+action+reason+route+evidence_sha16+confidence+band+ts+verdict+gates+executable+json|evidence=referenced-by-sha16-never-inlined|route=component-1-resolver-pure-import-tightest-or-none|confidence=integer-0-100|bands=low0-33+medium34-66+high67-100|json=0
+WSUGSAFETY|mutates=0|pure_function=1|no_live_post=1|no_fabric_call=1|no_process_launch=1|no_disk_write=1|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|json=0
+WSUGVERIFY|required=node-check+node-test+self-test+parity-byte-compare|parity_baseline=docs/WATCHER-SUPERVISOR-SUGGESTION-PARITY-BASELINE-2026-06-11.hbp|bundle_sha16=d1dc69dc1c823a29|json=0
+WSUGSHA|emitter_sha256=42DD37155B17F7FEAA181ABE8C6868745950C46E550574BC8DB31F4E0E7B464A|test_sha256=23B32399FDE88A3C39F8BB7509E1A894565BE24A8FECCD74EDDCEFD704CEE44B|json=0
+WSUGFTR|state=COMPONENT_5_SEED_READY_FOR_LIRIS_ADVERSARIAL_READBACK|json=0
