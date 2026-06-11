@@ -36,6 +36,7 @@ export const ACTIONS = Object.freeze({
 const AGENT_ID_RE = /^AGT-[A-Z0-9][A-Z0-9-]{2,38}$/;
 const HASH_RE = /^[0-9a-f]{16}$/;
 const DIRTY_RE = /[|\r\n]/;
+const TUPLE_KEYS = Object.freeze(['depth', 'reported_sha16', 'recomputed_sha16']);
 
 function sha16(value) {
   const text = typeof value === 'string' ? value : JSON.stringify(value);
@@ -52,19 +53,32 @@ function echoField(value, validator) {
   return validator(clean) ? clean : 'invalid';
 }
 
+function isExactTuple(tuple) {
+  if (!tuple || typeof tuple !== 'object' || Array.isArray(tuple)) return false;
+  if (Object.getPrototypeOf(tuple) !== Object.prototype) return false;
+  const keys = Object.keys(tuple);
+  return keys.length === TUPLE_KEYS.length && TUPLE_KEYS.every((key) => Object.hasOwn(tuple, key));
+}
+
+function isDigestibleTuple(tuple) {
+  return isExactTuple(tuple)
+    && Number.isInteger(tuple.depth)
+    && typeof tuple.reported_sha16 === 'string'
+    && typeof tuple.recomputed_sha16 === 'string'
+    && !DIRTY_RE.test(tuple.reported_sha16)
+    && !DIRTY_RE.test(tuple.recomputed_sha16)
+    && HASH_RE.test(tuple.reported_sha16)
+    && HASH_RE.test(tuple.recomputed_sha16);
+}
+
 // chain_sha16 is the only chain-derived value a row may carry: a digest of
 // the canonical serialization, never the level hashes themselves. HELD rows
 // name first_bad_depth (the proven catch-at-exact-level behavior) and
-// nothing else about the chain's content.
+// nothing else about the chain's content. Noncanonical or invalid-hash chains
+// produce chain_sha16=none so HELD rows cannot become digest oracles.
 function chainDigest(chain) {
   if (!Array.isArray(chain) || chain.length === 0) return 'none';
-  const shaped = chain.every(
-    (t) => t && typeof t === 'object' && !Array.isArray(t)
-      && Number.isInteger(t.depth)
-      && typeof t.reported_sha16 === 'string' && !DIRTY_RE.test(t.reported_sha16)
-      && typeof t.recomputed_sha16 === 'string' && !DIRTY_RE.test(t.recomputed_sha16),
-  );
-  if (!shaped) return 'none';
+  if (!chain.every(isDigestibleTuple)) return 'none';
   return sha16(JSON.stringify(chain.map((t) => [t.depth, t.reported_sha16, t.recomputed_sha16])));
 }
 
@@ -130,7 +144,7 @@ export function gateChain(input) {
   }
   for (let i = 0; i <= inp.max_depth; i += 1) {
     const tuple = inp.chain[i];
-    if (!tuple || typeof tuple !== 'object' || Array.isArray(tuple) || tuple.depth !== i) {
+    if (!isExactTuple(tuple) || tuple.depth !== i) {
       return held('chain-topology-invalid', i);
     }
     if (!HASH_RE.test(tuple.reported_sha16 ?? '') || !HASH_RE.test(tuple.recomputed_sha16 ?? '')) {
@@ -165,7 +179,7 @@ export function statusRows() {
   for (const [id, meta] of Object.entries(ACTIONS)) {
     rows.push(`NNESTGATEACTION|id=${id}|consent=${meta.consent}|max_verdict=${meta.consent ? 'DEFER_TO_OPERATOR' : 'CHILD_MAY_ACT'}|json=0`);
   }
-  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|level_hashes=NEVER-echoed|json=0');
+  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|chain_sha16=none-for-noncanonical-or-invalid-hash-chains|level_hashes=NEVER-echoed|json=0');
   rows.push('NNESTGATESAFETY|mutates=0|pure_function=1|no_spawn=1|no_recursion_into_real_agents=1|no_harness_edit=1|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0');
   rows.push('NNESTGATEEND|state=COMPONENT_4_SEED_DRAFT_CONTRACT|json=0');
   return rows;
@@ -201,6 +215,8 @@ const PARITY_CASES = Object.freeze([
   { id: '14', input: { ...BASE, chain: (() => { const c = goodChain(3); c[1] = { ...c[1], reported_sha16: 'NOT-A-HASH' }; return c; })() } },
   { id: '15', input: { ...BASE, chain: [] } },
   { id: '16', input: { ...BASE, max_depth: 0, chain: goodChain(0) } },
+  { id: '17', input: { ...BASE, chain: (() => { const c = goodChain(3); c[1] = { ...c[1], extra: 'ignored-field-must-hold' }; return c; })() } },
+  { id: '18', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = Object.assign(Object.create({ ...c[0] }), {}); return c; })() } },
 ]);
 
 export function emitParityRows() {

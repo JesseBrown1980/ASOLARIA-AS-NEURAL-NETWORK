@@ -50,6 +50,25 @@ test('chain topology: truncation, duplicate, skip, reorder all HELD with first_b
   }
 });
 
+test('tuple shape is exact: extra fields and inherited fields are topology violations', () => {
+  const extra = goodChain(3);
+  extra[1] = { ...extra[1], extra: 'C:/Users/rayss/SECRET' };
+  const extraOut = gateChain({ ...GOOD, chain: extra });
+  assert.equal(extraOut.verdict, 'CHILD_HELD');
+  assert.equal(extraOut.gate, 'chain-topology-invalid');
+  assert.equal(extraOut.first_bad_depth, 1);
+  assert.equal(extraOut.chain_sha16, 'none');
+  assert.ok(!extraOut.row.includes('SECRET'));
+
+  const proto = goodChain(3);
+  proto[0] = Object.assign(Object.create({ ...proto[0] }), {});
+  const protoOut = gateChain({ ...GOOD, chain: proto });
+  assert.equal(protoOut.verdict, 'CHILD_HELD');
+  assert.equal(protoOut.gate, 'chain-topology-invalid');
+  assert.equal(protoOut.first_bad_depth, 0);
+  assert.equal(protoOut.chain_sha16, 'none');
+});
+
 test('mismatch-at-depth-k precision: divergence named at the exact level, every k', () => {
   for (let k = 0; k <= 5; k += 1) {
     const chain = goodChain(5);
@@ -69,7 +88,14 @@ test('forged reported hashes: format spoofs HELD at exact level, never routed pa
     assert.equal(out.verdict, 'CHILD_HELD', JSON.stringify(bad));
     assert.equal(out.gate, 'hash-format-invalid');
     assert.equal(out.first_bad_depth, 1);
+    assert.equal(out.chain_sha16, 'none');
   }
+  const material = goodChain(3);
+  material[1] = { ...material[1], reported_sha16: 'C:/Users/rayss/SECRET' };
+  const materialOut = gateChain({ ...GOOD, chain: material });
+  assert.equal(materialOut.gate, 'hash-format-invalid');
+  assert.equal(materialOut.chain_sha16, 'none');
+  assert.ok(!materialOut.row.includes('SECRET'));
 });
 
 test('consent-anchor bypass: every consent action DEFERS even on a perfect chain', () => {

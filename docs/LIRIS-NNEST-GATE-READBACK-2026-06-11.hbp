@@ -1,0 +1,8 @@
+LIRISNNESTRBHDR|host=liris|date=2026-06-11|pulled_commit=85c9181|topic=component-4-nnest-watcher-gate-adversarial-readback|json=0
+LIRISNNESTRBVERIFY|blob_level_sidecars=ALL_OK|pyramid_at_pull=104of104_PASS|acer_16case_baseline=BYTE_MATCHED_ON_LIRIS|gate_selftest=8of8_PASS|json=0
+LIRISNNESTRBFINDINGS|F1=tuple-extra-fields-ignored-and-still-CHILD_MAY_ACT|F2=prototype-inherited-tuple-fields-accepted|F3=chain_sha16-digested-invalid-or-noncanonical-chain-content|verdict=THREE_REAL_PATCHED|json=0
+LIRISNNESTRBPATCH|F1F2=tuples-must-be-exact-own-field-plain-objects(depth+reported_sha16+recomputed_sha16)|F3=chain_sha16-none-unless-every-tuple-is-exact-and-both-hashes-are-valid-16hex|json=0
+LIRISNNESTRBPROBES|extended=PASS|extra-field-path-shape-held-without-echo+prototype-backed-tuple-held+invalid-format-chain-sha16-none+material-shaped-invalid-hash-not-digested|max_depth0_length1=accepted-as-valid-chain-0-to-0|json=0
+LIRISNNESTRBDOCTRINE|operator_amendment_preserved=hash-match-AND-topology|strengthened=topology-means-exact-tuple-shape-not-bag-of-fields|consent_anchor=still-DEFER_TO_OPERATOR|executable=0|json=0
+LIRISNNESTRBSAFETY|repo_side_only=1|untouched=process-spawn+real-agent-recursion+harness-edits+mint+USB+engine|json=0
+LIRISNNESTRBFTR|state=COMPONENT_4_LIRIS_EXACT_TUPLE_PATCH_READY_FOR_ACER_PULL|json=0
