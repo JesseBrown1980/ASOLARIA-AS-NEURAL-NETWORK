@@ -14,11 +14,23 @@ const NOVALUM_CUBE_MARKERS = [103823, 389017, 704969];
 const dialects = new Map();
 const pairs = new Map();
 
+const DIALECT_ID_RE = /^[A-Za-z0-9_][A-Za-z0-9_.-]*$/;
+
+function assertSafeDialectId(id, label) {
+  if (typeof id !== "string" || !DIALECT_ID_RE.test(id)) {
+    throw new Error(`${label} dialect id must match ${DIALECT_ID_RE}`);
+  }
+}
+
 function registerDialect(id, meta) {
+  assertSafeDialectId(id, "registerDialect");
   dialects.set(id, { id, ...meta });
 }
 
 function registerPair(from, to, fn) {
+  assertSafeDialectId(from, "registerPair from");
+  assertSafeDialectId(to, "registerPair to");
+  if (typeof fn !== "function") throw new Error("registerPair translator must be function");
   pairs.set(`${from}->${to}`, fn);
 }
 

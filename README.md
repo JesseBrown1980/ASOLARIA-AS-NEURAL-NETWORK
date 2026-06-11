@@ -37,6 +37,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp` — shared bilateral router contract.
 - `tools/omni-processor/omnitranslator-v0.js` — deterministic omnilanguage/json translator core.
 - `tools/behcs/omnidirectional-translator-router.mjs` — component-2 router: implemented pairs execute, fabric endpoints stay draft-only.
+- `tools/behcs/d22-verb-adapter.mjs` — thin D22 verb surface over the deterministic router/core.
 - `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
 - `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
 
@@ -45,6 +46,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 The supervisor collision router converged in doctrine before it converged in bytes. The target shape is now the Liris HBP-native version:
 
 - component-2 translation router now exists in-repo: `omnilanguage<->json` executes deterministically through table/core logic; HBP/HBI/MCP/WebMCP/cube/whiteroom/Shannon/frozen-slice/geospatial/HRM endpoints return draft routes only until token bindings and required cosigns exist
+- D22 verb adapter now exposes `tuple_to_english`, `english_to_tuple`, `ix_to_tuple`, `hilbert_to_human`, `crlt_merge`, `auto_transition_all_languages`, and `namespace_walk`; true natural-language and IX parsing remain explicit drafts
 - input: `COLLISION|...|json=0` HBP rows, with JS-object input only as compatibility
 - rule: a collision is only an error after classification
 - head guard: non-`COLLISION` HBP rows are held, not routed as collisions

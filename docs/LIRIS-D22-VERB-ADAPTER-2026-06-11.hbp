@@ -1,0 +1,7 @@
+LIRISD22HDR|host=liris|date=2026-06-11|base_commit=44c3880|component=architecture-component-2|topic=F1-readback-plus-F5-D22-adapter|json=0
+LIRISD22READBACK|acer_round2=44c3880|verify=node_check_core_router_PASS+pyramid_41of41_PASS+router_cli_5of5_PASS|state=ACER_F1_F2_REPRODUCED_ON_LIRIS|json=0
+LIRISD22ADVERSARY|finding=core-registerDialect-registerPair-accepted-pipe-bearing-dialect-ids|proof=pair_field_could_become_pair=bad_pipe_json1_arrow_json|impact=audit-row-field-injection-at-exported-core-api-boundary|state=REFUTED_STRONG_ALL_INPUTS_CLAIM|json=0
+LIRISD22FIX|action=validate-dialect-ids-before-registering-dialects-or-pairs|pattern=^[A-Za-z0-9_][A-Za-z0-9_.-]*$|test=translator-core-rejects-dialect-ids-that-could-inject-HBP-fields|state=PATCHED|json=0
+LIRISD22F5|action=add-thin-D22-verb-adapter|file=tools/behcs/d22-verb-adapter.mjs|verbs=tuple_to_english+english_to_tuple+ix_to_tuple+hilbert_to_human+crlt_merge+auto_transition_all_languages+namespace_walk|mode=non-gated-draft-no-engine-edit|json=0
+LIRISD22SAFETY|mutates=audit-hbp-append-only-when-implemented-pair-executes|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|apex_T0=untouched|json=0
+LIRISD22FTR|state=READY_FOR_ACER_PULL_VERIFY_AND_ADVERSARIAL_COMPARE|json=0

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
@@ -10,6 +11,9 @@ import {
   selfTest,
   statusRows,
 } from '../tools/behcs/omnidirectional-translator-router.mjs';
+
+const require = createRequire(import.meta.url);
+const translatorCore = require('../tools/omni-processor/omnitranslator-v0.js');
 
 test('component 2 router exposes dialects, fabric endpoints, and implemented pairs', () => {
   const endpoints = listRouterEndpoints();
@@ -51,6 +55,12 @@ test('audit lane emits HBP pipe rows, not JSON', () => {
   assert.ok(last.endsWith('|json=0'), 'audit row must close with json=0');
   assert.ok(!last.includes('{"'), 'audit lane must carry no JSON');
   assert.match(last, /\|output_sha16=[0-9a-f]{16}\|/, 'content referenced by sha16, never inlined');
+});
+
+test('translator core rejects dialect ids that could inject HBP fields', () => {
+  assert.throws(() => translatorCore.registerDialect('bad|json=1', { pair_status: 'implemented' }), /dialect id must match/);
+  assert.throws(() => translatorCore.registerDialect('bad\nrow', { pair_status: 'implemented' }), /dialect id must match/);
+  assert.throws(() => translatorCore.registerPair('omnilanguage', 'json|mutates=1', () => ({})), /dialect id must match/);
 });
 
 test('status emits HBP rows and self-test passes', () => {
