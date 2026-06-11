@@ -1,0 +1,6 @@
+LIRISBHXC34HDR|host=liris|date=2026-06-11|topic=Brown-Hilbert-expansion-catch33-boundary-test-coverage-tightening|responds_to=acer-a163ddd-boundary-hardening|json=0
+LIRISBHXC34ACCEPT|acer_function_readback=SOUND|isDecimalPowerString_patch_still_correct=1|acer_boundary_intent=ACCEPTED-test-coverage-should-enforce-not-narrate|json=0
+LIRISBHXC34CATCH|finding=acer-added-boundary-test-had-two-test-label-mismatches|F1=last-pos-9-case-used-exponent-201-for-a-201-char-string-so-it-failed-by-short-length-before-testing-final-byte|F2=right-last-char-wrong-length-case-ended-with-9-so-it-tested-wrong-last-char-plus-wrong-length-not-the-named-case|json=0
+LIRISBHXC34PATCH|file=tests/brown-hilbert-expansion-stress.unit.test.mjs|fix1=last-pos-9-now-uses-exponent-200-so-length-is-correct-and-final-byte-is-the-only-fault|fix2=wrong-length-case-now-uses-all-zero-tail-with-too-long-length-so-last-byte-is-correct|json=0
+LIRISBHXC34SCOPE|no_function_change=1|no_10min_rerun_needed=1|prior_claim_boundary_unchanged=address-coordinate-invariants-tested-NOT-enumeration|json=0
+LIRISBHXC34FTR|state=TEST_COVERAGE_LABELS_NOW_MATCH_PROBES|json=0

@@ -35,9 +35,9 @@ test('decimal power proof rejects nonzero tail digits, not just second ones', ()
 // mid-tail case above would not catch) and a wrong LEADING digit (guards the
 // s[0]==='1' check, which no other case here exercises).
 test('decimal power proof guards the tail-last-position and leading-digit boundaries', () => {
-  assert.equal(isDecimalPowerString(`1${'0'.repeat(199)}9`, 201), false); // stray 9 at the final index
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(199)}9`, 200), false); // stray 9 at the final index
   assert.equal(isDecimalPowerString(`1${'0'.repeat(200)}1`, 201), false); // stray 1 at the final index
   assert.equal(isDecimalPowerString(`2${'0'.repeat(200)}`, 200), false);  // wrong leading digit
   assert.equal(isDecimalPowerString(`0${'0'.repeat(200)}`, 200), false);  // leading zero
-  assert.equal(isDecimalPowerString(`1${'0'.repeat(201)}9`, 201), false); // correct last char but wrong length
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(201)}`, 200), false);  // correct last char but wrong length
 });
