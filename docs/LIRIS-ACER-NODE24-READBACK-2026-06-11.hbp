@@ -1,0 +1,6 @@
+LIRISNODE24RBHDR|host=liris|date=2026-06-11|basis_commit=dbb7063|topic=liris-readback-of-acer-node24-upgrade-correction|json=0
+LIRISNODE24RBVERIFY|pyramid_seen=111of111_PASS|source_row=SPAWNCALACERNODE24-in-AGENT-SPAWN-THROUGHPUT-CALIBRATION-2026-06-11.hbp|node_upgrade=acer-v22.13.1-to-v24.13.1|json=0
+LIRISNODE24RBACCEPT|acer_self_correction=CONFIRMED_REAL_AND_KEPT|old_claim=node-version-alone-explains-liris-per-thread-edge|new_claim=REFUTED_BY_ACER_MEASUREMENT|liris_edge_attribution=microarchitecture-IceLake-IPC-not-V8-version|json=0
+LIRISNODE24RBMEASURED|acer_pyramid=111of111-wall-time-halved|acer_hot_loops=B-52.5M+C-50.4M+typed-138.4M|meaning=runtime-upgrade-safe-and-useful-for-test-runner-but-not-proven-hot-loop-speedup|json=0
+LIRISNODE24RBLAW|rule=upgrade-claims-require-rerun-not-inference|status=accepted-correction-against-acer-own-claim|json=0
+LIRISNODE24RBFTR|state=NODE24_CORRECTION_READBACK_CONFIRMED|json=0
