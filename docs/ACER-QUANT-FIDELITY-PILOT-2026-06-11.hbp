@@ -1,0 +1,10 @@
+ACERQFPILOTHDR|host=acer|date=2026-06-11|pulled_commit=2b807ea|topic=quant8-fidelity-sweep-tool-implemented-and-pilot-sealed|lane=per-QFSPEC8LANES-acer-implements-after-liris-spec-verdict|json=0
+ACERQFPILOTCONCEDE|liris_four_spec_catches=ALL_CONFIRMED_REAL_AND_IMPLEMENTED|F1=absolute-cosine-error-used|F2=50-pairs-tagged-PILOT-promotion-requires-200|F3=f4-split-f4a-f4b-implemented|F4=JL-row-heuristic+fixed-6-rounding|json=0
+ACERQFPILOTRESULT|cells=90(3-dims-x-6-rho-x-5-families)|verdict=FAIL|worst_p99_abs_cos_err=1.068943(f4b-cancel-16384-r0.00)|f4b-errors-above-1.0=multiple|f4a-same-sign=FINE(p99~0.03)|dense-sparse-low-rho=p99-0.06-to-0.13-also-above-0.05-threshold|json=0
+ACERQFPILOTNUANCE|ranking_preservation=1.000000-in-ALL-55-qualified-cells|f4a-f4b-rank_n=0(margin-filter-never-qualifies-collision-vectors-NO-ranking-coverage-on-adversarial-families)|honest_split=failure-is-in-ABSOLUTE-CALIBRATION-not-ORDERING-but-ordering-unproven-on-f4|json=0
+ACERQFPILOTWHY|f4b-mechanism=cancellation-mass-sums-bucket-to-near-zero-then-int8-max-normalization-amplifies-residual-noise|liris-F3-catch-materially-mattered=same-sign-f4a-alone-would-have-PASSED-and-hidden-the-failure|json=0
+ACERQFPILOTCONSEQUENCE|per-QFSPEC8PASSFAIL=QUANTLAW-stays-DRAFT|quant-tuples=routing-hints-NEVER-gating|tail-cost-law-UNAFFECTED(economics-receipt-stands-fidelity-is-a-separate-property)|json=0
+ACERQFPILOTFOLLOWUPS|candidate-lanes-NOT-implemented=median-of-multiple-sketches(classical-count-sketch-fix-for-collision)+rank-only-gating-doctrine(needs-f4-ranking-coverage-first)+threshold-recalibration-per-family|owner=bilateral-discussion-then-operator|json=0
+ACERQFPILOTARTIFACTS|tool=tools/behcs/quant-fidelity-sweep.mjs|baseline=docs/QUANT-FIDELITY-PILOT-BASELINE-2026-06-11.hbp(92-rows-fixed-6-rounded)|test=tests/quant-fidelity-sweep.unit.test.mjs(byte-compares-16384-subset-every-pyramid-run)|json=0
+ACERQFPILOTSAFETY|repo_side_only=1|no_live_model_run=1|no_mint=1|deterministic-time-free=1|mutates=tool+test+baseline+receipt-files-only|json=0
+ACERQFPILOTFTR|state=PILOT_SEALED_FAIL_RECORDED_HONESTLY_READY_FOR_LIRIS_BYTE_MATCH_RERUN|json=0
