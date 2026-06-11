@@ -87,6 +87,37 @@ test('hostile proxy inputs are held as rows, never thrown exceptions', () => {
   assert.equal(gateChain({ ...GOOD, chain: chainRevoke.proxy }).gate, 'empty-or-missing-chain');
 });
 
+test('hostile TOP-LEVEL input objects are held as rows, never thrown exceptions', () => {
+  const inputRevoke = Proxy.revocable({ ...GOOD, chain: goodChain(3) }, {});
+  inputRevoke.revoke();
+  assert.doesNotThrow(() => gateChain(inputRevoke.proxy));
+  const revoked = gateChain(inputRevoke.proxy);
+  assert.equal(revoked.verdict, 'CHILD_HELD');
+  assert.equal(revoked.gate, 'malformed-agent-id');
+  assert.equal(revoked.chain_sha16, 'none');
+
+  assert.doesNotThrow(() => gateChain({ ...GOOD, get chain() { throw new Error('hostile'); } }));
+  assert.equal(gateChain({ ...GOOD, get chain() { throw new Error('hostile'); } }).gate, 'empty-or-missing-chain');
+
+  assert.doesNotThrow(() => gateChain({ get agent() { throw new Error('hostile'); }, action: 'report-up', max_depth: 3, chain: goodChain(3) }));
+  assert.equal(gateChain({ get agent() { throw new Error('hostile'); }, action: 'report-up', max_depth: 3, chain: goodChain(3) }).gate, 'malformed-agent-id');
+});
+
+test('capped materialization never claims a content digest (no false attestation)', () => {
+  const mk = (tail) => {
+    const c = [];
+    for (let i = 0; i < 20; i += 1) c.push({ depth: Math.min(i, 16), reported_sha16: level(i), recomputed_sha16: level(i) });
+    c[19] = { depth: 16, reported_sha16: tail, recomputed_sha16: tail };
+    return c;
+  };
+  const o1 = gateChain({ ...GOOD, chain: mk(level(900)) });
+  const o2 = gateChain({ ...GOOD, chain: mk(level(901)) });
+  assert.equal(o1.verdict, 'CHILD_HELD');
+  assert.equal(o1.gate, 'chain-topology-invalid');
+  assert.equal(o1.chain_sha16, 'none');
+  assert.equal(o2.chain_sha16, 'none');
+});
+
 test('canonical depths reject negative zero instead of aliasing it to zero', () => {
   const tupleNegativeZero = goodChain(3);
   tupleNegativeZero[0] = { ...tupleNegativeZero[0], depth: -0 };

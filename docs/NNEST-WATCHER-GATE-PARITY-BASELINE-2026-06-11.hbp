@@ -1,4 +1,4 @@
-NNESTGATEPARITYHDR|component=4|cases=24|clock=none-time-free-contract|rule=rows-byte-identical-on-every-machine|json=0
+NNESTGATEPARITYHDR|component=4|cases=27|clock=none-time-free-contract|rule=rows-byte-identical-on-every-machine|json=0
 NNESTGATEPARITY|case=01|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=4|chain_sha16=502e00a9b19e839d|verdict=CHILD_MAY_ACT|first_bad_depth=none|gate=none|executable=0|json=0
 NNESTGATEPARITY|case=02|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=16|chain_len=17|chain_sha16=58b859999d5e364a|verdict=CHILD_MAY_ACT|first_bad_depth=none|gate=none|executable=0|json=0
 NNESTGATEPARITY|case=03|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=4|chain_sha16=f4579dd9c63399f5|verdict=CHILD_HELD|first_bad_depth=2|gate=hash-divergence|executable=0|json=0
@@ -23,4 +23,7 @@ NNESTGATEPARITY|case=21|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|
 NNESTGATEPARITY|case=22|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=4|chain_sha16=none|verdict=CHILD_HELD|first_bad_depth=1|gate=chain-topology-invalid|executable=0|json=0
 NNESTGATEPARITY|case=23|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=invalid|chain_len=1|chain_sha16=8f6d8d4eca0f9e07|verdict=CHILD_HELD|first_bad_depth=none|gate=invalid-max-depth|executable=0|json=0
 NNESTGATEPARITY|case=24|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=4|chain_sha16=none|verdict=CHILD_HELD|first_bad_depth=0|gate=chain-topology-invalid|executable=0|json=0
-NNESTGATEPARITYFTR|cases=24|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0
+NNESTGATEPARITY|case=25|agent=invalid|action=invalid|max_depth=invalid|chain_len=0|chain_sha16=none|verdict=CHILD_HELD|first_bad_depth=none|gate=malformed-agent-id|executable=0|json=0
+NNESTGATEPARITY|case=26|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=0|chain_sha16=none|verdict=CHILD_HELD|first_bad_depth=none|gate=empty-or-missing-chain|executable=0|json=0
+NNESTGATEPARITY|case=27|agent=AGT-NNEST-PROBE-0001|action=report-up|max_depth=3|chain_len=20|chain_sha16=none|verdict=CHILD_HELD|first_bad_depth=4|gate=chain-topology-invalid|executable=0|json=0
+NNESTGATEPARITYFTR|cases=27|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0

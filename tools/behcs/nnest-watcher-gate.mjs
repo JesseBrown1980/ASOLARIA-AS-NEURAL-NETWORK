@@ -109,6 +109,10 @@ function materializeChain(rawChain) {
 // produce chain_sha16=none so HELD rows cannot become digest oracles.
 function chainDigest(mat) {
   if (mat.len === 0) return 'none';
+  // A digest is only ever a claim about the WHOLE chain. If materialization
+  // was capped (len > snaps), two chains differing beyond the cap would get
+  // identical digests -- a false attestation (acer finding H 2026-06-11).
+  if (mat.len !== mat.snaps.length) return 'none';
   for (const t of mat.snaps) {
     if (!t
       || !isCanonicalDepth(t.depth)
@@ -147,8 +151,33 @@ function buildResult(inp, verdict, gates, firstBadDepth, mat) {
   return { ...fields, ok: verdict === 'CHILD_MAY_ACT', executable: 0, row };
 }
 
+// The TOP-LEVEL input gets the same single-read treatment as tuples and the
+// chain (acer input-totality patch 2026-06-11: liris's "held, never thrown"
+// law only guarded chain/tuple reads -- a revoked proxy or throwing getter AS
+// the input object still crashed the gate at inp.chain/inp.agent). Each field
+// is read exactly once; a hostile read yields undefined and falls down the
+// existing ladder (malformed-agent-id / unknown-action / invalid-max-depth /
+// empty-or-missing-chain), so totality needs no new gate strings.
+function readOnce(raw, key) {
+  try {
+    return raw[key];
+  } catch {
+    return undefined;
+  }
+}
+
+function snapshotInput(raw) {
+  if (raw == null) return { agent: undefined, action: undefined, max_depth: undefined, chain: undefined };
+  return {
+    agent: readOnce(raw, 'agent'),
+    action: readOnce(raw, 'action'),
+    max_depth: readOnce(raw, 'max_depth'),
+    chain: readOnce(raw, 'chain'),
+  };
+}
+
 export function gateChain(input) {
-  const inp = input ?? {};
+  const inp = snapshotInput(input);
   const mat = materializeChain(inp.chain);
   const held = (gate, firstBadDepth) => buildResult(inp, 'CHILD_HELD', [gate], firstBadDepth, mat);
 
@@ -219,7 +248,7 @@ export function statusRows() {
   for (const [id, meta] of Object.entries(ACTIONS)) {
     rows.push(`NNESTGATEACTION|id=${id}|consent=${meta.consent}|max_verdict=${meta.consent ? 'DEFER_TO_OPERATOR' : 'CHILD_MAY_ACT'}|json=0`);
   }
-  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|chain_sha16=none-for-noncanonical-or-invalid-hash-chains|level_hashes=NEVER-echoed|hostile-proxy=HELD-not-thrown|json=0');
+  rows.push('NNESTGATELEAK|held_rows_carry=first_bad_depth+chain_sha16-only|chain_sha16=none-for-noncanonical-invalid-hash-or-partially-materialized-chains|level_hashes=NEVER-echoed|hostile-input=HELD-not-thrown-at-every-level-including-top|json=0');
   rows.push('NNESTGATESAFETY|mutates=0|pure_function=1|no_spawn=1|no_recursion_into_real_agents=1|no_harness_edit=1|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0');
   rows.push('NNESTGATEEND|state=COMPONENT_4_SEED_DRAFT_CONTRACT|json=0');
   return rows;
@@ -268,6 +297,12 @@ const PARITY_CASES = Object.freeze([
   { id: '22', input: { ...BASE, chain: (() => { const c = goodChain(3); const r = Proxy.revocable(c[1], {}); r.revoke(); c[1] = r.proxy; return c; })() } },
   { id: '23', input: { ...BASE, max_depth: -0, chain: goodChain(0) } },
   { id: '24', input: { ...BASE, chain: (() => { const c = goodChain(3); c[0] = { ...c[0], depth: -0 }; return c; })() } },
+  // 25-27 (acer input-totality 2026-06-11): hostile TOP-LEVEL inputs (revoked
+  // proxy as the input object, throwing chain getter) must be rows not crashes,
+  // and a capped materialization must never claim a content digest.
+  { id: '25', input: (() => { const r = Proxy.revocable({ ...BASE, chain: goodChain(3) }, {}); r.revoke(); return r.proxy; })() },
+  { id: '26', input: { ...BASE, get chain() { throw new Error('hostile-chain-getter'); } } },
+  { id: '27', input: { ...BASE, chain: (() => { const c = []; for (let i = 0; i < 20; i += 1) c.push({ depth: Math.min(i, 16), reported_sha16: level(i), recomputed_sha16: level(i) }); return c; })() } },
 ]);
 
 export function emitParityRows() {
@@ -334,6 +369,31 @@ export function selfTest() {
     c[0] = { ...c[0], depth: -0 };
     const o = gateChain({ ...BASE, chain: c });
     return o.verdict === 'CHILD_HELD' && o.gate === 'chain-topology-invalid' && o.chain_sha16 === 'none';
+  })());
+
+  // acer input-totality: hostile TOP-LEVEL input objects are rows, not crashes.
+  add('hostile-top-level-input-held-not-thrown', (() => {
+    try {
+      const r = Proxy.revocable({ ...BASE, chain: goodChain(3) }, {});
+      r.revoke();
+      const a = gateChain(r.proxy);
+      const b = gateChain({ ...BASE, get chain() { throw new Error('hostile'); } });
+      const c = gateChain({ get agent() { throw new Error('hostile'); }, action: 'report-up', max_depth: 3, chain: goodChain(3) });
+      return a.verdict === 'CHILD_HELD' && b.gate === 'empty-or-missing-chain' && c.gate === 'malformed-agent-id';
+    } catch {
+      return false;
+    }
+  })());
+  add('capped-materialization-never-digested', (() => {
+    const mk = (tail) => {
+      const c = [];
+      for (let i = 0; i < 20; i += 1) c.push({ depth: Math.min(i, 16), reported_sha16: level(i), recomputed_sha16: level(i) });
+      c[19] = { depth: 16, reported_sha16: tail, recomputed_sha16: tail };
+      return c;
+    };
+    const o1 = gateChain({ ...BASE, chain: mk(level(900)) });
+    const o2 = gateChain({ ...BASE, chain: mk(level(901)) });
+    return o1.verdict === 'CHILD_HELD' && o1.chain_sha16 === 'none' && o2.chain_sha16 === 'none';
   })());
 
   return { ok: checks.every((check) => check.ok), checks };

@@ -1,4 +1,4 @@
-NNESTGATEINDEX|host=liris|target=nnest-watcher-gate.hbp|tool=nnest-watcher-gate.mjs|rows=13|json=0
+NNESTGATEINDEX|host=acer|target=nnest-watcher-gate.hbp|tool=nnest-watcher-gate.mjs|rows=14|json=0
 INDEXROW|row=1|kind=header|component=architecture-component-4|json=0
 INDEXROW|row=2|kind=law|may_act=hash-match-AND-topology-valid-and-exact-data-snapshot-and-canonical-depth|hashes=necessary-not-sufficient|json=0
 INDEXROW|row=3|kind=scope|repo_side_draft_only=1|no_spawn=1|no_harness_edit=1|json=0
@@ -8,7 +8,8 @@ INDEXROW|row=6|kind=bound|max_depth=16-proven|json=0
 INDEXROW|row=7|kind=leak|held_rows=first_bad_depth+chain_sha16-only|noncanonical_chain_sha16=none|json=0
 INDEXROW|row=8|kind=harden|acer-findings=accessor-toctou+non-enumerable-own+symbol-keyed|fix=single-read-snapshot-data-descriptor-only|json=0
 INDEXROW|row=9|kind=counter-harden|liris-findings=revoked-proxy-throw+negative-zero-depth|fix=held-not-thrown+canonical-depth|json=0
-INDEXROW|row=10|kind=safety|mutates=0|pure_function=1|json=0
-INDEXROW|row=11|kind=verify|required=node-check+node-test+self-test+parity-byte-compare|json=0
-INDEXROW|row=12|kind=sha|fields=gate_sha256+test_sha256|json=0
-INDEXROW|row=13|kind=footer|state=COMPONENT_4_LIRIS_PROXY_DEPTH_COUNTERHARDENING_READY_FOR_ACER_READBACK|json=0
+INDEXROW|row=10|kind=totality|acer-findings=hostile-top-level-input-threw+capped-materialization-false-digest|fix=single-read-input-snapshot+digest-only-fully-materialized|json=0
+INDEXROW|row=11|kind=safety|mutates=0|pure_function=1|json=0
+INDEXROW|row=12|kind=verify|required=node-check+node-test+self-test+parity-byte-compare|json=0
+INDEXROW|row=13|kind=sha|fields=gate_sha256+test_sha256|json=0
+INDEXROW|row=14|kind=footer|state=COMPONENT_4_ACER_INPUT_TOTALITY_READY_FOR_LIRIS_READBACK|json=0
