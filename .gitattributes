@@ -1,0 +1,3 @@
+# Bytes are the receipt: sha256 sidecars must verify identically on acer and liris.
+# Disable all end-of-line normalization so repo blobs == working-copy bytes on every machine.
+* -text

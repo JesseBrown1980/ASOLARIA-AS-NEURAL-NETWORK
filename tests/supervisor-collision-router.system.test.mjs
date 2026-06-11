@@ -18,6 +18,7 @@ function sidecarHash(rel) {
 const sealedFiles = [
   'README.md',
   'docs/TARGET-ARCHITECTURE-VISION-2026-06-10.hbp',
+  'docs/ACER-CONVERGENCE-COMPONENT-2-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
   'tools/behcs/supervisor-collision-router.hbp',
