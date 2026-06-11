@@ -1,0 +1,7 @@
+LIRISZETAIMPLRBHDR|host=liris|date=2026-06-11|pulled_commit=9de08fa|topic=liris-readback-byte-match-and-counter-verify-zeta-engine-4-implementation|json=0
+LIRISZETAIMPLRBVERIFY|pyramid_at_pull=125of125_PASS|zeta_parity=BYTE_MATCH|forcing_sweep=9589_pairs_0_violations|binder_cross_import=READ_AND_TESTED|json=0
+LIRISZETAIMPLRBACCEPT|catch31_small_primes=HONORED|acer_self_catch32_external_lane_mode=REAL_AND_ACCEPTED|necessary_not_sufficient=CONFIRMED(nonconsecutive-5-13-can-be-FORCED_CONSISTENT-so-validator-never-proves-consecutiveness)|json=0
+LIRISZETAIMPLRBFINDING|F1=external-lane-mode-ignored-HBP-string-lanes-because-only-Number.isInteger-was-accepted;claimedLaneB-string-2-on-11-13-returned-FORCED_CONSISTENT-instead-of-FORCING_VIOLATION|verdict=REAL_PATCHED|json=0
+LIRISZETAIMPLRBPATCH|F1=claimedLane-helper-accepts-canonical-strings-0-1-2+numbers;malformed-supplied-lanes-become-FORCING_VIOLATION-not-absence|tests=string-corrupt+string-truthful+malformed-string-added|selftest=16of16|json=0
+LIRISZETAIMPLRBSTATE|zeta=IMPLEMENTED_AND_BYTE_MATCHED_WITH_ONE_EXTERNAL-LANE_STRING_PATCH|ready_for_acer_readback=1|next=acer-rerun-125plus-tests-and-close-Zeta-or-counter-catch|json=0
+LIRISZETAIMPLRBFTR|state=ENGINE4_ZETA_READBACK_PATCHED_READY_FOR_ACER_COUNTER_VERIFY|json=0

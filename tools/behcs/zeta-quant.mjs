@@ -24,6 +24,15 @@ export const DOMAIN_MAX = 999999; // matches binder classifyBhIndex domain
 export const SWEEP_LIMIT = 100000;
 
 const FORCED = Object.freeze({ 0: 'same-lane', 2: 'lane2-to-1', 4: 'lane1-to-2' });
+const INVALID_LANE = Symbol('invalid-lane');
+
+function claimedLane(opts, key, fallback) {
+  if (!opts || typeof opts !== 'object' || !Object.prototype.hasOwnProperty.call(opts, key)) return fallback;
+  const value = opts[key];
+  if (Number.isInteger(value)) return value;
+  if (typeof value === 'string' && /^[0-2]$/.test(value)) return Number(value);
+  return INVALID_LANE;
+}
 
 function isPrime(n) {
   if (!Number.isInteger(n) || n < 2) return false;
@@ -78,9 +87,11 @@ export function zetaTransition(a, b, opts = {}) {
     || !(gapMod6 in FORCED)) {
     return { ...result, verdict: 'NOT_APPLICABLE' };
   }
-  // lanes under test: external claim if supplied, else the value-true lanes
-  const laneA = Number.isInteger(opts.claimedLaneA) ? opts.claimedLaneA : ca.lane;
-  const laneB = Number.isInteger(opts.claimedLaneB) ? opts.claimedLaneB : cb.lane;
+  // lanes under test: external claim if supplied, else the value-true lanes.
+  // HBP-parsed external rows carry lanes as strings, so canonical "0".."2"
+  // must be honored. A supplied malformed lane is corruption, not absence.
+  const laneA = claimedLane(opts, 'claimedLaneA', ca.lane);
+  const laneB = claimedLane(opts, 'claimedLaneB', cb.lane);
   const laneTruthful = laneA === ca.lane && laneB === cb.lane;
   const forcedOk = (gapMod6 === 0 && laneA === laneB)
     || (gapMod6 === 2 && laneA === 2 && laneB === 1)
@@ -156,6 +167,8 @@ export function selfTest() {
   // sits on lane 2 and the forcing check fires.
   add('corrupted-external-lane-caught', zetaTransition(11, 13, { claimedLaneB: 2 }).verdict === 'FORCING_VIOLATION');
   add('truthful-external-lane-consistent', zetaTransition(11, 13, { claimedLaneA: 2, claimedLaneB: 1 }).verdict === 'FORCED_CONSISTENT');
+  add('hbp-string-external-lanes-honored', zetaTransition(11, 13, { claimedLaneA: '2', claimedLaneB: '2' }).verdict === 'FORCING_VIOLATION'
+    && zetaTransition(11, 13, { claimedLaneA: '2', claimedLaneB: '1' }).verdict === 'FORCED_CONSISTENT');
   add('sweep-zero-violations', forcingSweep().violations === 0);
   add('sweep-pair-count-matches-sealed-9589', forcingSweep().pairs === 9589);
   add('out-of-domain-none', zetaClassify(1000000).lane === 'none');

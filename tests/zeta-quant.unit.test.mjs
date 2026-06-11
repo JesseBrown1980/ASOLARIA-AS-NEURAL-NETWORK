@@ -48,6 +48,11 @@ test('validator is necessary-not-sufficient: catches corrupted external lanes on
   assert.equal(zetaTransition(11, 13).verdict, 'FORCED_CONSISTENT');
   // a corrupted recorded lane is caught
   assert.equal(zetaTransition(11, 13, { claimedLaneB: 2 }).verdict, 'FORCING_VIOLATION');
+  // HBP records parse as strings, so canonical string lanes must be checked too
+  assert.equal(zetaTransition(11, 13, { claimedLaneB: '2' }).verdict, 'FORCING_VIOLATION');
+  assert.equal(zetaTransition(11, 13, { claimedLaneA: '2', claimedLaneB: '1' }).verdict, 'FORCED_CONSISTENT');
+  // malformed supplied lanes are corruption, not absence
+  assert.equal(zetaTransition(11, 13, { claimedLaneB: 'lane2' }).verdict, 'FORCING_VIOLATION');
   // non-prime inputs are not-applicable, never violation
   assert.equal(zetaTransition(4, 6).verdict, 'NOT_APPLICABLE');
 });
