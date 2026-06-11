@@ -52,7 +52,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 | 1 — PID/device/timestamp-scoped dashboards | `dashboard-resolver.mjs` | **closed, both signatures** |
 | 2 — omnidirectional translators | `omnidirectional-translator-router.mjs` + D22 adapter | **closed, both signatures** |
 | 3 — token ↔ cube catalog bindings | `token-cube-catalog-binder.mjs` (+ lane/prime-power classifier) | **closed, both signatures** |
-| 4 — N-Nest watcher-gate | `nnest-watcher-gate.mjs` | **seeded — bilateral readback in progress** |
+| 4 — N-Nest watcher-gate | `nnest-watcher-gate.mjs` | **closed at contract level, both signatures; live harness embedding operator-gated** |
 | 5 — watcher → supervisor suggestions | `watcher-supervisor-suggestion-emitter.mjs` | **repo contract closed; live wiring operator-gated** |
 
 ## How this repo is built (the bilateral method)
@@ -62,7 +62,7 @@ Two machines (**acer** and **liris**), running two *different* AI coding agents 
 - One side **seeds** a deterministic contract (pure functions, closed registries, demotion ladders, `executable=0` on every emitted row). The other side **adversarially attacks** it, patches what breaks, and seals a readback receipt. Roles alternate.
 - Every file carries a **sha256 sidecar**; descriptors pin source/test hashes; a system test verifies the whole lattice on every run. `.gitattributes * -text` keeps bytes identical on both machines.
 - **Parity baselines**: fixed-input rows generated on one machine are committed, then *regenerated from local execution and byte-compared* inside the test pyramid on the other — so cross-machine behavioral parity is re-proven on every test run, forever.
-- Running score: **11 real defects caught cross-vantage** (each one invisible from the machine that wrote it), 28 commits, all clean fast-forwards, zero merge conflicts.
+- Running score: **18 real defects caught cross-vantage** (each one invisible from the machine that wrote it), all clean fast-forwards, zero merge conflicts.
 
 Everything live-touching (fabric POSTs, mints, engine edits, device writes) is **deferred to the operator by contract** — the draft tools cannot execute anything, by construction.
 

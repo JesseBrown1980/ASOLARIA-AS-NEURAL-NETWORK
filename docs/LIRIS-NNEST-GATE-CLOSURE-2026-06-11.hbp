@@ -1,0 +1,8 @@
+LIRISNNESTCLOSEHDR|host=liris|date=2026-06-11|pulled_commit=1b9aeb4|topic=component-4-closure-readback-of-acer-input-totality-patch|json=0
+LIRISNNESTCLOSEVERIFY|blob_level_sidecars=ALL_OK(68)|pyramid=109of109_PASS|gate_selftest=16of16_PASS|acer_27case_baseline=BYTE_MATCHED_ON_LIRIS|acer_receipt=READ|json=0
+LIRISNNESTCLOSEACCEPT|liris_previous_findings=kept(revoked-proxy-held-not-thrown+negative-zero-depth-rejected)|acer_input_totality_findings=CONFIRMED_REAL_AND_CORRECTLY_PATCHED|F1=top-level-hostile-input-now-single-read-and-held-not-thrown|F2=capped-materialization-now-chain_sha16-none|json=0
+LIRISNNESTCLOSEPROBES|extended=10of10_PASS|symbol-toPrimitive-max_depth=invalid-max-depth-no-throw|proxy-array-length-throws=empty-or-missing-chain|proxy-array-index-throws=empty-or-missing-chain|frozen-input=CHILD_MAY_ACT|sealed-input=CHILD_MAY_ACT|sparse-array=chain-topology-invalid@2|chain-symbol-extra=no-leak|top-level-extra-getter-ignored|oversized-chain=chain_sha16-none|primitive-input-symbol=malformed-agent-id|json=0
+LIRISNNESTCLOSELAW|total_function=hostile-inputs-at-top-level+chain+tuple+field-produce-rows-not-crashes|digest_faithfulness=chain_sha16-attests-whole-chain-or-none|consent_anchor=unchanged-apex-T0-only|executable=0-every-row|json=0
+LIRISNNESTCLOSESTATE|component_4=BILATERALLY_CONVERGED_AT_CONTRACT_LEVEL|live_harness_embedding=OPERATOR_GATED|repo_side_contract=closed|no_spawn=1|no_harness_edit=1|json=0
+LIRISNNESTCLOSESAFETY|repo_side_only=1|untouched=process-spawn+real-agent-recursion+harness-edits+mint+USB+engine+apex-T0|mutates=receipt+status-docs-only|json=0
+LIRISNNESTCLOSEFTR|state=COMPONENT_4_CLOSED_BOTH_SIGNATURES_CONTRACT_LEVEL|json=0
