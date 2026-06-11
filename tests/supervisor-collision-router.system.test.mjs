@@ -17,15 +17,21 @@ function sidecarHash(rel) {
 
 const sealedFiles = [
   'README.md',
+  'docs/TARGET-ARCHITECTURE-VISION-2026-06-10.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
   'tools/behcs/supervisor-collision-router.hbp',
   'tools/behcs/supervisor-collision-router.hbi',
+  'tools/behcs/omnidirectional-translator-router.mjs',
+  'tools/behcs/omnidirectional-translator-router.hbp',
+  'tools/behcs/omnidirectional-translator-router.hbi',
+  'tools/omni-processor/omnitranslator-v0.js',
   'tests/supervisor-collision-router.unit.test.mjs',
   'tests/supervisor-collision-router.integration.test.mjs',
   'tests/supervisor-collision-router.suite.test.mjs',
   'tests/supervisor-collision-router.system.test.mjs',
   'tests/supervisor-collision-router.fabric.test.mjs',
+  'tests/omnidirectional-translator-router.unit.test.mjs',
 ];
 
 test('all convergence artifacts have matching sha256 sidecars', () => {
@@ -39,6 +45,14 @@ test('descriptor records the current source and unit-test hashes', () => {
   const hbp = readFileSync(join(repo, 'tools/behcs/supervisor-collision-router.hbp'), 'utf8');
   assert.match(hbp, new RegExp(`mjs_sha256=${sha256('tools/behcs/supervisor-collision-router.mjs')}`));
   assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/supervisor-collision-router.unit.test.mjs')}`));
+  assert.match(hbp, new RegExp(`translator_router_sha256=${sha256('tools/behcs/omnidirectional-translator-router.mjs')}`));
+});
+
+test('translator descriptor records the current source and unit-test hashes', () => {
+  const hbp = readFileSync(join(repo, 'tools/behcs/omnidirectional-translator-router.hbp'), 'utf8');
+  assert.match(hbp, new RegExp(`core_sha256=${sha256('tools/omni-processor/omnitranslator-v0.js')}`));
+  assert.match(hbp, new RegExp(`router_sha256=${sha256('tools/behcs/omnidirectional-translator-router.mjs')}`));
+  assert.match(hbp, new RegExp(`test_sha256=${sha256('tests/omnidirectional-translator-router.unit.test.mjs')}`));
 });
 
 test('sidecar filenames point at their target basenames', () => {

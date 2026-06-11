@@ -8,6 +8,7 @@ GAP|1|agents-do-NOT-yet-auto-resolve-to-THEIR-scoped-dashboard-by-(PID,device,ti
 COMPONENT|2|name=OMNIDIRECTIONAL-TRANSLATORS|vision=ANY-level-talks-to-ANY-type-of-thing-in-the-fabric(human<->AI<->subagent<->PID<->component<->kernel<->cube)
 PROVEN|2|D22-TRANSLATION-dimension(7-verbs:tuple_to_english,english_to_tuple,ix_to_tuple,hilbert_to_human,crlt_merge,auto_transition_all_languages,namespace_walk)+7-layer-auto-translate(06-AUTO-TRANSLATE-LAYERS:L0-human..L6-cube,glyph-table-lookup-not-LLM)+BEHCS-1024-glyph
 GAP|2|the-T[0->1]-intent-classifier-still-routes-through-the-EXPENSIVE-brain-orchestrator-instead-of-deterministic-glyph-table-lookup(THE-real-translation-gap)|FIX=register-deterministic-T[0->1]-for-known-glyphs,brain-only-for-novel-intent
+PROGRESS|2|github_mediator_repo_now_carries=tools/omni-processor/omnitranslator-v0.js+tools/behcs/omnidirectional-translator-router.mjs|implemented=omnilanguage<->json|planned_endpoints=hbp+hbi+mcp_pipe+webmcp+cube+whiteroom+shannon+frozen_slice+geospatial_agent+hrm_agent|draft_only=1|no_engine_edit=1|json=0
 
 COMPONENT|3|name=60D+-CATALOGS+CRYPTO-TOKENS-IN-MCP-PIPES-CONNECTED-TO-CUBES|vision=47D-expanded-to-60D+-catalogs+newest-binary/sha/hash/crypto-as-TOKENS-in-the-MCP-pipes-wired-to-the-cubes
 PROVEN|3|60D-already-HELD(coord64,atlas-v55/v56,tuple_dim=60,3-vantage-verified-2026-06-01)+HBP-hot-path(sha256/hex/tuple-rows)+MCP-tuple-text(tupleResult-sha-per-row)+cube-of-cubes-addressing
