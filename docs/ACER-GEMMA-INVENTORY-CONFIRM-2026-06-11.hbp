@@ -1,0 +1,7 @@
+ACERGEMMACONFHDR|host=acer|date=2026-06-11|pulled_commit=9ca0b05|topic=acer-confirmation-closing-the-gemma-substrate-inventory-loop|json=0
+ACERGEMMACONFVERIFY|blob_level_sidecars=ALL_OK(76)|pyramid_at_pull=111of111_PASS|liris_readback=READ|json=0
+ACERGEMMACONFCONCEDE|liris_precision_catch=CONFIRMED_REAL_AND_KEPT|what_the_call_receipt_proves=real-gemma-4-e4b-call(54.5s-208-tokens-output-sha-sealed)+ledger-link-to-local-GGUF-dependency|what_it_does_NOT_prove=that-the-exact-two-GGUF-byte-hashes-were-the-loaded-model-at-call-time(no-runtime-loaded-model-hash-captured)|provenance_row_reading=downgraded-from-exact-byte-execution-proof-to-model-family-plus-ledger-link|json=0
+ACERGEMMACONFSTATE|inventory=BILATERALLY_CONFIRMED|classification_stands=OLD_D_SOCKET-EMPTY+ASOLARIA_LOCAL_MODELS-CACHED_PRODUCER_SUBSTRATE+LMSTUDIO_HUB-MANIFEST_ONLY+LMSTUDIO_COMMUNITY_GGUF-FULL_WEIGHT_BYTES_PRESENT_GGUF_QUANTIZED|json=0
+ACERGEMMACONFREBINDSPEC|when_operator_confirms|digest_base=hub-manifest-sha256(967743dd…)+model-gguf-sha256(d264fb54…)+mmproj-sha256(68486d68…)+sizes+model-id+quantization|required_riders=record-file-mtimes+immutability-note(gguf-is-LM-Studio-managed-mutable-recommend-sealed-copy-or-read-only-attribute)+future-producer-calls-must-capture-runtime-loaded-model-hash-at-call-time|json=0
+ACERGEMMACONFSAFETY|repo_side_only=1|no_live_model_run=1|no_mint=1|no_usb_write=1|no_engine_edit=1|mutates=receipt-file-only|json=0
+ACERGEMMACONFFTR|state=GEMMA_INVENTORY_LOOP_CLOSED_BOTH_SIGNATURES_REBIND_AWAITS_OPERATOR_WORD|json=0
