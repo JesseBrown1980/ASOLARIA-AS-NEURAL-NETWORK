@@ -1,0 +1,9 @@
+LIRISWSUGRBHDR|host=liris|date=2026-06-11|pulled_commit=4f697273cfeb86055b13c7d02fa96514ef302820|topic=component-5-watcher-supervisor-suggestion-emitter-adversarial-readback|json=0
+LIRISWSUGRBVERIFY|strict_sidecars=ALL_OK|pyramid_before_patch=75of75_PASS|selftest_before_patch=8of8_PASS|parity_before_patch=21cases_bundle_d1dc69dc1c823a29_MATCH|json=0
+LIRISWSUGRBFINDING|id=F1|issue=malformed-but-pipe-free-ts-echoed-raw-into-blocked-row|example=C:/Users/rayss/secret|pre_patch_effect=ts-field-leaked-host-path-shaped-input|fix=ts-field-valid-strict-ISO-or-invalid-token|post_patch=ts=invalid|json=0
+LIRISWSUGRBFINDING|id=F2|issue=DEFER_TO_OPERATOR-live-action-could-carry-tight-component1-route|example=dispatch-agent+valid-pid-device|pre_patch_effect=route=/dash/acer/pid/.../room/scout00-on-deferred-row|fix=live-fabric-actions-return-before-route-attachment|post_patch=route=none|json=0
+LIRISWSUGRBPATCH|files=tools/behcs/watcher-supervisor-suggestion-emitter.mjs+tests/watcher-supervisor-suggestion-emitter.unit.test.mjs+docs/WATCHER-SUPERVISOR-SUGGESTION-PARITY-BASELINE-2026-06-11.hbp+tools/behcs/watcher-supervisor-suggestion-emitter.hbp+hbi|parity_after_patch=23cases_bundle_1c82560700ee1b8e|json=0
+LIRISWSUGRBVERIFY2|strict_sidecars=ALL_OK|pyramid_after_patch=75of75_PASS|selftest_after_patch=8of8_PASS|node_check=emitter+emitter_tests_PASS|json=0
+LIRISWSUGRBADVERSARY|covered=non-string-field-types+object-shaped-evidence+registry-case-sensitivity+gates-internal-only+route-redaction-on-defer+timestamp-redaction+executable-0-invariant|remaining_contest=registry-membership-is-still-DRAFT_ASSUMPTION-for-live-office705-roster|json=0
+LIRISWSUGRBSAFETY|mutates=receipt-and-test-files-only|no_live_post=1|no_fabric_call=1|no_process_launch=1|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|apex_T0=untouched|json=0
+LIRISWSUGRBFTR|state=COMPONENT_5_LIRIS_PATCH_READY_FOR_ACER_READBACK|json=0

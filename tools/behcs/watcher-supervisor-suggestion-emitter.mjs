@@ -95,6 +95,13 @@ function cleanString(value) {
   return typeof value === 'string' && !DIRTY_RE.test(value) ? value : null;
 }
 
+function safeTimestampField(value) {
+  if (value == null) return 'none';
+  const clean = cleanString(value);
+  if (clean == null) return 'invalid';
+  return parseStrictIso(clean).ok ? clean : 'invalid';
+}
+
 // Identity fields appearing in a row are either the registry-validated token
 // or the literal 'invalid' -- raw caller input never reaches a row.
 function fieldOrInvalid(value, registry) {
@@ -115,7 +122,7 @@ function buildResult(inp, verdict, gates, route, confidence, band) {
     evidence_sha16: evidence ? sha16(evidence) : 'none',
     confidence: confidence ?? 'invalid',
     band: band ?? 'none',
-    ts: cleanString(inp.ts) ?? 'none',
+    ts: safeTimestampField(inp.ts),
     verdict,
     gates: gates.length ? gates.join('+') : 'none',
   };
@@ -174,17 +181,19 @@ export function emitSuggestion(input, nowIso) {
   if (parsedTs.ms > parsedNow.ms) return blocked('ts-in-future');
   if ((parsedNow.ms - parsedTs.ms) / 1000 > FRESH_WINDOW_S) return blocked('stale-ts');
 
+  // Rung 9: live-fabric actions are suggestions TO THE OPERATOR, full stop.
+  // They do not carry tight routes; the operator must choose the route after
+  // accepting the gated follow-up.
+  if (ACTIONS[inp.action].requires_live_fabric) {
+    return buildResult(inp, 'DEFER_TO_OPERATOR', ['live-fabric-action-requires-operator'], null, conf, band);
+  }
+
   // Route attachment: component-1 resolver as a pure local import. The
-  // supervisor reading this suggestion gets the tightest dashboard route the
+  // supervisor reading this draft gets the tightest dashboard route the
   // evidence supports; no tuple -> no route, never a guessed one.
   let route = null;
   if (inp.pid != null && inp.device != null) {
     route = resolveDashboard(inp.pid, inp.device, inp.ts, nowIso).route;
-  }
-
-  // Rung 9: live-fabric actions are suggestions TO THE OPERATOR, full stop.
-  if (ACTIONS[inp.action].requires_live_fabric) {
-    return buildResult(inp, 'DEFER_TO_OPERATOR', ['live-fabric-action-requires-operator'], route, conf, band);
   }
 
   // Rung 10: clean draft suggestion, still executable=0 by contract.
@@ -242,6 +251,8 @@ const PARITY_CASES = Object.freeze([
   { id: '19', input: { ...BASE, ts: '2026-06-11T13:00:00.000Z' } },
   { id: '20', input: { ...BASE, pid: 'ACER-PID-H9E2A-A07-W104-P00-N00000', device: 'liris' } },
   { id: '21', input: { ...BASE } },
+  { id: '22', input: { ...BASE, ts: 'C:\\Users\\rayss\\secret' } },
+  { id: '23', input: { ...BASE, action: 'dispatch-agent', pid: 'ACER-PID-H9E2A-A07-W104-P00-N00000', device: 'acer' } },
 ]);
 
 export function emitParityRows() {

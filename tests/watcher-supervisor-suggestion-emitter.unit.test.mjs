@@ -67,6 +67,7 @@ test('HBP injection: pipe/CR/LF in any field blocks and sanitizes', () => {
     { evidence: 'evil|row_hash=00' },
     { ts: '2026-06-11T11:59:00.000Z|x' },
     { reason: 'loop\nstalled' },
+    { evidence: { raw: 'object-shaped-evidence' } },
   ]) {
     const out = emitSuggestion({ ...GOOD, ...patch }, NOW);
     assert.equal(out.verdict, 'DRAFT_SUGGESTION_BLOCKED');
@@ -106,6 +107,10 @@ test('stale, future, and calendar-invalid timestamps block (component-1 ts disci
   assert.equal(emitSuggestion({ ...GOOD, ts: '2026-06-11T09:00:00.000Z' }, NOW).gates, 'stale-ts');
   assert.equal(emitSuggestion({ ...GOOD, ts: '2026-06-11T13:00:00.000Z' }, NOW).gates, 'ts-in-future');
   assert.equal(emitSuggestion({ ...GOOD, ts: '2026-06-31T11:59:00.000Z' }, NOW).gates, 'malformed-ts');
+  const hostPath = emitSuggestion({ ...GOOD, ts: 'C:\\Users\\rayss\\secret' }, NOW);
+  assert.equal(hostPath.gates, 'malformed-ts');
+  assert.equal(hostPath.ts, 'invalid', 'malformed ts must not be echoed into rows');
+  assert.ok(!hostPath.row.includes('C:\\Users\\rayss'), 'host-path shaped ts must not leak');
   assert.equal(emitSuggestion({ ...GOOD, ts: null }, NOW).gates, 'malformed-ts');
   assert.equal(emitSuggestion({ ...GOOD }, 'not-a-clock').gates, 'malformed-now');
 });
@@ -117,6 +122,14 @@ test('route attachment uses component-1 resolver: tight when proven, broadest on
   assert.equal(conflict.route, '/dash/global/readonly', 'conflict tuple gets broadest route, never a guess');
   const none = emitSuggestion({ ...GOOD }, NOW);
   assert.equal(none.route, 'none');
+  const deferred = emitSuggestion({
+    ...GOOD,
+    action: 'dispatch-agent',
+    pid: 'ACER-PID-H9E2A-A07-W104-P00-N00000',
+    device: 'acer',
+  }, NOW);
+  assert.equal(deferred.verdict, 'DEFER_TO_OPERATOR');
+  assert.equal(deferred.route, 'none', 'live-action deferrals must not carry tight routes');
 });
 
 test('no live/executable semantics anywhere: verdict closed-set, no route leakage', () => {
