@@ -44,4 +44,5 @@ test('pilot verdict row records FAIL honestly (f4b cancellation breaks absolute 
   assert.match(text, /QFSWEEPVERDICT\|cells=90\|/);
   assert.match(text, /result=FAIL\|grade=PILOT_CANNOT_PROMOTE/);
   assert.match(text, /worst_rank_preserve=1\.000000/);
+  assert.match(text, /rank_missing_cells=[1-9][0-9]*/);
 });

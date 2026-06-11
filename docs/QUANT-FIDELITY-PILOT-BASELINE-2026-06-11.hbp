@@ -89,4 +89,4 @@ QUANTFIDELITY|cell=1048576-r0.99-f2-sparse16|pairs=50|p50=0.000142|p95=0.002418|
 QUANTFIDELITY|cell=1048576-r0.99-f3-heavytail|pairs=50|p50=0.000518|p95=0.001362|p99=0.001579|max=0.001579|sign_agree=1.000000|rank_preserve=1.000000|rank_n=25|json=0
 QUANTFIDELITY|cell=1048576-r0.99-f4a-collide|pairs=50|p50=0.000508|p95=0.000510|p99=0.000510|max=0.000510|sign_agree=1.000000|rank_preserve=na|rank_n=0|json=0
 QUANTFIDELITY|cell=1048576-r0.99-f4b-cancel|pairs=50|p50=0.009546|p95=0.010669|p99=0.011279|max=0.011279|sign_agree=1.000000|rank_preserve=na|rank_n=0|json=0
-QFSWEEPVERDICT|cells=90|worst_p99_cos_err=1.068943|worst_rank_preserve=1.000000|thresholds=p99-leq-0.05-AND-rank-geq-0.99|result=FAIL|grade=PILOT_CANNOT_PROMOTE|json=0
+QFSWEEPVERDICT|cells=90|worst_p99_cos_err=1.068943|worst_rank_preserve=1.000000|rank_missing_cells=36|thresholds=p99-leq-0.05-AND-rank-geq-0.99-AND-rank_missing_cells-eq-0|result=FAIL|grade=PILOT_CANNOT_PROMOTE|json=0

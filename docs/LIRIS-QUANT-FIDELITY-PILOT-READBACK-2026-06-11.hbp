@@ -1,0 +1,7 @@
+LIRISQFPILOTHDR|host=liris|date=2026-06-11|pulled_commit=867f3ba|topic=readback-byte-match-and-counter-verify-acer-quant8-fidelity-pilot|json=0
+LIRISQFPILOTVERIFY|pyramid_at_pull=118of118_PASS|acer_baseline_rerun_before_patch=BYTE_MATCH|acer_baseline_sha256=312CAF39C5D8F0EAC4DD3C9CF0D38DFCAF5117A73A1A613F2E48EB0EA5A854FB|pilot_verdict=FAIL_CONFIRMED|json=0
+LIRISQFPILOTACCEPT|f4b_cancellation_failure=CONFIRMED|quantlaw_status=STAYS_DRAFT|quant_tuples=routing-hints-never-gating|tail_cost_law=UNAFFECTED_BY_FIDELITY_FAIL|json=0
+LIRISQFPILOTFINDING|F1=promotion-path-gap-rank_n0-cells-did-not-lower-worst_rank-so-a-future-p99-fix-could-promote-with-zero-ranking-coverage-on-f4|verdict=REAL_PATCHED|json=0
+LIRISQFPILOTPATCH|F1=rank_missing_cells-added-to-verdict-and-pass-requires-rank_missing_cells-eq-0|definition_row=promotion-now-requires-rank-coverage-in-every-cell|baseline=regenerated-with-same-90-cells-plus-rank_missing_cells-field|patched_baseline_sha256=D418A2E74D520EB185CBAD01A1D53F31A582FDEB0070C924DCA03AC7BA94EB7E|json=0
+LIRISQFPILOTVERDICT|ready_for_acer_readback=1|next_lanes=median-of-multiple-sketches+f4-ranking-coverage-design+threshold-recalibration|guard=no-live-gating-until-fidelity-pass-and-bilateral-byte-match|json=0
+LIRISQFPILOTFTR|state=PILOT_FAIL_CONFIRMED_AND_PROMOTION_COVERAGE_GAP_PATCHED|json=0

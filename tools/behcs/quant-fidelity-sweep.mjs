@@ -13,7 +13,8 @@ import { quant8, D } from './quant-huge-message-benchmark.mjs';
 // Metric path is mult-add only (no Math.log2): deterministic cross-machine.
 // Triplet construction for ranking preservation is FIXED at mix 0.8 vs 0.5
 // for every cell (documented constant; liris contest welcome) with the raw
-// cosine margin >= 0.1 qualification filter from the spec.
+// cosine margin >= 0.1 qualification filter from the spec. A cell with zero
+// qualified triplets is a coverage failure for promotion, not a silent pass.
 
 export const DIMS_SWEEP = Object.freeze([16384, 131072, 1048576]);
 export const RHO_LEVELS = Object.freeze([0.0, 0.25, 0.5, 0.75, 0.9, 0.99]);
@@ -28,7 +29,7 @@ export const DEFINITION_ROWS = Object.freeze([
   'QFSWEEPHDR|tool=quant-fidelity-sweep.mjs|spec=QUANTFIDELITYSPEC8-2026-06-11.hbp(liris-patched)|target=QUANT8-only-QUANT4-inherits-nothing|json=0',
   `QFSWEEPGRID|dims=${DIMS_SWEEP.join('+')}|rho=${RHO_LEVELS.join('+')}|families=${FAMILIES.join('+')}|pilot_pairs=${PILOT_PAIRS}|promotion_min=200|triplets=${TRIPLETS_PER_CELL}-per-cell-mix-${RANK_MIX_HI}-vs-${RANK_MIX_LO}|json=0`,
   'QFSWEEPMETRICS|m1=absolute-cosine-error|m2=dot-abs-plus-relative-when-raw-dot-ge-1e-9|m3=ranking-preservation-margin-0.1|rounding=fixed-6|json=0',
-  'QFSWEEPSTATUS|pilot=may-find-failures-cannot-promote|promotion=requires-200-pairs+both-machine-byte-match+thresholds-pass-incl-f4a-f4b|json=0',
+  'QFSWEEPSTATUS|pilot=may-find-failures-cannot-promote|promotion=requires-200-pairs+both-machine-byte-match+thresholds-pass-incl-f4a-f4b+rank-coverage-in-every-cell|json=0',
 ]);
 
 function lcg(seed) {
@@ -155,7 +156,7 @@ export function sweepCell(dims, rho, family, pairs = PILOT_PAIRS) {
 
 export function sweep(dimsList = DIMS_SWEEP, pairs = PILOT_PAIRS) {
   const rows = [`QFSWEEPRUNHDR|dims=${dimsList.join('+')}|pairs_per_cell=${pairs}|grade=${pairs >= 200 ? 'PROMOTION' : 'PILOT'}|json=0`];
-  let worstP99 = 0; let worstRank = 1; let cells = 0;
+  let worstP99 = 0; let worstRank = 1; let cells = 0; let rankMissingCells = 0;
   for (const dims of dimsList) {
     for (const rho of RHO_LEVELS) {
       for (const family of FAMILIES) {
@@ -163,12 +164,13 @@ export function sweep(dimsList = DIMS_SWEEP, pairs = PILOT_PAIRS) {
         rows.push(r.row);
         cells += 1;
         if (r.p99 > worstP99) worstP99 = r.p99;
+        if (r.rankQualified === 0) rankMissingCells += 1;
         if (r.rankRate >= 0 && r.rankRate < worstRank) worstRank = r.rankRate;
       }
     }
   }
-  const pass = worstP99 <= 0.05 && worstRank >= 0.99;
-  rows.push(`QFSWEEPVERDICT|cells=${cells}|worst_p99_cos_err=${worstP99.toFixed(6)}|worst_rank_preserve=${worstRank.toFixed(6)}|thresholds=p99-leq-0.05-AND-rank-geq-0.99|result=${pass ? 'PASS' : 'FAIL'}|grade=${pairs >= 200 ? 'PROMOTION_GRADE' : 'PILOT_CANNOT_PROMOTE'}|json=0`);
+  const pass = worstP99 <= 0.05 && worstRank >= 0.99 && rankMissingCells === 0;
+  rows.push(`QFSWEEPVERDICT|cells=${cells}|worst_p99_cos_err=${worstP99.toFixed(6)}|worst_rank_preserve=${worstRank.toFixed(6)}|rank_missing_cells=${rankMissingCells}|thresholds=p99-leq-0.05-AND-rank-geq-0.99-AND-rank_missing_cells-eq-0|result=${pass ? 'PASS' : 'FAIL'}|grade=${pairs >= 200 ? 'PROMOTION_GRADE' : 'PILOT_CANNOT_PROMOTE'}|json=0`);
   return rows;
 }
 
