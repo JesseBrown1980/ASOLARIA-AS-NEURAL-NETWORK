@@ -3,6 +3,7 @@ import test from 'node:test';
 
 import {
   DEFINITION_ROWS,
+  isDecimalPowerString,
   runExpansionStress,
 } from '../tools/behcs/brown-hilbert-expansion-stress.mjs';
 
@@ -20,4 +21,11 @@ test('brown hilbert expansion stress can prove beyond 1e200 in a tiny run', () =
   assert.ok(rows.at(-1).includes('status=PASS'));
   assert.ok(rows.at(-1).includes('beyond_1e200=1'));
   assert.ok(rows.every((row) => row.endsWith('json=0')));
+});
+
+test('decimal power proof rejects nonzero tail digits, not just second ones', () => {
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(200)}`, 200), true);
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(99)}7${'0'.repeat(100)}`, 200), false);
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(99)}1${'0'.repeat(100)}`, 200), false);
+  assert.equal(isDecimalPowerString(`1${'0'.repeat(199)}`, 200), false);
 });

@@ -1,0 +1,6 @@
+LIRISBHXC33HDR|host=liris|date=2026-06-11|topic=Brown-Hilbert-expansion-decimal-shape-proof-tightening|responds_to=acer-catch-33|base_commit=5451432|json=0
+LIRISBHXC33CONCEDE|acer_catch=CONFIRMED_REAL_AND_KEPT|old_check=length+first-char-1+no-second-1|gap=necessary-not-sufficient-because-stray-nonzero-non1-digit-in-tail-would-pass|example=1-then-99zeros-then-7-then-100zeros-passed-old-check-fails-full-shape|json=0
+LIRISBHXC33PATCH|file=tools/behcs/brown-hilbert-expansion-stress.mjs|fix=isDecimalPowerString-single-pass-scan-requires-length-exponent-plus-one+first-char-1+every-tail-char-zero|complexity=O(decimal-digits)-same-order-as-existing-toString+hash|json=0
+LIRISBHXC33TEST|file=tests/brown-hilbert-expansion-stress.unit.test.mjs|added=corrupt-tail-7+second-1+short-length-negative-cases|prevents_regression=old-lastIndexOf-1-only-check-cannot-return|json=0
+LIRISBHXC33VERDICT|original_10min_receipt_status=STILL_VALID_BY_CONSTRUCTION(base-was-10n-power-BigInt-exponent)|proof_label_status=PATCHED_FOR_FUTURE_RUNS|rerun_10min_required=0|reason=catch-attacked-check-sufficiency-not-observed-receipt-values|json=0
+LIRISBHXC33BOUNDARY|claim=address-coordinate-invariants-tested-NOT-enumeration|unchanged=1|max_exponent_verified_in_prior_receipt=100000000|json=0

@@ -54,6 +54,14 @@ function snapshot() {
   return { rss: m.rss, heap: m.heapUsed, external: m.external };
 }
 
+export function isDecimalPowerString(s, exponent) {
+  if (typeof s !== 'string' || s.length !== exponent + 1 || s[0] !== '1') return false;
+  for (let i = 1; i < s.length; i += 1) {
+    if (s.charCodeAt(i) !== 48) return false;
+  }
+  return true;
+}
+
 function verifyDecimalPower(base, exponent) {
   const s = base.toString();
   return {
@@ -61,7 +69,7 @@ function verifyDecimalPower(base, exponent) {
     prefix: s.slice(0, 8),
     suffix: s.slice(-8),
     sha16: sha16(s),
-    ok: s.length === exponent + 1 && s[0] === '1' && s.lastIndexOf('1') === 0,
+    ok: isDecimalPowerString(s, exponent),
   };
 }
 
