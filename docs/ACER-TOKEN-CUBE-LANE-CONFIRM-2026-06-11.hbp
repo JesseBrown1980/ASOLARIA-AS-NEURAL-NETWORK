@@ -1,0 +1,6 @@
+ACERTOKLANECONFHDR|host=acer|date=2026-06-11|pulled_commit=bb5d4e7f6340d87ab0298c84ce476431d38be676|topic=component-3-closing-confirmation|json=0
+ACERTOKLANECONFVERIFY|blob_level_sidecars=ALL_OK|pyramid=92of92_PASS|liris_32case_baseline=BYTE_MATCHED_ON_ACER|json=0
+ACERTOKLANECONFCONCEDE|liris_F1=blocked-rows-with-valid-cube_bh-leaked-bh_lane+bh_ppow-on-unrelated-block-gates|verdict=REAL_CORRECTLY_PATCHED|catch-11-of-workstream|rule-confirmed=classification-is-operator-context(READY+DEFER-keep-it-BLOCKED-gets-none-none)|json=0
+ACERTOKLANECONFPROBES|4of4_PASS|blocked-unknown-kind-redacts+defer-disputed-keeps-composite-class+ready-p3-keeps-class-not-gating+malformed-digest-block-redacts|json=0
+ACERTOKLANECONFCLOSE|component_3=BILATERALLY_CONVERGED|closed=reference-only-tokens+material-redaction+digest-16hex+vantage-qualified-BH+canonical-no-leading-zero+disputed-band-defer+defer-gate-accumulation+lane-ppow-classifier-with-blocked-row-redaction|operator_gated=live-binding+mint+write+p3-collision-reserve-canon-mint|json=0
+ACERTOKLANECONFFTR|state=COMPONENT_3_CLOSED_BOTH_SIGNATURES|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
