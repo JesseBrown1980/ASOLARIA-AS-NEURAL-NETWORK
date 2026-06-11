@@ -42,6 +42,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `tools/behcs/watcher-supervisor-suggestion-emitter.mjs` — component-5 suggestion-row contract: watcher → supervisor draft rows, `executable=0` invariant, live actions cap at DEFER_TO_OPERATOR.
 - `tools/behcs/token-cube-catalog-binder.mjs` — component-3 binder: crypto/hash tokens as references bound to vantage-qualified cube BH addresses; material redacted, disputed band 930–1229 defers.
 - `tools/behcs/nnest-watcher-gate.mjs` — component-4 gate: child acts only if reported == recomputed at every level AND the chain is contiguous/unique/ordered; consent anchors at apex-T0 only.
+- `tools/behcs/agent-spawn-throughput-benchmark.mjs` — throughput calibration definitions + optional live benchmark for logical spawn tiers; no live agents or disk writes by default.
 - `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
 - `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
 
