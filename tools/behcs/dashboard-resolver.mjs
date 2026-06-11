@@ -29,15 +29,52 @@ export const ROOM_BANDS = Object.freeze([
 ]);
 
 const PID_RE = /^([A-Z][A-Z0-9-]*)-PID-([A-Z][0-9A-F]{4})-A(\d{2})-W(\d{3})-P(\d{2})-N(\d{5})$/;
-const TS_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
+const TS_RE = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,3}))?Z$/;
 const DIRTY_RE = /[|\r\n]/;
 
 function hostHint(prefix) {
   if (prefix.startsWith('OP-')) return 'operator';
-  if (prefix.includes('ACER')) return 'acer';
-  if (prefix.includes('LIRIS')) return 'liris';
-  if (prefix.includes('FALCON')) return 'falcon';
-  return null;
+  const tokens = new Set(prefix.split('-'));
+  const hints = [
+    tokens.has('ACER') ? 'acer' : null,
+    tokens.has('LIRIS') ? 'liris' : null,
+    tokens.has('FALCON') ? 'falcon' : null,
+  ].filter(Boolean);
+  if (hints.length > 1) return 'ambiguous';
+  return hints[0] ?? null;
+}
+
+function parseStrictIso(value) {
+  const match = TS_RE.exec(String(value ?? ''));
+  if (!match) return { ok: false, ms: NaN };
+  const [, year, month, day, hour, minute, second, fraction = '0'] = match;
+  const expected = {
+    year: Number(year),
+    month: Number(month),
+    day: Number(day),
+    hour: Number(hour),
+    minute: Number(minute),
+    second: Number(second),
+    ms: Number(fraction.padEnd(3, '0')),
+  };
+  const ms = Date.UTC(
+    expected.year,
+    expected.month - 1,
+    expected.day,
+    expected.hour,
+    expected.minute,
+    expected.second,
+    expected.ms,
+  );
+  const parsed = new Date(ms);
+  const ok = parsed.getUTCFullYear() === expected.year
+    && parsed.getUTCMonth() + 1 === expected.month
+    && parsed.getUTCDate() === expected.day
+    && parsed.getUTCHours() === expected.hour
+    && parsed.getUTCMinutes() === expected.minute
+    && parsed.getUTCSeconds() === expected.second
+    && parsed.getUTCMilliseconds() === expected.ms;
+  return { ok, ms };
 }
 
 function globalReadonly(gate) {
@@ -97,6 +134,9 @@ export function resolveDashboard(pid, device, ts, nowIso) {
   const pidMatch = PID_RE.exec(String(pid ?? ''));
   if (pidMatch) {
     const hint = hostHint(pidMatch[1]);
+    if (hint === 'ambiguous') {
+      return globalReadonly('pid-device-conflict:ambiguous-host-prefix');
+    }
     if (hint && hint !== 'operator' && hint !== dev) {
       return globalReadonly(`pid-device-conflict:${hint}-vs-${dev}`);
     }
@@ -107,11 +147,12 @@ export function resolveDashboard(pid, device, ts, nowIso) {
 
   // Rungs 5-7: the timestamp must be strict ISO-8601 Zulu, not in the
   // future, and inside the freshness window, or the tuple is not proven.
-  if (!TS_RE.test(String(nowIso ?? ''))) return deviceScope(dev, 'malformed-now');
-  if (!TS_RE.test(String(ts ?? ''))) return deviceScope(dev, 'malformed-ts');
-  const tsMs = Date.parse(ts);
-  const nowMs = Date.parse(nowIso);
-  if (Number.isNaN(tsMs) || Number.isNaN(nowMs)) return deviceScope(dev, 'unparseable-ts');
+  const parsedNow = parseStrictIso(nowIso);
+  if (!parsedNow.ok) return deviceScope(dev, 'malformed-now');
+  const parsedTs = parseStrictIso(ts);
+  if (!parsedTs.ok) return deviceScope(dev, 'malformed-ts');
+  const tsMs = parsedTs.ms;
+  const nowMs = parsedNow.ms;
   if (tsMs > nowMs) return deviceScope(dev, 'ts-in-future');
   if ((nowMs - tsMs) / 1000 > FRESH_WINDOW_S) return deviceScope(dev, 'stale-ts');
 
@@ -176,6 +217,8 @@ const PARITY_CASES = Object.freeze([
   { id: '10', pid: 'ACER-PID-H9E2A-A07-W104-P00-N00000', device: 'liris', ts: '2026-06-11T11:59:00.000Z' },
   { id: '11', pid: 'EVIL-PID|json=1', device: 'acer', ts: '2026-06-11T11:59:00.000Z' },
   { id: '12', pid: 'ACER-PID-H9E2A-A07-W104-P24-N00000', device: 'acer', ts: '2026-06-11T11:59:00.000Z' },
+  { id: '13', pid: 'ACER-PID-H9E2A-A07-W104-P00-N00000', device: 'acer', ts: '2026-06-31T11:59:00.000Z' },
+  { id: '14', pid: 'ACER-LIRIS-PID-H9E2A-A07-W104-P00-N00000', device: 'acer', ts: '2026-06-11T11:59:00.000Z' },
 ]);
 
 export function emitParityRows() {

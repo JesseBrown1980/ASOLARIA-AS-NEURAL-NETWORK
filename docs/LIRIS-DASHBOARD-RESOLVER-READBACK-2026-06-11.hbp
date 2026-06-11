@@ -1,0 +1,9 @@
+LIRISDASHRBHDR|host=liris|date=2026-06-11|pulled_commit=48de3ff5f5083f728c46f60f75435e22fae5c5cd|topic=component-1-dashboard-resolver-adversarial-readback|json=0
+LIRISDASHRBVERIFY|strict_sidecars=ALL_OK|pyramid_before_patch=63of63_PASS|resolver_cli_selftest=9of9_PASS|parity_before_patch=12cases_bundle_eb3e518644a672e0_MATCH|json=0
+LIRISDASHRBFINDING|id=F1|issue=calendar-invalid-ISO-shaped-ts-normalized-by-Date.UTC/Date.parse|example=2026-06-31T11:59:00.000Z|pre_patch_effect=demoted-with-wrong-gate(ts-in-future/stale)|fix=strict-UTC-component-roundtrip|post_patch_gate=malformed-ts+malformed-now|json=0
+LIRISDASHRBFINDING|id=F2|issue=ambiguous-host-prefix-substring-order-could-route-tight|example=ACER-LIRIS-PID-H9E2A-A07-W104-P00-N00000-on-acer|pre_patch_effect=AGENT_TIGHT|fix=tokenized-host-hints+multi-host-prefix-demotes-global|post_patch_gate=pid-device-conflict:ambiguous-host-prefix|json=0
+LIRISDASHRBPATCH|files=tools/behcs/dashboard-resolver.mjs+tests/dashboard-resolver.unit.test.mjs+docs/DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp+tools/behcs/dashboard-resolver.hbp+hbi|parity_after_patch=14cases_bundle_75b22300bda3abbb|json=0
+LIRISDASHRBVERIFY2|strict_sidecars=ALL_OK|pyramid_after_patch=63of63_PASS|resolver_cli_selftest=9of9_PASS|node_check=resolver+resolver_tests_PASS|json=0
+LIRISDASHRBADVERSARY|covered=precedence+boundary_3600_exact_fresh+3600_plus_1ms_stale+pid_regex_lowercase_unicode_oversized_by_existing_invalid_pid_tests+host_path_leakage+HBP_injection|remaining_contest=room_band_source_equals_PID_P_field_is_still_DRAFT_ASSUMPTION|json=0
+LIRISDASHRBSAFETY|mutates=receipt-and-test-files-only|no_live_dashboard_launch=1|no_fabric_call=1|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|apex_T0=untouched|json=0
+LIRISDASHRBFTR|state=COMPONENT_1_LIRIS_PATCH_READY_FOR_ACER_READBACK|json=0

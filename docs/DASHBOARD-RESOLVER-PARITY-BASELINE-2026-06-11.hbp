@@ -1,4 +1,4 @@
-DASHRESPARITYHDR|component=1|cases=12|fixed_now=2026-06-11T12:00:00.000Z|rule=rows-byte-identical-on-every-machine|json=0
+DASHRESPARITYHDR|component=1|cases=14|fixed_now=2026-06-11T12:00:00.000Z|rule=rows-byte-identical-on-every-machine|json=0
 DASHRESPARITY|case=01|input_sha16=babeb95e1fee1431|state=AGENT_TIGHT|scope=AGENT|route=/dash/acer/pid/ACER-PID-H9E2A-A07-W104-P00-N00000/room/scout00|room_band=scout|gates=none|output_sha16=e216a1b288f9ead5|json=0
 DASHRESPARITY|case=02|input_sha16=9fa6b3c0e5cfbcf9|state=AGENT_TIGHT|scope=AGENT|route=/dash/liris/pid/LIRIS-PID-H2BC1-A07-W110-P05-N00001/room/review05|room_band=review|gates=none|output_sha16=88a46bb1485a65de|json=0
 DASHRESPARITY|case=03|input_sha16=f9e2656977ccf83e|state=AGENT_TIGHT|scope=AGENT|route=/dash/falcon/pid/OP-JESSE-PID-G0000-A00-W000-P00-N00000/room/scout00|room_band=scout|gates=none|output_sha16=c09ea561d9bd2f62|json=0
@@ -11,4 +11,6 @@ DASHRESPARITY|case=09|input_sha16=55ee2ee0d2746b0c|state=DEVICE_SCOPE|scope=DEVI
 DASHRESPARITY|case=10|input_sha16=ad813cd3f10287e3|state=GLOBAL_READONLY|scope=GLOBAL_READONLY|route=/dash/global/readonly|room_band=none|gates=pid-device-conflict:acer-vs-liris|output_sha16=1f79d130ab8a108f|json=0
 DASHRESPARITY|case=11|input_sha16=49a82aa96fb49651|state=INVALID_INPUT|scope=NONE|route=none|room_band=none|gates=dirty-pid|output_sha16=ed59afe9f7400c91|json=0
 DASHRESPARITY|case=12|input_sha16=0521e398e9c53d0c|state=AGENT_TIGHT|scope=AGENT|route=/dash/acer/pid/ACER-PID-H9E2A-A07-W104-P24-N00000|room_band=none|gates=none|output_sha16=43eeeda3dbf41c30|json=0
-DASHRESPARITYFTR|cases=12|bundle_sha16=eb3e518644a672e0|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0
+DASHRESPARITY|case=13|input_sha16=43563f52fa468449|state=DEVICE_SCOPE|scope=DEVICE|route=/dash/acer|room_band=none|gates=malformed-ts|output_sha16=71a6aca813ac8ed2|json=0
+DASHRESPARITY|case=14|input_sha16=1893d8eb1b15a36b|state=GLOBAL_READONLY|scope=GLOBAL_READONLY|route=/dash/global/readonly|room_band=none|gates=pid-device-conflict:ambiguous-host-prefix|output_sha16=f93265e03a2bcf12|json=0
+DASHRESPARITYFTR|cases=14|bundle_sha16=75b22300bda3abbb|exit=byte-match-when-regenerated-file-equals-sealed-baseline|json=0

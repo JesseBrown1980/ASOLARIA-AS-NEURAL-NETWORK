@@ -24,6 +24,7 @@ const sealedFiles = [
   'docs/ACER-READBACK-D22-2026-06-11.hbp',
   'docs/D22-PARITY-BASELINE-2026-06-11.hbp',
   'docs/DASHBOARD-RESOLVER-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/LIRIS-DASHBOARD-RESOLVER-READBACK-2026-06-11.hbp',
   'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',

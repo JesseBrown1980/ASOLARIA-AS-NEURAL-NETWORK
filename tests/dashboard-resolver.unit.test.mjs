@@ -52,6 +52,10 @@ test('demotion ladder: stale, malformed, and future timestamps -> DEVICE_SCOPE',
   for (const ts of ['yesterday-ish', '2026-06-11 11:59:00', '2026-06-11T11:59:00', '', null]) {
     assert.equal(resolveDashboard(GOOD_PID, 'acer', ts, NOW).state, 'DEVICE_SCOPE', `ts=${ts}`);
   }
+  const badCalendar = resolveDashboard(GOOD_PID, 'acer', '2026-06-31T11:59:00.000Z', NOW);
+  assert.deepEqual(badCalendar.gates, ['malformed-ts']);
+  const badCalendarNow = resolveDashboard(GOOD_PID, 'acer', FRESH, '2026-06-31T12:00:00.000Z');
+  assert.deepEqual(badCalendarNow.gates, ['malformed-now']);
   const future = resolveDashboard(GOOD_PID, 'acer', '2026-06-11T13:00:00.000Z', NOW);
   assert.ok(future.gates.includes('ts-in-future'));
   const badNow = resolveDashboard(GOOD_PID, 'acer', FRESH, 'not-a-clock');
@@ -64,6 +68,9 @@ test('conflicting pid/device demotes to GLOBAL_READONLY, never guesses a side', 
   assert.ok(out.gates[0].startsWith('pid-device-conflict:acer-vs-liris'));
   const op = resolveDashboard('OP-JESSE-PID-G0000-A00-W000-P00-N00000', 'falcon', FRESH, NOW);
   assert.equal(op.state, 'AGENT_TIGHT', 'operator PIDs are apex: valid on any device');
+  const ambiguous = resolveDashboard('ACER-LIRIS-PID-H9E2A-A07-W104-P00-N00000', 'acer', FRESH, NOW);
+  assert.equal(ambiguous.state, 'GLOBAL_READONLY');
+  assert.deepEqual(ambiguous.gates, ['pid-device-conflict:ambiguous-host-prefix']);
 });
 
 test('broad vs tight: out-of-band plane stays AGENT but takes no room sub-route', () => {
