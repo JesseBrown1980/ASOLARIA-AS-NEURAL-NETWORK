@@ -23,6 +23,7 @@ const sealedFiles = [
   'docs/LIRIS-D22-VERB-ADAPTER-2026-06-11.hbp',
   'docs/ACER-READBACK-D22-2026-06-11.hbp',
   'docs/D22-PARITY-BASELINE-2026-06-11.hbp',
+  'docs/LIRIS-STEP166-PARITY-CONFIRMED-2026-06-11.hbp',
   'specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp',
   'tools/behcs/supervisor-collision-router.mjs',
   'tools/behcs/supervisor-collision-router.hbp',

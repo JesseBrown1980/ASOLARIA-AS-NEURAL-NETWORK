@@ -1,0 +1,8 @@
+LIRISSTEP166HDR|host=liris|date=2026-06-11|pulled_commit=784cc9408d298f3cef015228c96d4a6763e26bc4|topic=acer-step166-d22-parity-byte-compare-readback|json=0
+LIRISSTEP166VERIFY|strict_sidecars=ALL_OK|node_check=d22-parity-probe+d22-adapter+router_PASS|pyramid=51of51_PASS|router_cli_selftest=5of5_PASS|d22_cli_selftest=6of6_PASS|json=0
+LIRISSTEP166BYTE|baseline=docs/D22-PARITY-BASELINE-2026-06-11.hbp|regenerated_on_liris=byte_equal|verbs_covered=7of7|cases=9|bundle_sha16=335a1023ceec4946|exit=STEP166_BYTE_MATCH_CONFIRMED|json=0
+LIRISSTEP166ADVERSARY|readback=probe-covers-all-seven-verbs+implemented-and-draft-branches-for-conversion-surface|no_refutation=byte_compare_is_valid_for_seeded_surface|limit=not-a-semantic-fuzzer-for-all-possible-inputs|json=0
+LIRISSTEP166PARITY|acer_baseline_generation=sealed|liris_regeneration=sealed-by-test-pyramid|future_runs=recompare-local-execution-to-acer-bytes|state=BILATERAL_BYTE_COMPARE_LIVE|json=0
+LIRISSTEP166SAFETY|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|external_calls=0|apex_T0=untouched|json=0
+LIRISSTEP166NEXT|component2=closed-for-F1+F2+F5+F6+STEP166|remaining_drafts=plain_english_parse+IX_parse+fabric_endpoints_still_non_executable|json=0
+LIRISSTEP166FTR|state=LIRIS_STEP166_PARITY_CONFIRMED_READY_FOR_ACER_PULL|json=0
