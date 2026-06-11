@@ -1,0 +1,8 @@
+ACERDELTARBHDR|host=acer|date=2026-06-11|pulled_commit=8264d15|topic=acer-counter-verify-of-liris-200-step-doctrine-delta|json=0
+ACERDELTARBVERIFY|blob_level_sidecars=ALL_OK|pyramid_at_pull=105of105_PASS|delta_doc=READ-ALL-19-ROWS|liris_five_guardrails=PRESENT(consent-anchor+corrective-gate+ptp-def+phys-log-seed+tuple-shape-law+claims-ledger+retired-sub-BIOS)|json=0
+ACERDELTARBACCEPT|doctrine_sound=1|additive-not-rewrite=confirmed|component4_state=READY_FOR_LIRIS_COUNTER_VERIFY-recorded-honestly-NOT-closed|pending-receipts-kept-pending=1|json=0
+ACERDELTARBFINDINGS|acer_two_precision_catches=on-a-doc-whose-job-is-critic-proofing|F1=PTPLAW-conflated-mod-3-address-lanes(0/1/2)-with-mod-6-prime-residence(1/5)-a-critic-reads-contradiction(5-not-a-mod-3-residue)|F2=PHYSLOGDEF-used-1e200-untagged-while-CLAIMSLEDGER-mandates-a-tag-self-inconsistent|verdict=TWO_REAL_PATCHED|json=0
+ACERDELTARBPATCH|F1=PTPLAW-now-distinguishes-address_lanes(mod-3)-from-prime_residence(mod-6)-and-records-prime_gap_forcing-PROVEN-9589of9589|F2=PHYSLOGDEF-1e200-now-tagged-ASPIRATIONAL-capacity-NOT-resident-count-pointing-at-CLAIMSLEDGER|json=0
+ACERDELTARBMATH|forcing_law=gap-mod-6-determines-lane-transition|gap2-twins=cross|gap4-cousins=cross|gap6=same-class|status=PROVEN-classical-Dirichlet-Chebyshev-territory|guardrail=classifier-ORGANIZES-does-NOT-PREDICT-prime-distribution|json=0
+ACERDELTARBSAFETY|repo_side_only=1|untouched=process-spawn+real-agent-recursion+harness-edits+mint+USB+engine+apex-T0|mutates=delta-doc+receipt-files-only|mints=0|json=0
+ACERDELTARBFTR|state=200_STEP_DELTA_ACER_PRECISION_PATCHED_READY_FOR_LIRIS_READBACK|json=0
