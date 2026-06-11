@@ -1,0 +1,7 @@
+ACERDASHRBHDR|host=acer|date=2026-06-11|pulled_commit=8175370342616a2db010bf4b6b405d878bde35fe|topic=liris-adversarial-patch-readback-component-1|json=0
+ACERDASHRBVERIFY|blob_level_sidecars=ALL_OK|pyramid=63of63_PASS|parity_14cases_bundle_75b22300bda3abbb=BYTE_MATCHED_ON_ACER(live-bilateral-parity-of-patched-resolver)|json=0
+ACERDASHRBCONCEDE|liris_F1=calendar-invalid-ISO-shaped-ts-wrong-gate-via-Date-normalization|liris_F2=ambiguous-multi-host-prefix-routed-tight-by-substring-order|verdict=BOTH_REAL_BOTH_CORRECTLY_PATCHED|fifth-cross-vantage-catch-of-workstream|json=0
+ACERDASHRBPROBES|extended=11of11_PASS|calendar=feb29-nonleap+feb29-leap-accepted+month13+month00+day00+hour24+leapsecond60+js-two-digit-year-quirk-0099|ambiguity=reverse-order-LIRIS-ACER+FALCON-LIRIS-on-falcon+ACER-ACER-dedupe-not-ambiguous|json=0
+ACERDASHRBDESIGNEDGES|X12=OP-prefix-wins-over-embedded-host-tokens(apex-precedence-by-design)|X13=unknown-prefix-carries-no-host-evidence-so-no-conflict(prefix-is-hint-not-registry)|both=CONSISTENT_WITH_LAW_never-tighter-than-evidence-requires-CONTRADICTION-to-demote|json=0
+ACERDASHRBOPEN|room_band_source=P-field-DRAFT-ASSUMPTION-still-uncontested|component5=QUEUED-per-operator-inherits-route-discipline|json=0
+ACERDASHRBFTR|state=COMPONENT_1_BILATERALLY_CONVERGED_SEED_PLUS_ADVERSARIAL_PATCH_PLUS_READBACK|mutates=receipt-files-only|mints=0|launches=0|usb_writes=0|engine_edits=0|json=0
