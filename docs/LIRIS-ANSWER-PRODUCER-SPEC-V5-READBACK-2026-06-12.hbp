@@ -1,0 +1,6 @@
+LIRISAPRODV5RBHDR|host=liris|date=2026-06-12|topic=answer-producer-spec-v5-readback|responds_to=ACER-ANSWER-PRODUCER-SPEC-V5-PATCH-2026-06-12|verdict=CLEAN_FOR_DRAFT_IMPLEMENTATION_ONLY|json=0
+LIRISAPRODV5RBVERIFY|spec=docs/ANSWER-PRODUCER-SPEC-2026-06-11.hbp|spec_sha256=5D923F89FB3E321D1AA355A5BA5BEEC6A538ECBCECC4687F185337539460823D|checked_rows=F4+F5+F6+F11+F12+F14+F15+F16+F17+F18+FTR|json=0
+LIRISAPRODV5RBACCEPT|accepted=F11-safety-subset-in-closed-schema+F12-source-closed-enum+F13/F5-delim-and-integer-rendering-pinned+F14-corpus-count-and-empty-summary-guard+F15-lowercase-row-hex+F16-read-time-validator+F17-pid-regex+F18-score_stub-exact-string|json=0
+LIRISAPRODV5RBSCOPE|unblocks=answer-producer-organ1-draft-only-implementation-and-tests|does_not_unblock=Fischer-live-scorer+Shannon-live-novelty+supervisor-minter+mint+public-push|safety=draft+no_mint+no_live_supervisor+no_fabric_call-every-row|json=0
+LIRISAPRODV5RBNOF19|targeted_attack=no-new-blocker-found-in-v5-spec-text|residual_risk=implementation-may-still-reveal-code-level-bugs;tests-must-include-mutation-failures-for-fabrication+forbidden-fields+marker-spoof+score_stub-format|json=0
+LIRISAPRODV5RBFTR|state=SPEC_V5_CLEAN_FOR_DRAFT_IMPLEMENTATION|next=implement-organ1-draft-only-with-byte-parity-baseline-and-anti-fabrication-mutation-tests|json=0
