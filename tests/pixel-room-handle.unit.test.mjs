@@ -119,3 +119,28 @@ test('folder dashboard can delegate to a lower-level host row without launching 
   assert.ok(rows.some((row) => row.includes('PIXFOLDERHOST|')));
   assert.ok(rows.some((row) => row.includes('process_launch=0')));
 });
+
+test('folder host calls can chain through all 16 physical levels without reminting parent strings', () => {
+  let parent = createPixelRoomTask({ ...base, tier: 0, room: 'root-room', action: 'LOOK' });
+  const delegations = new Set();
+  let rows = 0;
+  for (let level = 1; level <= 15; level += 1) {
+    const call = createFolderHostCall({
+      parent,
+      child_room: `room-level-${level}`,
+      child_tier: level,
+      child_nest: level + 1,
+      child_action: 'LOOK',
+      folder: `dashboards/A${String(level).padStart(2, '0')}`,
+      host_process: 'HBP-ROW-ONLY',
+    });
+    delegations.add(call.delegation_sha16);
+    rows += emitFolderHostRows(call).length;
+    assert.equal(call.process_launch, 0);
+    assert.equal(call.child.tier, `A${String(level).padStart(2, '0')}`);
+    parent = call.child;
+  }
+  assert.equal(parent.tier, 'A15');
+  assert.equal(delegations.size, 15);
+  assert.equal(rows, 45);
+});

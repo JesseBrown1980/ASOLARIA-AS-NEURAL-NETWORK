@@ -148,7 +148,8 @@ export function createPixelRoomTask(input = {}) {
 }
 
 export function createFolderHostCall(input = {}) {
-  const parent = createPixelRoomTask(input.parent || input);
+  const parentInput = input.parent || input;
+  const parent = parentInput.handle && parentInput.identity16 ? parentInput : createPixelRoomTask(parentInput);
   const parentTier = Number.parseInt(parent.tier.slice(1), 10);
   const childTier = input.child_tier ?? input.childTier ?? Math.min(15, parentTier + 1);
   const childNest = input.child_nest ?? input.childNest ?? Math.min(99999, Number.parseInt(parent.nest, 10) + 1);
