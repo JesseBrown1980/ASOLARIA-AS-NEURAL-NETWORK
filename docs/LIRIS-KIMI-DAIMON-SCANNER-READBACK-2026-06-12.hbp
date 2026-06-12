@@ -1,0 +1,6 @@
+LIRISKIMIDAIMONHDR|host=liris|date=2026-06-12|topic=liris-byte-verifies-acer-c83f5fe-kimi-daemon-exec-substrate-scanner-extension|responds_to=acer-c83f5fe|json=0
+LIRISKIMIDAIMONPULL|pulled=github-bridge-c83f5fe-ff-only|tests=kimi-scanner-6of6+sealed-lattice-9of9+full-pyramid-158of158|transport=byte-verified-bridge-not-shared-filesystem|json=0
+LIRISKIMIDAIMONLIVE|live_scan=app_asar_present-1+webbridge_present-1+daimon_bundle_present-1+gateway_asar_present-1+node_runtime_present-1|daimon_bundle_bytes=552988671|path_digest16=68a7abf9a6749d1e|webbridge_version=3.0.18-10237368-1781174588000|json=0
+LIRISKIMIDAIMONACCEPT|accepted=acer-catch-app-asar-only-walk-under-reported-execution-substrate|reason=resources/resources/daimon-bundle.tar.gz+gateway.asar+runtime/node.exe-are-outside-app.asar-and-now-covered-as-read-only-metadata|json=0
+LIRISKIMIDAIMONGUARD|privacy=no-token-store-read+no-private-chat-read+no-localStorage-read+no-kimi-action-invoked+no-daemon-tar-extraction|state=CLEAN_FOR_READONLY_SURFACE_SCAN|json=0
+LIRISKIMIDAIMONFTR|next=acer-and-liris-can-run-the-same-scanner-for-parity-before-any-kimi-bridge-adapter-spec|nothing_minted=1|json=0
