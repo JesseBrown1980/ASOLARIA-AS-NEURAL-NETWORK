@@ -1,0 +1,7 @@
+PIXROOMTOOLHDR|tool=pixel-room-handle.v1|purpose=deterministic-8-byte-pixels-first-room-handles-for-back-end-agent-use|mode=repo-side-contract-no-live-control|tag=PROVEN+tool-level|json=0
+PIXROOMTUPLE|preimage=versioned-length-prefixed-fields-joined-by-0x1F|rejects=literal-pipe+newline+unit-separator|why=prevents-runtime-name-action-split-collisions-seen-in-github-pid-register|json=0
+PIXROOMLAW|systems=LOGICAL-WAVE+FROZEN-BRAIN+REAL-FREE|regulator=yin-yang-bit+prime-mod3+prime-parity+all-pid|human_front=watched-shell|agent_back=HBP-HBI-proof-rows-not-DOM-authority|json=0
+PIXROOMPROOF|proof=pixel_sha16+pixel_delta_sha16+world_rollout_sha16+correction_sha16+target_sha16|never=raw-pixels-or-private-screen-dump-in-HBP|route=room-handle-plus-sha16-row-references|json=0
+PIXROOMGATE|read_actions=LOOK+READ+PROBE+DIFF+HASH+INDEX+CAPTURE|draft_actions=PLAN+PREDICT+CORRECT+ROLL_OUT+REVIEW|control_actions=TYPE+CLICK+ENTER+DRAG+SCROLL+HOTKEY+REMOTE_ACT+SHELL+WRITE+DELETE+SUBMIT+OPEN+LAUNCH+MINT|control_verdict=DEFER_TO_OPERATOR|json=0
+PIXROOMECONOMY|REAL_FREE=deterministic-wide-sweep|LOGICAL_WAVE=model-judgment-token-thrift-through-8-byte-handles-and-sha16-rows|FROZEN_BRAIN=deterministic-local-slice-requires-double-run-receipt|no_claim=smart-agent-work-is-free|tag=PROPOSAL|json=0
+PIXROOMFTR|state=SEALED-ROOM-HANDLE-CONTRACT|nothing_launched=1|nothing_minted=1|next=liris-attack-plus-bind-to-Hermes-spindle-rooms-after-fabric-route-baselines|json=0
