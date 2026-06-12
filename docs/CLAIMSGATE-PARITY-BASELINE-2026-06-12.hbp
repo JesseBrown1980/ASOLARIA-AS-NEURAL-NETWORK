@@ -1,0 +1,10 @@
+CLAIMSGATEPARITYHDR|id=claims-gate.v1|cases=8|scope=NECESSARY-NOT-SUFFICIENT-informational-v1|json=0
+CLAIMSGATECASE|i=0|tokens=1|flagged=1|verdict=FLAGS|json=0
+CLAIMSGATECASE|i=1|tokens=1|flagged=0|verdict=CLEAN|json=0
+CLAIMSGATECASE|i=2|tokens=1|flagged=1|verdict=FLAGS|json=0
+CLAIMSGATECASE|i=3|tokens=1|flagged=0|verdict=CLEAN|json=0
+CLAIMSGATECASE|i=4|tokens=1|flagged=1|verdict=FLAGS|json=0
+CLAIMSGATECASE|i=5|tokens=1|flagged=0|verdict=CLEAN|json=0
+CLAIMSGATECASE|i=6|tokens=0|flagged=0|verdict=CLEAN|json=0
+CLAIMSGATECASE|i=7|tokens=0|flagged=0|verdict=CLEAN|json=0
+CLAIMSGATEPARITYFTR|declared_false_negatives=hyphen-split+unicode-lookalike+cross-line-split+novel-phrasing+word-boundary-token-at-line-edge|declared_false_positive=negated-or-corrected-claim-still-flags-so-FLAG-is-review-prompt-not-verdict|classification=INFORMATIONAL-never-gating|json=0
