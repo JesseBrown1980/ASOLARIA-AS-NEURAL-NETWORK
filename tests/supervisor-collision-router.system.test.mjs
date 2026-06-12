@@ -18,6 +18,7 @@ function sidecarHash(rel) {
 const sealedFiles = [
   'README.md',
   'docs/ASOLARIA-AS-NEURAL-NETWORK.hbp',
+  'docs/BILATERAL-VANTAGE-ISOLATION-SEED-2026-06-12.hbp',
   'docs/TARGET-ARCHITECTURE-VISION-2026-06-10.hbp',
   'docs/TARGET-ARCHITECTURE-200-STEP-DELTA-2026-06-11.hbp',
   'docs/ACER-200-STEP-DELTA-READBACK-2026-06-11.hbp',

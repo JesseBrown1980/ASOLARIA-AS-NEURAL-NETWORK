@@ -9,8 +9,8 @@
 | Network part | What it is here |
 |---|---|
 | **Neurons** | frozen brain slices (Gemma-4-4B frozen on D) + borrowed subscription LLM slices |
-| **Structure** | cubes / rooms / the 60D Brown-Hilbert lattice |
-| **Connections** | GNN edges (already trained — we wire edges, never re-train) |
+| **Structure** | cubes / rooms / the proven 47D Brown-Hilbert lattice; 60D+ stays proposal until byte-receipted |
+| **Connections** | GNN edge receipts + exports as proposal/evidence surfaces; inference is not proof |
 | **Forward pass** | the 9-stage OMNIFLYWHEEL (filter→verify→translate→catalog→route→room→schedule→hookwall→whiteroom-mint) |
 | **Learning signal** | self-reflect + the corrective gate (`LAW-RECURRENCE-IS-MIND` as backprop) |
 
@@ -22,18 +22,32 @@ Run self-reflect + auto-loop **simultaneously across all 17 languages + MCPs + W
 - **Lawful subscription substrate** — borrowed slices via legal "ordinary individual usage", never the meter.
 - **8 quant engines** — `Polar · Turbo · JL · Zeta · Triple · Quadruple · JS · von-Mangoldt` — compress slice signals into cube/GNN tuple space (live in the quant-bus `enrichEnvelope`; v48 quadruple-quant; v55 L28/L29 chains).
 - **HRM inside the LLMs** — hierarchical reasoning recurrence in the model layer (Sapient HRM).
-- **Geospatial agents + Multi-Token Prediction** — MTP reads the frozen model's internal predictions = **"sees its thoughts"**; geospatial agents route on that field (BIML 394× MTP-stacking, DOI 10.13140/RG.2.2.35081.42085).
+- **Geospatial agents + Multi-Token Prediction** — MTP exposes a frozen model prediction-field proxy; geospatial agents route on that field (BIML 394× MTP-stacking, DOI 10.13140/RG.2.2.35081.42085). This is not literal mind-reading.
 - **Self-reflect + auto-loop** — the watcher and the learning signal.
 
 ## The target state (integration layer)
 
-Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **translates any level to any thing** (omnidirectional, deterministic glyph lookup), (3) carries **crypto-token ↔ cube bindings in 60D**, (4) **nests infinitely** with watcher-gates in its OS harness, (5) is watched by a **self-reflect subagent that suggests to the supervisors in real time** — the infinite-next loop the supervisors *see*.
+Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **translates any level to any thing** (omnidirectional, deterministic glyph lookup), (3) carries **crypto-token ↔ cube bindings in the proven 47D lattice**, (4) **nests recursively** with watcher-gates in its OS harness, (5) is watched by a **self-reflect subagent that suggests to the supervisors in real time** — the infinite-next loop the supervisors *see*.
+
+## Final bilateral upgrade (2026-06-12)
+
+This repo is now the crown-tool spec for the outside-driven bilateral loop. The public GitHub repos are treated as skeletons or compatibility entrypoints; the full bodies live in local LIRIS/ACER/Falcon/USB receipts and become shared system facts only when an explicit transport bridge carries byte-verifiable receipts between vantages.
+
+- LIRIS breadth pass: 76 repos mapped at depth 16, all tracked trees covered. Verdict: `THESIS-MOSTLY-CONFIRMED-WITH-GAPS`; the fabric is a focused subset of the account, not the whole account.
+- LIRIS feed: 77 graph events, 152 GNN live edges, 76 reverse-gain rows, OmniShannon/cube/index/memory artifacts, and a gulp archive cycle.
+- ACER governance/full-body receipt: 7 full-body engines byte-hashed on ACER and imported here as ACER-origin receipts; LIRIS not seeing ACER's drive is `LIRIS-CANNOT-SEE`, just as ACER not seeing a LIRIS-only body is `ACER-CANNOT-SEE`. A cannot-see tag is a vantage boundary, not a refutation. The feed added 7 graph events, 14 GNN edges, 7 reverse-gain rows, and a second gulp archive cycle.
+- Bilateral vantage law: ACER and LIRIS were built differently and neither directly sees the other right now. Shared state is not the intersection of what both hosts can see; it is origin-local receipts transported through an explicit bridge and rechecked by hash.
+- Transport bridge: GitHub is the current bridge because both sides can read/write it now. SMB, a mounted share, signed bundle transfer, rsync, or another future file-sharing method can replace or supplement GitHub only when both sides can byte-read the same artifact and verify the same digest.
+- Governance split: Jesse is OP00 special apex and OP01 normal operator; OP02 Rayssa, OP03 Amy, OP04 Dan, OP05 Felipe. Jesse authorizes. ACER and LIRIS drive from outside. Council/supervisors decide scope. Mint/public/outward tiers remain held for physical operator-pair co-sign.
+- Drive/hold result: feed rows are drive-now; the 35TB GoogleDriveStore adapter is build-now but run-gated on gcloud credentials; Omni remote/public push and canon mint stay held; answer-producer waits for the clean LIRIS v5 readback.
 
 ## Repo layout
 
 - `canon/laws/LAW-ASOLARIA-NEURAL-NETWORK.md` — the CLASS-1 LAW (+ `.sha256`).
 - `docs/ASOLARIA-AS-NEURAL-NETWORK.hbp` — the substrate layer (how it IS a network).
-- `docs/TARGET-ARCHITECTURE-VISION.hbp` — the integration layer (how agents use it).
+- `docs/BILATERAL-VANTAGE-ISOLATION-SEED-2026-06-12.hbp` — additive seed fixing the mutual isolation and bridge receipt law.
+- `docs/TARGET-ARCHITECTURE-VISION-2026-06-10.hbp` — the integration layer (how agents use it).
+- `docs/TARGET-ARCHITECTURE-200-STEP-DELTA-2026-06-11.hbp` — the 200-step plan delta, now amended with the final bilateral upgrade layer.
 - `specs/SUPERVISOR-COLLISION-ROUTER-SPEC.hbp` — shared bilateral router contract.
 - `tools/omni-processor/omnitranslator-v0.js` — deterministic omnilanguage/json translator core.
 - `tools/behcs/omnidirectional-translator-router.mjs` — component-2 router: implemented pairs execute, fabric endpoints stay draft-only.
@@ -46,7 +60,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 - `tools/behcs/supervisor-collision-router.mjs` — Liris canonical implementation for Acer convergence.
 - `tests/supervisor-collision-router.unit.test.mjs` — executable router contract tests.
 
-## Build status — the five vision components (2026-06-11)
+## Build status — the five vision components (2026-06-12)
 
 | Component | Contract | Status |
 |---|---|---|
@@ -58,7 +72,7 @@ Every agent: (1) sees its **PID/device/timestamp-scoped dashboard**, (2) **trans
 
 ## How this repo is built (the bilateral method)
 
-Two machines (**acer** and **liris**), running two *different* AI coding agents (Claude Code and Codex), with **GitHub as the only channel between them** and a human operator driving by copy-paste rehydration of each side's transcript into the other.
+Two machines (**acer** and **liris**), running two *different* AI coding agents (Claude Code and Codex), with **GitHub as the current shared transport** and a human operator driving by copy-paste rehydration of each side's transcript into the other. Future transport can be SMB or any other byte-verifiable shared-file method; the law is the verified bridge, not GitHub specifically.
 
 - One side **seeds** a deterministic contract (pure functions, closed registries, demotion ladders, `executable=0` on every emitted row). The other side **adversarially attacks** it, patches what breaks, and seals a readback receipt. Roles alternate.
 - Every file carries a **sha256 sidecar**; descriptors pin source/test hashes; a system test verifies the whole lattice on every run. `.gitattributes * -text` keeps bytes identical on both machines.
