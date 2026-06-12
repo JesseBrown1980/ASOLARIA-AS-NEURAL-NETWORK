@@ -19,9 +19,24 @@ export const KINDS = Object.freeze(['real', 'logical']);
 export const KIND_BITS = Object.freeze({ logical: 0, real: 1 });
 export const RUNTIMES = Object.freeze(['claude', 'codex', 'deepseek', 'opencode', 'gemini']);
 export const AGENT_TYPES = Object.freeze(['LOGICAL-WAVE', 'FROZEN-BRAIN', 'REAL-FREE']);
+export const REGISTER_AGENT_TUPLE_ID = 'github-pid-register-agent-tuple.v1';
+export const UNIT_SEPARATOR = '\x1f';
 
 const sha256 = (t) => createHash('sha256').update(String(t), 'utf8').digest('hex');
 const u32 = (hex8) => parseInt(hex8, 16);
+const safeTuplePart = (field, value) => {
+  const s = String(value ?? '');
+  if (!s) throw new Error(`${field}-required`);
+  if (/[|\r\n\x1f]/.test(s)) throw new Error(`${field}-contains-hbp-or-tuple-delimiter`);
+  return s;
+};
+
+export function tuplePreimage(parts) {
+  return [REGISTER_AGENT_TUPLE_ID, ...parts].map((part, i) => {
+    const s = safeTuplePart(`tuple_${i}`, part);
+    return `${Buffer.byteLength(s, 'utf8')}:${s}`;
+  }).join(UNIT_SEPARATOR);
+}
 
 // mint ONE deterministic live-format PID for (role, name) at access-tier + nest.
 export function mintPid({ role, name, tier = 4, nest = 1, kind = 'logical', prime = 0 }) {
@@ -85,18 +100,24 @@ export function classifyAgentType({ yin_yang, prime }) {
 export function registerAgent({ runtime, name, role = 'AGT', tier = 4, kind = 'logical', prime = 0, nest = 1 }) {
   const rt = String(runtime || '').toLowerCase().replace(/[^a-z0-9.-]+/g, '-').replace(/^-|-$/g, '');
   if (!rt) throw new Error('runtime-required-accepts-any-model-name');
+  const rawName = safeTuplePart('name', name);
+  const safeName = rawName.toUpperCase().replace(/[^A-Z0-9]+/g, '-').replace(/^-|-$/g, '');
+  if (!safeName) throw new Error('name-required-after-sanitize');
   const agentType = classifyAgentType({ yin_yang: kind, prime });
-  const p = mintPid({ role, name: `${rt.toUpperCase()}-${agentType}-${name}`, tier, kind, prime, nest });
+  const identityPreimage = tuplePreimage(['REGISTER_AGENT', rt, agentType, rawName, kind, String(prime)]);
+  const identitySha16 = sha256(identityPreimage).slice(0, 16);
+  const p = mintPid({ role, name: `${rt.toUpperCase()}-${agentType}-${safeName}-G${identitySha16.slice(0, 8).toUpperCase()}`, tier, kind, prime, nest });
   return {
     ...p,
     runtime: rt,
     known_runtime: RUNTIMES.includes(rt),
     agent_type: agentType,
+    register_identity_sha16: identitySha16,
   };
 }
 
 export function emitAgentRow(a) {
-  return `AGENTPID|runtime=${a.runtime}|known_runtime=${a.known_runtime ? 1 : 0}|agent_type=${a.agent_type}|pid=${a.pid}|tier=${a.tier}|yin_yang=${a.yin_yang}|yin_yang_bit=${a.yin_yang_bit}|lane_mod3=${a.lane}|quad_mod4=${a.quad}|sector=${a.sector}|cube_bh=${a.cube_bh}|json=0`;
+  return `AGENTPID|runtime=${a.runtime}|known_runtime=${a.known_runtime ? 1 : 0}|agent_type=${a.agent_type}|pid=${a.pid}|register_identity_sha16=${a.register_identity_sha16 || 'none'}|tier=${a.tier}|yin_yang=${a.yin_yang}|yin_yang_bit=${a.yin_yang_bit}|lane_mod3=${a.lane}|quad_mod4=${a.quad}|sector=${a.sector}|cube_bh=${a.cube_bh}|json=0`;
 }
 
 export function selfTest() {
@@ -126,6 +147,9 @@ export function selfTest() {
   })());
   add('kind-load-bearing-in-agent-pid', registerAgent({ runtime: 'claude', name: 'worker', kind: 'logical' }).pid
     !== registerAgent({ runtime: 'claude', name: 'worker', kind: 'real' }).pid);
+  add('register-agent-preimage-no-hyphen-collision', registerAgent({ runtime: 'claude', name: 'LOGICAL-WAVE-WORKER', kind: 'logical' }).pid
+    !== registerAgent({ runtime: 'claude-logical-wave', name: 'WORKER', kind: 'logical' }).pid);
+  add('register-identity-sha16', /^[0-9a-f]{16}$/.test(registerAgent({ runtime: 'claude', name: 'worker' }).register_identity_sha16));
   add('empty-runtime-rejected', (() => { try { registerAgent({ runtime: '', name: 'x' }); return false; } catch { return true; } })());
   add('agent-row-hbp', emitAgentRow(registerAgent({ runtime: 'claude', name: 'x' })).endsWith('|json=0'));
   return { ok: checks.every((c) => c.ok), checks };

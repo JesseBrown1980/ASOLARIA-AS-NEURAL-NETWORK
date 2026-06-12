@@ -3,7 +3,9 @@ import test from 'node:test';
 
 import {
   classifyRoomAction,
+  createFolderHostCall,
   createPixelRoomTask,
+  emitFolderHostRows,
   emitPixelRoomRows,
   mintPixelRoom,
   normalizeSha16,
@@ -31,6 +33,8 @@ test('mints deterministic 8-byte room handles', () => {
   const b = mintPixelRoom(base);
   assert.match(a.handle, /^[0-9a-f]{16}$/);
   assert.equal(a.handle_bytes, 8);
+  assert.match(a.identity16, /^[0-9a-f]{32}$/);
+  assert.equal(a.identity_bytes, 16);
   assert.equal(a.handle, b.handle);
 });
 
@@ -45,12 +49,27 @@ test('three systems are regulated by yin-yang and prime parity', () => {
   assert.equal(createPixelRoomTask({ ...base, kind: 'real', prime: 0 }).agent_type, 'FROZEN-BRAIN');
   assert.equal(createPixelRoomTask({ ...base, kind: 'real', prime: 1 }).agent_type, 'REAL-FREE');
   assert.equal(createPixelRoomTask({ ...base, kind: 'real', prime: 4 }).prime_mod3, 1);
+  assert.equal(createPixelRoomTask({ ...base, kind: 'real', prime: 4 }).room_lane, 'L1');
 });
 
 test('control actions are gated; read and draft actions are not live control', () => {
-  assert.deepEqual(classifyRoomAction('LOOK'), { action: 'LOOK', verdict: 'READ_READY', live_control: 0 });
-  assert.deepEqual(classifyRoomAction('PREDICT'), { action: 'PREDICT', verdict: 'DRAFT_READY', live_control: 0 });
-  assert.deepEqual(classifyRoomAction('TYPE'), { action: 'TYPE', verdict: 'DEFER_TO_OPERATOR', live_control: 1 });
+  assert.equal(classifyRoomAction('LOOK').verdict, 'READ_READY');
+  assert.equal(classifyRoomAction('LOOK').live_control, 0);
+  assert.equal(classifyRoomAction('PREDICT').verdict, 'DRAFT_READY');
+  assert.equal(classifyRoomAction('PREDICT').live_control, 0);
+  assert.equal(classifyRoomAction('TYPE').verdict, 'DEFER_TO_OPERATOR');
+  assert.equal(classifyRoomAction('TYPE').live_control, 1);
+});
+
+test('surface-tier gates fail closed for hidden or unknown actions', () => {
+  const hidden = createPixelRoomTask({ ...base, surface_tier: 'hidden', action: 'LOOK' });
+  assert.equal(hidden.verdict, 'DEFER_TO_SUPERVISOR');
+  assert.equal(hidden.live_control, 1);
+  assert.equal(hidden.access_gate, 'restricted-surface');
+  const typo = createPixelRoomTask({ ...base, action: 'typ' });
+  assert.equal(typo.verdict, 'DEFER_TO_SUPERVISOR');
+  assert.equal(typo.live_control, 1);
+  assert.equal(typo.access_gate, 'unknown-action-fail-closed');
 });
 
 test('proof rows carry hashes only, not raw pixel payloads or DOM authority', () => {
@@ -79,4 +98,24 @@ test('emitted rows include MCP token-thrift and no live launch', () => {
   assert.ok(rows.some((row) => row.includes('control_gate=DEFER_TO_OPERATOR')));
   assert.ok(rows.some((row) => row.includes('mcp_payload=sha16-row-handles-not-full-context')));
   assert.ok(rows.some((row) => row.includes('nothing_launched=1')));
+});
+
+test('folder dashboard can delegate to a lower-level host row without launching it', () => {
+  const call = createFolderHostCall({
+    ...base,
+    folder: 'dashboards/A08',
+    host_process: 'child-host.mjs',
+    child_room: 'A09-child-room',
+    child_route: '/api/child/room',
+    child_action: 'PLAN',
+  });
+  assert.equal(call.parent.tier, 'A08');
+  assert.equal(call.child.tier, 'A09');
+  assert.equal(call.process_launch, 0);
+  assert.equal(call.process_gate, 'HBP_ROW_ONLY');
+  assert.equal(call.logical_nesting, 'row-chain-unbounded');
+  const rows = emitFolderHostRows(call);
+  assert.ok(rows.every((row) => row.endsWith('|json=0') && !row.includes('\n')));
+  assert.ok(rows.some((row) => row.includes('PIXFOLDERHOST|')));
+  assert.ok(rows.some((row) => row.includes('process_launch=0')));
 });

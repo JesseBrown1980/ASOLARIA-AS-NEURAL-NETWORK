@@ -1,0 +1,5 @@
+PIDRECONCILETOOLHDR|tool=github-live-pid-reconcile.v1|purpose=compare-github-proposed-PIDs-to-live-office-snapshot-without-pretending-they-are-equal|snapshot=liris-supervisors-hbp-count41-acer-office-pending|json=0
+PIDRECONCILELAW|github_pid=PROPOSED-address|live_pid=office-assigned-sequential-Hilbert-address|status=MATCH+DIVERGENT+PENDING-OFFICE-SNAPSHOT|unknown=never-fabricate-live-PID|json=0
+PIDRECONCILESEED|entries=shannon-HD16C+hermes-HD17C+deepseek-HD15C|corrected=deepseek-github-H4DAC-not-HB5EC|source=supervisors-hbp-live-read-lane|tag=PROVEN+snapshot-limited|json=0
+PIDRECONCILEGATE|next=extend-snapshot-only-from-byte-receipted-live-office-or-supervisor-HBP-feed|acer_office_705=not-visible-through-current-MCP-lane|json=0
+PIDRECONCILEFTR|state=SEALED-RECONCILE-CONTRACT|nothing_minted=1|nothing_launched=1|json=0

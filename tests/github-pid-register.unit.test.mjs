@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import {
   AGENT_TYPES, KIND_BITS, KINDS, ROLES, RUNTIMES, SECTORS,
-  classifyAgentType, emitAgentRow, emitRegistrationRows, mintPid, mintTriad, registerAgent, selfTest,
+  classifyAgentType, emitAgentRow, emitRegistrationRows, mintPid, mintTriad, registerAgent, selfTest, tuplePreimage,
 } from '../tools/behcs/github-pid-register.mjs';
 
 test('self-test passes', () => {
@@ -71,4 +71,15 @@ test('kind is load-bearing for agent PID identity', () => {
   assert.equal(logical.agent_type, 'LOGICAL-WAVE');
   assert.equal(frozen.agent_type, 'FROZEN-BRAIN');
   assert.equal(realFree.agent_type, 'REAL-FREE');
+});
+
+test('registerAgent uses unambiguous tuple identity and closes hyphen split alias', () => {
+  const a = registerAgent({ runtime: 'claude', name: 'LOGICAL-WAVE-WORKER', kind: 'logical' });
+  const b = registerAgent({ runtime: 'claude-logical-wave', name: 'WORKER', kind: 'logical' });
+  assert.notEqual(a.pid, b.pid);
+  assert.match(a.register_identity_sha16, /^[0-9a-f]{16}$/);
+  assert.match(b.register_identity_sha16, /^[0-9a-f]{16}$/);
+  assert.notEqual(tuplePreimage(['REGISTER_AGENT', 'claude', 'LOGICAL-WAVE', 'LOGICAL-WAVE-WORKER', 'logical', '0']),
+    tuplePreimage(['REGISTER_AGENT', 'claude-logical-wave', 'LOGICAL-WAVE', 'WORKER', 'logical', '0']));
+  assert.ok(emitAgentRow(a).includes(`register_identity_sha16=${a.register_identity_sha16}`));
 });

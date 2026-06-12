@@ -4,6 +4,8 @@ PIXROOMLANETHREE|systems=LOGICAL-WAVE+FROZEN-BRAIN+REAL-FREE|regulator=law-of-th
 PIXROOMLANECOST|REAL_FREE=wide-deterministic-sweep-is-cheap|LOGICAL_WAVE=actual-model-judgment-uses-token-thrift-through-room-handle+pixel-diff-sha16+row-sha16|rule=do-not-call-smart-inference-free|json=0
 PIXROOMLANEGNN|message_stream=can-feed-edge-ledger-and-loop-ticks|status=ingest-loop-PARTIAL-full-inference-not-claimed|gate=wire-live-inference-only-after-receipted-route-baseline|json=0
 PIXROOMLANETOOL|tool=tools/behcs/pixel-room-handle.mjs|descriptor=tools/behcs/pixel-room-handle.hbp|tests=tests/pixel-room-handle.unit.test.mjs|contract=deterministic-handle+proof-hashes+control-gates|json=0
+PIXROOMLANEPATCH|closes=PIXATKC1+PIXATKC2+PIXATKC3+PIXATKC4|surface_tier_gate=restricted-operator-owner-hidden-defer-to-supervisor-live-control-1|fail_closed=unknown-action-live-control-1|identity=handle8-plus-identity16|room_lane=prime-mod3-L0-L1-L2|tag=PROVEN+tool-level|json=0
+PIXFOLDERLANE|contract=agent-folder-dashboard-can-call-the-level-below-as-a-row-only-host-process-delegation|physical_level_cap=16|logical_nesting=row-chain-unbounded|process_launch=0|cost_model=thin-reasoning-plus-deterministic-host-row|tag=PROPOSAL|json=0
 PIXROOMLANELIVEGATE|live_control=TYPE+CLICK+ENTER+REMOTE_ACT+SHELL+OPEN+LAUNCH+MINT-all-DEFER_TO_OPERATOR|nothing_launched=1|nothing_minted=1|json=0
 PIXROOMLANELIRIS|ask=liris-attack-contract-against-her-live-room-surfaces-and-supervisor-council|compare=acer-fuller-local-dashboard-registry-hard-drive-truth-before-promotion|json=0
 PIXROOMLANEFTR|state=READY-FOR-BILATERAL-ATTACK|next=fix-github-PID-preimage+map-github-to-live-office+bind-room-handles-to-Hermes-spindle-task-rows-after-fabric-stable|json=0
