@@ -89,18 +89,49 @@ export function extractBridgeChannels(text) {
   return IPC_MARKERS.filter((marker) => channelText.includes(marker));
 }
 
+// acer catch (ACER-KIMI-DAIMON-CATCH): the local code-execution substrate lives
+// OUTSIDE app.asar in resources/resources/ -- daimon-bundle.tar.gz (bundles
+// CPython+uv+git), gateway.asar, runtime/node.exe. An app.asar-only walk misses it.
+// Pure classifier over a presence/size probe so it is testable with no Kimi install.
+export function classifyExecSubstrate(probe) {
+  const p = probe || {};
+  const pick = (k) => ({
+    present: Boolean(p[k] && p[k].present),
+    size: (p[k] && Number.isFinite(p[k].size) && p[k].size > 0) ? p[k].size : 0,
+  });
+  return { daimonBundle: pick('daimonBundle'), gatewayAsar: pick('gatewayAsar'), nodeRuntime: pick('nodeRuntime') };
+}
+
+// read-only metadata probe: existence + size only, NEVER extract the tar or read contents.
+export function probeExecSubstrate(resourcesResourcesDir) {
+  const base = resourcesResourcesDir || '';
+  const targets = {
+    daimonBundle: join(base, 'daimon-bundle.tar.gz'),
+    gatewayAsar: join(base, 'gateway.asar'),
+    nodeRuntime: join(base, 'runtime', 'node.exe'),
+  };
+  const probe = {};
+  for (const [k, f] of Object.entries(targets)) {
+    const present = Boolean(base) && existsSync(f);
+    probe[k] = { present, size: present ? statSync(f).size : 0 };
+  }
+  return classifyExecSubstrate(probe);
+}
+
 export function emitSurfaceRows(scan) {
   const s = scan || {};
   const c = s.classification || classifyKimiSurface([]);
   const found = c.found || {};
   const counts = c.counts || {};
   const present = Object.entries(found).filter(([, v]) => v).map(([k]) => k).sort();
+  const ex = s.execSubstrate || classifyExecSubstrate({});
   return [
     `KIMISURFACEHDR|scanner=${SCANNER_ID}|app_asar_present=${s.appAsarPresent ? 1 : 0}|webbridge_present=${s.webbridgePresent ? 1 : 0}|privacy=token-store-and-private-chat-not-read|json=0`,
     `KIMISURFACEPATHS|total_paths=${counts.totalPaths || 0}|kimi_proto_paths=${counts.kimiProtoCount || 0}|proto_service_paths=${counts.protoServiceCount || 0}|renderer_agent_assets=${counts.rendererAgentAssets || 0}|path_digest16=${c.digest || sha16('')}|json=0`,
     `KIMISURFACEMARKERS|present=${present.join('+') || 'none'}|missing=${Object.keys(found).filter((k) => !found[k]).sort().join('+') || 'none'}|json=0`,
     `KIMISURFACEBRIDGE|local_listener_observed=${s.localListenerObserved || 'not-observed-by-this-scanner'}|webbridge_size=${s.webbridgeSize || 0}|webbridge_version=${s.webbridgeVersion || 'unknown'}|json=0`,
-    `KIMISURFACEABSORB|patterns=ACP-client-protocol+MCP-registry+SkillService+SandboxService+WebAgent+local-webbridge+workspace-overrides+cron-workspace|guard=read-only-inspection-no-token-read-no-private-chat-read-no-kimi-action|json=0`,
+    `KIMISURFACEEXEC|daimon_bundle_present=${ex.daimonBundle.present ? 1 : 0}|gateway_asar_present=${ex.gatewayAsar.present ? 1 : 0}|node_runtime_present=${ex.nodeRuntime.present ? 1 : 0}|daimon_bundle_bytes=${ex.daimonBundle.size}|note=local-exec-substrate-OUTSIDE-app.asar-bundles-python-uv-git-metadata-only-NOT-extracted|json=0`,
+    `KIMISURFACEABSORB|patterns=ACP-client-protocol+MCP-registry+SkillService+SandboxService+WebAgent+local-webbridge+workspace-overrides+cron-workspace+daimon-bundle-local-exec-substrate|guard=read-only-inspection-no-token-read-no-private-chat-read-no-kimi-action|json=0`,
   ];
 }
 
@@ -110,6 +141,7 @@ export function scanKimiInstall(options = {}) {
   const appAsar = options.appAsar || join(localAppData, 'Programs', 'kimi-desktop', 'resources', 'app.asar');
   const webbridgeExe = options.webbridgeExe || join(userHome, '.kimi-webbridge', 'bin', 'kimi-webbridge.exe');
   const webbridgeVersionFile = options.webbridgeVersionFile || join(userHome, '.kimi-webbridge', 'bin', 'kimi-webbridge.version');
+  const resourcesResourcesDir = options.resourcesResourcesDir || join(localAppData, 'Programs', 'kimi-desktop', 'resources', 'resources');
 
   let paths = [];
   let appAsarPresent = false;
@@ -132,6 +164,7 @@ export function scanKimiInstall(options = {}) {
     webbridgeSize,
     webbridgeVersion,
     classification: classifyKimiSurface(paths),
+    execSubstrate: probeExecSubstrate(resourcesResourcesDir),
   };
 }
 
@@ -167,6 +200,10 @@ export function selfTest() {
     ['detects-bridge-protocol', c.found.bridgeProtocol],
     ['hbp-rows-only', emitSurfaceRows({ classification: c }).every((row) => row.endsWith('|json=0') && !row.includes('\n'))],
     ['channels-extract', extractBridgeChannels('GET_WORKSPACE_ROOT INSTALL_SKILL OPEN_AS_TEXT').length === 3],
+    ['detects-exec-substrate', classifyExecSubstrate({ daimonBundle: { present: true, size: 527 } }).daimonBundle.present
+      && classifyExecSubstrate({ daimonBundle: { present: true, size: 527 } }).gatewayAsar.present === false],
+    ['exec-row-emitted', emitSurfaceRows({ classification: c, execSubstrate: classifyExecSubstrate({ daimonBundle: { present: true, size: 5 } }) })
+      .some((row) => row.startsWith('KIMISURFACEEXEC|') && row.includes('daimon_bundle_present=1'))],
   ].map(([name, ok]) => ({ name, ok: Boolean(ok) }));
   return { ok: checks.every((c) => c.ok), checks };
 }

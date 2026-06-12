@@ -1,6 +1,7 @@
-KIMISURFACETOOL|tool=tools/behcs/kimi-desktop-surface-scan.mjs|status=READONLY-INSPECTION-V1|scope=parse-Kimi-app.asar-file-table-and-webbridge-binary-metadata-only|json=0
-KIMISURFACEPRIVACY|never_reads=bridge-store-token-store+private-chat+localStorage+cookies+account-session|never_invokes=Kimi-IPC+MCP+Skill+Sandbox+WebAgent-actions|json=0
-KIMISURFACEOUTPUT|rows=KIMISURFACEHDR+KIMISURFACEPATHS+KIMISURFACEMARKERS+KIMISURFACEBRIDGE+KIMISURFACEABSORB|format=HBP-only-json0|json=0
+KIMISURFACETOOL|tool=tools/behcs/kimi-desktop-surface-scan.mjs|status=READONLY-INSPECTION-V1.1|scope=parse-Kimi-app.asar-file-table+webbridge-binary-metadata+resources-resources-exec-substrate-metadata-only|json=0
+KIMISURFACEPRIVACY|never_reads=bridge-store-token-store+private-chat+localStorage+cookies+account-session|never_invokes=Kimi-IPC+MCP+Skill+Sandbox+WebAgent-actions|never_extracts=daimon-bundle-tar-contents(presence+size-only)|json=0
+KIMISURFACEOUTPUT|rows=KIMISURFACEHDR+KIMISURFACEPATHS+KIMISURFACEMARKERS+KIMISURFACEBRIDGE+KIMISURFACEEXEC+KIMISURFACEABSORB|format=HBP-only-json0|json=0
+KIMISURFACEACERCATCH|added-by=acer-v1.1|catch=app.asar-only-walk-UNDER-REPORTS-the-local-exec-substrate|now-covered=resources/resources/daimon-bundle.tar.gz(python+uv+git)+gateway.asar+runtime/node.exe-metadata-presence-and-size|why=this-is-the-mechanism-behind-up-to-300-local-workers|json=0
 KIMISURFACEABSORB|patterns=ACP-client-protocol+MCP-registry+SkillService+SandboxService+WebAgent+local-webbridge+workspace-overrides+cron-workspace|target=Asolaria-readonly-observability-and-agent-bridge-design|json=0
 KIMISURFACEGUARD|classification=necessary-not-sufficient|present-marker-means-bundled-surface-not-proof-of-enabled-runtime-capability|json=0
 KIMISURFACEFTR|state=SEALED-READONLY-SCANNER|json=0

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  classifyExecSubstrate,
   classifyKimiSurface,
   emitSurfaceRows,
   extractBridgeChannels,
@@ -40,9 +41,21 @@ test('classifies Kimi agent surfaces from a synthetic file table', () => {
 test('emits HBP rows without reading private stores or invoking Kimi actions', () => {
   const c = classifyKimiSurface(['node_modules/@agentclientprotocol/sdk/package.json']);
   const rows = emitSurfaceRows({ classification: c, appAsarPresent: true, webbridgePresent: true, webbridgeSize: 7 });
-  assert.equal(rows.length, 5);
+  assert.equal(rows.length, 6);
   assert.ok(rows.every((row) => row.endsWith('|json=0')));
   assert.ok(rows.join('\n').includes('no-token-read-no-private-chat-read-no-kimi-action'));
+});
+
+test('acer catch: exec substrate OUTSIDE app.asar is classified and emitted (read-only metadata)', () => {
+  const ex = classifyExecSubstrate({ daimonBundle: { present: true, size: 527000000 }, nodeRuntime: { present: true, size: 87000000 } });
+  assert.equal(ex.daimonBundle.present, true);
+  assert.equal(ex.daimonBundle.size, 527000000);
+  assert.equal(ex.gatewayAsar.present, false);
+  assert.equal(ex.gatewayAsar.size, 0);
+  const c = classifyKimiSurface([]);
+  const row = emitSurfaceRows({ classification: c, execSubstrate: ex }).find((r) => r.startsWith('KIMISURFACEEXEC|'));
+  assert.ok(row.includes('daimon_bundle_present=1') && row.includes('node_runtime_present=1'));
+  assert.ok(row.endsWith('|json=0'));
 });
 
 test('walkAsarPaths returns nested slash paths', () => {
