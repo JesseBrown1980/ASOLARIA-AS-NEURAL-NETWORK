@@ -34,6 +34,19 @@ test('MUTATION fabrication: a summary_sha16 not from the corpus is rejected (F2 
   assert.ok(validateRow(forged, CORPUS).fail.some((f) => f.includes('FABRICATION')));
 });
 
+test('MUTATION source-row hash, lane, and glyph preimage are recomputed at read time', () => {
+  const r = produceCandidate(1, CORPUS);
+  const sourceForged = validateRow({ ...r, source_row_sha16: '0'.repeat(16) }, CORPUS);
+  assert.equal(sourceForged.ok, false);
+  assert.ok(sourceForged.fail.includes('source_row_sha16-not-from-corpus-row'));
+  assert.ok(sourceForged.fail.includes('glyph_full-preimage-mismatch'));
+
+  assert.equal(validateRow({ ...r, lane: (r.lane + 1) % 3 }, CORPUS).ok, false);
+  assert.equal(validateRow({ ...r, address_index: r.address_index + 1 }, CORPUS).ok, false);
+  assert.equal(validateRow({ ...r, glyph_full: '0'.repeat(64) }, CORPUS).ok, false);
+  assert.equal(validateRow({ ...r, glyph: 'HG256:APROD_CANDIDATE:00000000' }, CORPUS).ok, false);
+});
+
 test('MUTATION forbidden field: a real score= leaks past nothing (F4 closed schema)', () => {
   assert.equal(validateRow({ ...produceCandidate(2, CORPUS), score: 0.938 }, CORPUS).ok, false);
   assert.equal(validateRow({ ...produceCandidate(2, CORPUS), controllerPid: 'BH.REAL100B.OMNISPIN.PID.085' }, CORPUS).ok, false);

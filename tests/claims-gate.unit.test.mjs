@@ -15,8 +15,15 @@ test('claims-gate self-test passes all checks', () => {
 test('untagged extraordinary claim flags; tagged passes (the not-canon-until-hashed rule)', () => {
   assert.equal(scanText('10^290 agents').verdict, 'FLAGS');
   assert.equal(scanText('10^290 agents [ASPIRATIONAL]').verdict, 'CLEAN');
+  assert.equal(scanText('10^290 agents tag=ASPIRATIONAL').verdict, 'CLEAN');
   assert.equal(scanText('9589/0 theorem').flagged, 1);
   assert.equal(scanText('9589/0 theorem [PROVEN]').flagged, 0);
+});
+
+test('LIRIS catch: prose substrings do not count as TAGLAW tags', () => {
+  assert.equal(scanText('draft-only tool says 10^290 agents').flagged, 1);
+  assert.equal(scanText('DRAFT_ROUTE_ONLY says 10^290 agents').flagged, 1);
+  assert.equal(scanText('plain proposal prose says 10^290 agents').flagged, 1);
 });
 
 test('a FLAG is a review-prompt not a verdict: negated claims still flag (declared false-positive)', () => {

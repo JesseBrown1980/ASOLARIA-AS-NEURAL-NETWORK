@@ -39,15 +39,31 @@ export const CLAIM_TOKENS = Object.freeze([
   ' asi ', 'asi-arrival', 'class-v',
 ]);
 
-// Closed registry: TAGLAW tags. A line carrying any of these is "tagged".
+// Closed registry: TAGLAW tags. A line carrying any of these as an explicit
+// tag token is "tagged"; ordinary prose substrings must not silence a claim.
 export const TAGLAW_TAGS = Object.freeze([
   'PROVEN', 'PARTIAL', 'DRAFT', 'PROPOSAL', 'OPERATOR_GATED', 'OPERATOR-GATED',
   'ASPIRATIONAL', 'RETIRED', 'not-canon', 'NOT-CANON', 'CANON_CLAIMED',
   'capability-claims-require-receipts', 'not-canon-until-hashed', 'LIRIS-CANNOT-SEE', 'ACER-CANNOT-SEE',
 ]);
 
-function lineHasTag(lowerLine) {
-  return TAGLAW_TAGS.some((t) => lowerLine.includes(t.toLowerCase()));
+function escapeRe(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function lineHasTag(line) {
+  return TAGLAW_TAGS.some((tag) => {
+    const t = escapeRe(tag);
+    if (new RegExp(`\\[\\s*${t}\\s*\\]`, 'i').test(line)) return true;
+    if (new RegExp(`(^|[^A-Za-z0-9_-])${t}:`, 'i').test(line)) return true;
+    const isUpperTag = tag === tag.toUpperCase();
+    if (isUpperTag && new RegExp(`(^|[^A-Za-z0-9_-])${t}($|[^A-Za-z0-9_-])`).test(line)) return true;
+    return line.split(/[|\s,;]+/).some((part) => {
+      const m = part.match(/^(tag|tags|taglaw|classification)=(.+)$/i);
+      if (!m) return false;
+      return m[2].split(/[+,;]/).some((v) => v.trim().toLowerCase() === tag.toLowerCase());
+    });
+  });
 }
 
 export function scanText(text) {
@@ -55,7 +71,7 @@ export function scanText(text) {
   const matches = [];
   for (let i = 0; i < lines.length; i += 1) {
     const lower = lines[i].toLowerCase();
-    const tagged = lineHasTag(lower);
+    const tagged = lineHasTag(lines[i]);
     for (const tok of CLAIM_TOKENS) {
       if (lower.includes(tok.toLowerCase())) {
         matches.push({ line: i + 1, token: tok.trim(), tagged, verdict: tagged ? 'TAGGED-OK' : 'UNTAGGED-FLAG' });
@@ -99,6 +115,9 @@ export function selfTest() {
   const add = (name, ok) => checks.push({ name, ok });
   add('untagged-scale-flags', scanText('runs 10^290 agents').flagged === 1);
   add('tagged-scale-passes', scanText('runs 10^290 agents [ASPIRATIONAL]').flagged === 0);
+  add('prose-draft-only-does-not-tag', scanText('draft-only tool says 10^290 agents').flagged === 1);
+  add('underscore-draft-route-does-not-tag', scanText('DRAFT_ROUTE_ONLY says 10^290 agents').flagged === 1);
+  add('tag-field-passes', scanText('runs 10^290 agents tag=ASPIRATIONAL').flagged === 0);
   add('untagged-superlative-flags', scanText('an engine for truth').flagged === 1);
   add('tagged-superlative-passes', scanText('engine-for-truth NOT-CANON').flagged === 0);
   add('proven-claim-passes-when-tagged', scanText('9589/0 forcing [PROVEN]').flagged === 0);

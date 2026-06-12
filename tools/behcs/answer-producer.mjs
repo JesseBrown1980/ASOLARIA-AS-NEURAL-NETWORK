@@ -37,6 +37,7 @@ const STUB = '-1.0';                              // F18 exact string, NOT JS-de
 
 const sha256hex = (t) => createHash('sha256').update(t, 'utf8').digest('hex'); // lowercase by default
 const sha16 = (t) => sha256hex(t).slice(0, 16);
+const isNonNegativeInteger = (n) => Number.isInteger(n) && n >= 0;
 
 // F10/F14/C4: parse + validate the committed corpus bytes; corpus_id = sha16(file bytes).
 export function loadCorpus(bytes) {
@@ -113,21 +114,37 @@ export function validateRow(row, corpus) {
     if (!HEX16_RE.test(String(h))) fail.push('hex16-or-case');                                // F15
   }
   if (!HEX64_RE.test(String(row.glyph_full))) fail.push('glyph_full-hex64-or-case');          // F15
+  if (!isNonNegativeInteger(row.candidate_index)) fail.push('candidate_index-not-nonnegative-int');
+  if (!isNonNegativeInteger(row.address_index) || row.address_index >= ADDRESS_MOD) fail.push('address_index-out-of-domain');
+  else if (isNonNegativeInteger(row.candidate_index) && row.address_index !== row.candidate_index % ADDRESS_MOD) fail.push('address-fold-mismatch'); // F1
+  if (![0, 1, 2].includes(row.lane)) fail.push('lane-not-0-1-2');
+  else if (isNonNegativeInteger(row.address_index) && row.address_index < ADDRESS_MOD && row.lane !== classifyBhIndex(row.address_index).lane) fail.push('lane-binder-mismatch');
   if (row.source === 'DRAFT_NO_SOURCE') {
     if (row.source_index !== -1) fail.push('no-source-index!=-1');                            // F12 cross-field
     const marker = noSourceMarker(row.lane, row.address_index);
     if (!MARKER_RE.test(marker)) fail.push('marker-shape');                                   // F6
-    if (sha16(marker) !== row.summary_sha16) fail.push('marker-summary_sha16-mismatch');      // F8 cross-field
+    const markerSha16 = sha16(marker);
+    if (markerSha16 !== row.summary_sha16) fail.push('marker-summary_sha16-mismatch');         // F8 cross-field
+    if (markerSha16 !== row.source_row_sha16) fail.push('marker-source_row_sha16-mismatch');   // F8/C3 cross-field
   } else if (row.source === 'CORPUS') {
     if (!(row.source_index >= 0)) fail.push('corpus-index<0');                                // F12
     if (!corpus || corpus.size === 0) fail.push('corpus-required-but-empty');
     else {
       if (row.corpus_id !== corpus.corpus_id) fail.push('corpus_id-version-mismatch');        // F16(a)
       if (!(row.source_index < corpus.size)) fail.push('source_index-out-of-bounds');         // F16(c)
-      else if (sha16(corpus.lines[row.source_index]) !== row.summary_sha16) fail.push('FABRICATION-summary_sha16-not-from-corpus'); // F2
+      else {
+        const corpusRowSha16 = sha16(corpus.lines[row.source_index]);
+        if (corpusRowSha16 !== row.summary_sha16) fail.push('FABRICATION-summary_sha16-not-from-corpus'); // F2
+        if (corpusRowSha16 !== row.source_row_sha16) fail.push('source_row_sha16-not-from-corpus-row');   // C3
+      }
     }
   } else {
     fail.push('source-not-in-closed-enum');                                                   // F12
+  }
+  if (HEX64_RE.test(String(row.glyph_full)) && HEX16_RE.test(String(row.source_row_sha16)) && HEX16_RE.test(String(row.summary_sha16))) {
+    const expectedGlyphFull = sha256hex(glyphPreimage(row.address_index, row.lane, row.source_row_sha16, row.summary_sha16));
+    if (row.glyph_full !== expectedGlyphFull) fail.push('glyph_full-preimage-mismatch');       // F5/F13
+    if (row.glyph !== `HG256:APROD_CANDIDATE:${expectedGlyphFull.slice(0, 8)}`) fail.push('glyph-short-mismatch');
   }
   return { ok: fail.length === 0, fail };
 }
@@ -165,6 +182,9 @@ export function selfTest() {
   add('no-source-index--1', produceCandidate(3, loadCorpus('')).source_index === -1);
   // MUTATION (liris-required): each must FAIL the validator
   add('mut-fabrication-fails', !validateRow({ ...r0, summary_sha16: sha16('forged not in corpus') }, corpus).ok);
+  add('mut-source-row-hash-fails', !validateRow({ ...r0, source_row_sha16: '0'.repeat(16) }, corpus).ok);
+  add('mut-glyph-preimage-fails', !validateRow({ ...r0, glyph_full: '0'.repeat(64) }, corpus).ok);
+  add('mut-lane-mismatch-fails', !validateRow({ ...r0, lane: (r0.lane + 1) % 3 }, corpus).ok);
   add('mut-forbidden-field-fails', !validateRow({ ...r0, score: 0.938 }, corpus).ok);
   add('mut-stub-leak-fails', !validateRow({ ...r0, score_stub: '-1' }, corpus).ok);
   add('mut-safety-off-fails', !validateRow({ ...r0, no_mint: 0 }, corpus).ok);
