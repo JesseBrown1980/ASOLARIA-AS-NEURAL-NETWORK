@@ -60,3 +60,15 @@ test('separation law: yin/yang + prime route to logical, frozen, or real-free', 
   assert.equal(classifyAgentType({ yin_yang: 'real', prime: 1 }), 'REAL-FREE');
   assert.ok(emitAgentRow(registerAgent({ runtime: 'claude', name: 'x' })).endsWith('|json=0'));
 });
+
+test('kind is load-bearing for agent PID identity', () => {
+  const logical = registerAgent({ runtime: 'claude', name: 'worker', kind: 'logical', prime: 0 });
+  const frozen = registerAgent({ runtime: 'claude', name: 'worker', kind: 'real', prime: 0 });
+  const realFree = registerAgent({ runtime: 'claude', name: 'worker', kind: 'real', prime: 1 });
+  assert.notEqual(logical.pid, frozen.pid);
+  assert.notEqual(frozen.pid, realFree.pid);
+  assert.notEqual(logical.pid, realFree.pid);
+  assert.equal(logical.agent_type, 'LOGICAL-WAVE');
+  assert.equal(frozen.agent_type, 'FROZEN-BRAIN');
+  assert.equal(realFree.agent_type, 'REAL-FREE');
+});

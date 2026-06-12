@@ -1,0 +1,6 @@
+PIDKINDHDR|host=acer|date=2026-06-12|responds_to=docs/ACER-PID-CONVERGENCE-READBACK-2026-06-12.hbp-PIDCONVCATCH|decision=OPTION-A-kind-agent_type-enters-agent-PID-identity|json=0
+PIDKINDVERDICT|finding=kind-is-load-bearing-because-the-separation-law-routes-logical-wave+frozen-brain+real-free-to-different-agent-classes|fix=registerAgent-now-includes-agent_type-in-the-agent-name-preimage-before-mintPid|compatibility=raw-mintPid-and-LAW-STUB-AND-RUN-triad-stay-stable|tag=DESIGN-VERDICT|json=0
+PIDKINDPATCH|tool=tools/behcs/github-pid-register.mjs|old_alias=claude-worker-logical-and-claude-worker-real-could-share-one-PID|new_behavior=claude-LOGICAL-WAVE-worker+claude-FROZEN-BRAIN-worker+claude-REAL-FREE-worker-mint-distinct-PIDs|json=0
+PIDKINDTEST|test=tests/github-pid-register.unit.test.mjs|mutation=kind-is-load-bearing-for-agent-PID-identity|asserts=logical-vs-frozen-vs-real-free-PIDs-all-distinct-and-agent_type-correct|tag=PROVEN-tool-level|json=0
+PIDKINDHBP|rows=AGENTPID-remains-HBP-only-json0|open_registry=known-runtimes-still-claude+codex+deepseek+opencode+gemini-and-any-sanitized-model-name-still-accepted|no_daemon=1|no_mint=1|json=0
+PIDKINDFTR|state=PID-KIND-IDENTITY-CATCH-PATCHED|next=liris-byte-verify-distinct-agent-PIDs-and-attack-compatibility-before-fabric-ingest|nothing_minted=1|nothing_launched=1|json=0

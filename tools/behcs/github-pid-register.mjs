@@ -85,12 +85,13 @@ export function classifyAgentType({ yin_yang, prime }) {
 export function registerAgent({ runtime, name, role = 'AGT', tier = 4, kind = 'logical', prime = 0, nest = 1 }) {
   const rt = String(runtime || '').toLowerCase().replace(/[^a-z0-9.-]+/g, '-').replace(/^-|-$/g, '');
   if (!rt) throw new Error('runtime-required-accepts-any-model-name');
-  const p = mintPid({ role, name: `${rt.toUpperCase()}-${name}`, tier, kind, prime, nest });
+  const agentType = classifyAgentType({ yin_yang: kind, prime });
+  const p = mintPid({ role, name: `${rt.toUpperCase()}-${agentType}-${name}`, tier, kind, prime, nest });
   return {
     ...p,
     runtime: rt,
     known_runtime: RUNTIMES.includes(rt),
-    agent_type: classifyAgentType({ yin_yang: p.yin_yang, prime: p.prime }),
+    agent_type: agentType,
   };
 }
 
@@ -123,6 +124,8 @@ export function selfTest() {
     const model = registerAgent({ runtime: 'mistral.next', name: 'x' });
     return model.runtime === 'mistral.next' && model.known_runtime === false && AGENT_TYPES.includes(model.agent_type);
   })());
+  add('kind-load-bearing-in-agent-pid', registerAgent({ runtime: 'claude', name: 'worker', kind: 'logical' }).pid
+    !== registerAgent({ runtime: 'claude', name: 'worker', kind: 'real' }).pid);
   add('empty-runtime-rejected', (() => { try { registerAgent({ runtime: '', name: 'x' }); return false; } catch { return true; } })());
   add('agent-row-hbp', emitAgentRow(registerAgent({ runtime: 'claude', name: 'x' })).endsWith('|json=0'));
   return { ok: checks.every((c) => c.ok), checks };
