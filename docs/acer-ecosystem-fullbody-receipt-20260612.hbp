@@ -1,0 +1,14 @@
+ACERFBRHDR|run=acer-ecosystem-fullbody-receipt-20260612|date=2026-06-12|host=acer|purpose=acer-full-body-receipt-closing-liris-REQUIRES_ACER_RECEIPT-gate|json=0
+ACERFBRVERDICT|empty-vs-full=CONFIRMED-by-cross-vantage|liris-saw-PUBLIC-empty|acer-hashes-FULL-local|evidence-files-present=7/7|receipt_digest=f787c14d31a380d2|json=0
+ACERFBREVID|id=falcon.sovereignty-sync.gnn|role=GNN-engine|present=1|bytes=3690|sha16=b090b423a2d74902|json=0
+ACERFBREVID|id=falcon.sovereignty-sync.hookwall-v2|role=hookwall|present=1|bytes=18797|sha16=b4462882c47fc245|json=0
+ACERFBREVID|id=falcon.sovereignty-sync.graphRuntimeStore|role=graph-runtime|present=1|bytes=716|sha16=75c472dd3aa3b409|json=0
+ACERFBREVID|id=falcon.sovereignty-sync.chain-mistake-learn|role=reverse-gain/mistake-mining|present=1|bytes=3751|sha16=629cd881fe8c04e9|json=0
+ACERFBREVID|id=falcon.sovereignty-sync.edgeRiskEngine|role=edge-risk|present=1|bytes=1717|sha16=904e3b49cda1028a|json=0
+ACERFBREVID|id=nnest.operational-gate|role=N-Nest-watcher-gate(FULL)|present=1|bytes=21270|sha16=7d7a7af438fa7d70|json=0
+ACERFBREVID|id=acer.asolaria.graphRuntimeStore|role=acer-own-graph-engine|present=1|bytes=7174|sha16=450187d53bf0a41e|json=0
+ACERFBRRECONCILE|repo=N-Nest-Prime-INFINITE-SELF-REFLECT-AGENTS-NESTED|liris_public=EMPTY_OR_TINY|acer_full=NOT-A-STUB-DENSE|resolution=EMPTY-VS-FULL-CONFIRMED|json=0
+ACERFBRRECONCILE|repo=falcon-orbital|liris_public=EMPTY_OR_TINY|acer_full=FULL-FARM-37GB|resolution=EMPTY-VS-FULL-CONFIRMED|json=0
+ACERFBRRECONCILE|repo=asolaria-behcs-256|liris_public=MIXED_PARTIAL_PIPE|acer_full=GATED-SOCKET|resolution=CONVERGENT-CLOSE|json=0
+ACERFBRRECONCILE|repo=intelligent-terminal|liris_public=PIPE_PLUMBING_REAL|acer_full=STUB-BY-DESIGN-WIRED|resolution=CONVERGENT-BOTH-PIPES-REAL|json=0
+ACERFBRFTR|state=ACER_FULL_BODY_RECEIPT_SEALED|gate=liris-REQUIRES_ACER_RECEIPT-CLOSED|discipline=append-only-no-mint-deterministic-sha-stamped|json=0
