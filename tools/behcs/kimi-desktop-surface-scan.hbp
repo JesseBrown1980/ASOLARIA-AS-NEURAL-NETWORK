@@ -1,0 +1,6 @@
+KIMISURFACETOOL|tool=tools/behcs/kimi-desktop-surface-scan.mjs|status=READONLY-INSPECTION-V1|scope=parse-Kimi-app.asar-file-table-and-webbridge-binary-metadata-only|json=0
+KIMISURFACEPRIVACY|never_reads=bridge-store-token-store+private-chat+localStorage+cookies+account-session|never_invokes=Kimi-IPC+MCP+Skill+Sandbox+WebAgent-actions|json=0
+KIMISURFACEOUTPUT|rows=KIMISURFACEHDR+KIMISURFACEPATHS+KIMISURFACEMARKERS+KIMISURFACEBRIDGE+KIMISURFACEABSORB|format=HBP-only-json0|json=0
+KIMISURFACEABSORB|patterns=ACP-client-protocol+MCP-registry+SkillService+SandboxService+WebAgent+local-webbridge+workspace-overrides+cron-workspace|target=Asolaria-readonly-observability-and-agent-bridge-design|json=0
+KIMISURFACEGUARD|classification=necessary-not-sufficient|present-marker-means-bundled-surface-not-proof-of-enabled-runtime-capability|json=0
+KIMISURFACEFTR|state=SEALED-READONLY-SCANNER|json=0
