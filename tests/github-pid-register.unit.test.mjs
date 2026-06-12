@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
-  KINDS, ROLES, SECTORS, emitRegistrationRows, mintPid, mintTriad, selfTest,
+  AGENT_TYPES, KIND_BITS, KINDS, ROLES, RUNTIMES, SECTORS,
+  classifyAgentType, emitAgentRow, emitRegistrationRows, mintPid, mintTriad, registerAgent, selfTest,
 } from '../tools/behcs/github-pid-register.mjs';
 
 test('self-test passes', () => {
@@ -22,6 +23,7 @@ test('deterministic + stateless: same name mints byte-identical PID (bilateral p
 test('divisions: yin/yang mod-2, prime-lane mod-3, quad mod-4, sector mod-113', () => {
   const p = mintPid({ role: 'AGT', name: 'x', kind: 'real' });
   assert.ok(KINDS.includes(p.yin_yang));
+  assert.equal(p.yin_yang_bit, KIND_BITS.real);
   assert.ok([0, 1, 2].includes(p.lane));
   assert.ok([0, 1, 2, 3].includes(p.quad));
   assert.ok(p.sector >= 0 && p.sector < SECTORS);
@@ -40,4 +42,21 @@ test('triad shares hex base, role suffixes C/A/B (AGT/SUP/PROF)', () => {
 test('registration rows are HBP-only, json=0 terminated, no inlined newlines', () => {
   const rows = emitRegistrationRows(mintPid({ role: 'AGT', name: 'x' }));
   assert.ok(rows.every((r) => r.endsWith('|json=0') && !r.includes('\n')));
+  assert.ok(rows.some((r) => r.startsWith('PIDDIV|') && r.includes('|yin_yang_bit=0|')));
+});
+
+test('universal open registry: known runtimes including gemini plus any model', () => {
+  for (const rt of RUNTIMES) assert.equal(registerAgent({ runtime: rt, name: 'reasoner' }).runtime, rt);
+  assert.ok(RUNTIMES.includes('gemini'));
+  const any = registerAgent({ runtime: 'mistral.next', name: 'r' });
+  assert.equal(any.known_runtime, false);
+  assert.ok(AGENT_TYPES.includes(any.agent_type));
+  assert.throws(() => registerAgent({ runtime: '', name: 'x' }));
+});
+
+test('separation law: yin/yang + prime route to logical, frozen, or real-free', () => {
+  assert.equal(classifyAgentType({ yin_yang: 'logical', prime: 0 }), 'LOGICAL-WAVE');
+  assert.equal(classifyAgentType({ yin_yang: 'real', prime: 0 }), 'FROZEN-BRAIN');
+  assert.equal(classifyAgentType({ yin_yang: 'real', prime: 1 }), 'REAL-FREE');
+  assert.ok(emitAgentRow(registerAgent({ runtime: 'claude', name: 'x' })).endsWith('|json=0'));
 });

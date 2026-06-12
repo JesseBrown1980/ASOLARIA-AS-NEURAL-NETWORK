@@ -16,6 +16,9 @@ export const SECTORS = 113;                 // 113 Asolaria sectors
 export const WIDTH = 1024;                  // BEHCS-1024 glyph width
 export const ROLES = Object.freeze({ AGT: 'C', SUP: 'A', PROF: 'B' }); // role -> hex suffix (live)
 export const KINDS = Object.freeze(['real', 'logical']);
+export const KIND_BITS = Object.freeze({ logical: 0, real: 1 });
+export const RUNTIMES = Object.freeze(['claude', 'codex', 'deepseek', 'opencode', 'gemini']);
+export const AGENT_TYPES = Object.freeze(['LOGICAL-WAVE', 'FROZEN-BRAIN', 'REAL-FREE']);
 
 const sha256 = (t) => createHash('sha256').update(String(t), 'utf8').digest('hex');
 const u32 = (hex8) => parseInt(hex8, 16);
@@ -37,6 +40,7 @@ export function mintPid({ role, name, tier = 4, nest = 1, kind = 'logical', prim
     pid, role, name: safe,
     hex: `H${hex}`, tier: A, width: String(WIDTH), prime: P, nest: N,
     yin_yang: kind,                                  // real | logical (mod-2 division)
+    yin_yang_bit: KIND_BITS[kind],
     lane: seed % 3,                                  // Law of Three (prime division)
     quad: seed % 4,                                  // the "4 rule" (mod-4) — confirm w/ office
     glyph_5: seed % 5,
@@ -62,9 +66,36 @@ export function emitRegistrationRows(p, { kind_label = 'github_deterministic_pid
   return [
     `PIDREG|name=${p.name}|pid=${p.pid}|role=${p.role}|class=${kind_label}|json=0`,
     `PIDADDR|pid=${p.pid}|hex=${p.hex}|tier=${p.tier}|width=${p.width}|prime=${p.prime}|nest=${p.nest}|hilbert=${p.hilbert}|sector=${p.sector}|json=0`,
-    `PIDDIV|pid=${p.pid}|yin_yang=${p.yin_yang}|lane_mod3=${p.lane}|quad_mod4=${p.quad}|glyph_5=${p.glyph_5}|glyph_1024=${p.glyph_1024}|note=divisions-force-stability-and-divide-collisions|json=0`,
+    `PIDDIV|pid=${p.pid}|yin_yang=${p.yin_yang}|yin_yang_bit=${p.yin_yang_bit}|lane_mod3=${p.lane}|quad_mod4=${p.quad}|glyph_5=${p.glyph_5}|glyph_1024=${p.glyph_1024}|note=divisions-force-stability-and-divide-collisions|json=0`,
     `PIDCUBE|pid=${p.pid}|cube_bh=${p.cube_bh}|sha16=${p.sha16}|registrar=${registrar}|stateless_deterministic=1|live_office_rekeys_on_ingest=1|json=0`,
   ];
+}
+
+// Separation law:
+// logical            -> LOGICAL-WAVE  (1e200-style reasoning agents: Claude/Codex/DeepSeek/etc.)
+// real + even prime  -> FROZEN-BRAIN  (deterministic local slice, e.g. frozen Gemma)
+// real + odd prime   -> REAL-FREE     (deterministic shelless scale sweep)
+export function classifyAgentType({ yin_yang, prime }) {
+  if (yin_yang === 'logical') return 'LOGICAL-WAVE';
+  const n = Number.parseInt(String(prime), 10);
+  return Number.isFinite(n) && n % 2 === 1 ? 'REAL-FREE' : 'FROZEN-BRAIN';
+}
+
+// Open runtime registry: known models are first-class, but any model name is accepted.
+export function registerAgent({ runtime, name, role = 'AGT', tier = 4, kind = 'logical', prime = 0, nest = 1 }) {
+  const rt = String(runtime || '').toLowerCase().replace(/[^a-z0-9.-]+/g, '-').replace(/^-|-$/g, '');
+  if (!rt) throw new Error('runtime-required-accepts-any-model-name');
+  const p = mintPid({ role, name: `${rt.toUpperCase()}-${name}`, tier, kind, prime, nest });
+  return {
+    ...p,
+    runtime: rt,
+    known_runtime: RUNTIMES.includes(rt),
+    agent_type: classifyAgentType({ yin_yang: p.yin_yang, prime: p.prime }),
+  };
+}
+
+export function emitAgentRow(a) {
+  return `AGENTPID|runtime=${a.runtime}|known_runtime=${a.known_runtime ? 1 : 0}|agent_type=${a.agent_type}|pid=${a.pid}|tier=${a.tier}|yin_yang=${a.yin_yang}|yin_yang_bit=${a.yin_yang_bit}|lane_mod3=${a.lane}|quad_mod4=${a.quad}|sector=${a.sector}|cube_bh=${a.cube_bh}|json=0`;
 }
 
 export function selfTest() {
@@ -78,10 +109,22 @@ export function selfTest() {
   add('lane-in-3', [0, 1, 2].includes(a.lane));
   add('quad-in-4', [0, 1, 2, 3].includes(a.quad));
   add('yin-yang-enum', KINDS.includes(a.yin_yang));
+  add('yin-yang-bit', a.yin_yang === 'logical' && a.yin_yang_bit === 0);
   const t = mintTriad({ name: 'LAW-STUB-AND-RUN' });
   add('triad-shares-base', t.AGT.hex.slice(0, 4) === t.SUP.hex.slice(0, 4) && t.SUP.hex.slice(0, 4) === t.PROF.hex.slice(0, 4));
   add('triad-role-suffixes', t.AGT.hex.endsWith('C') && t.SUP.hex.endsWith('A') && t.PROF.hex.endsWith('B'));
   add('rows-hbp-only', emitRegistrationRows(a).every((r) => r.endsWith('|json=0') && !r.includes('\n')));
+  add('separation-logical-wave', classifyAgentType({ yin_yang: 'logical', prime: 0 }) === 'LOGICAL-WAVE');
+  add('separation-frozen-brain', classifyAgentType({ yin_yang: 'real', prime: 0 }) === 'FROZEN-BRAIN');
+  add('separation-real-free', classifyAgentType({ yin_yang: 'real', prime: 1 }) === 'REAL-FREE');
+  add('known-runtimes-register', RUNTIMES.every((rt) => registerAgent({ runtime: rt, name: 'x' }).runtime === rt));
+  add('gemini-is-known', RUNTIMES.includes('gemini'));
+  add('any-model-registers', (() => {
+    const model = registerAgent({ runtime: 'mistral.next', name: 'x' });
+    return model.runtime === 'mistral.next' && model.known_runtime === false && AGENT_TYPES.includes(model.agent_type);
+  })());
+  add('empty-runtime-rejected', (() => { try { registerAgent({ runtime: '', name: 'x' }); return false; } catch { return true; } })());
+  add('agent-row-hbp', emitAgentRow(registerAgent({ runtime: 'claude', name: 'x' })).endsWith('|json=0'));
   return { ok: checks.every((c) => c.ok), checks };
 }
 
