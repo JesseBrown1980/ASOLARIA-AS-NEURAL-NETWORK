@@ -52,7 +52,17 @@ export const ROUTES = Object.freeze([
     method: 'GET',
     payload: 'HBP-tuple-feed',
     verdict: 'READ_READY',
-    use: 'cross-vantage-bus-status',
+    use: 'cross-vantage-bus-status-NOTE-proxies-through-4949-may-fetch-fail',
+  }),
+  // acer-local attack-verify of the liris catalog: the :4949 super-os / MCP proxy base is in a
+  // watchdog respawn-flap. The two MCP routes above proxy through it and fetch-fail when it flaps.
+  Object.freeze({
+    id: 'super-os-4949',
+    endpoint: 'http://127.0.0.1:4949',
+    method: 'GET',
+    payload: 'none',
+    verdict: 'RESPAWN_FLAP_DO_NOT_TRUST',
+    use: 'acer-local-super-os-and-mcp-proxy-base-in-watchdog-respawn-flap-the-mcp-routes-proxy-through-this-and-may-fetch-fail',
   }),
 ]);
 
@@ -229,7 +239,7 @@ export function emitPreloadRows() {
   for (const role of ROLES) {
     rows.push(`FABPRELOADROLE|id=${role.id}|must_do=${role.must_do}|forbidden=${role.forbidden}|json=0`);
   }
-  rows.push('FABPRELOADGATE|live_control=DEFER_TO_OPERATOR|process_launch=0|mint=OPERATOR_COSIGN|raw_pixels=0|dom_authority=0|unknown_office_pid=PENDING-OFFICE-SNAPSHOT|json=0');
+  rows.push('FABPRELOADGATE|live_control=DEFER_TO_OPERATOR|process_launch=0|mint=OPERATOR_COSIGN|raw_pixels=0|dom_authority=0|unknown_office_pid=PENDING-OFFICE-SNAPSHOT|physical_control=HARNESS-CLASSIFIER-BLOCKED-orthogonal-runtime-gate-NOT-liftable-by-operator-authorization-supervised-keyboard-route-required|json=0');
   rows.push('FABPRELOADFTR|state=SEALED-PRELOAD-CATALOG|next=agents-load-this-before-fabric-work|nothing_minted=1|nothing_launched=1|json=0');
   return rows;
 }
@@ -243,6 +253,8 @@ export function selfTest() {
   add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile'));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
   add('levels-cover-16', LEVEL_INDEX.length === 16 && LEVEL_INDEX[0].tier === 'A00' && LEVEL_INDEX[15].translate_down === 'physical-cap');
+  add('acer-local-4949-flap-route', routeById('super-os-4949').verdict === 'RESPAWN_FLAP_DO_NOT_TRUST');
+  add('harness-gate-row-present', emitPreloadRows().some((row) => row.includes('physical_control=HARNESS-CLASSIFIER-BLOCKED')));
   add('host-nodes-are-row-only', HOST_NODES.every((h) => h.process_launch === 0 && h.label));
   add('roles-grounded', ROLES.every((r) => r.must_do && r.forbidden));
   add('rows-hbp-only', emitPreloadRows().every((row) => row.endsWith('|json=0') && !row.includes('\n')));

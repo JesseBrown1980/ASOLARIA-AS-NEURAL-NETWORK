@@ -1,11 +1,12 @@
-FABPRELOADHDR|tool=fabric-agent-preload-catalog.v1|purpose=preload-agents-with-laws-routes-tools-gates-and-workflow-before-fabric-use|laws=7|routes=5|tools=4|emitters=3|levels=16|roles=4|json=0
+FABPRELOADHDR|tool=fabric-agent-preload-catalog.v1|purpose=preload-agents-with-laws-routes-tools-gates-and-workflow-before-fabric-use|laws=7|routes=6|tools=4|emitters=3|levels=16|roles=4|json=0
 FABPRELOADLAW|laws=three-systems-LOGICAL-WAVE-FROZEN-BRAIN-REAL-FREE+law-of-three-mod3-lanes+yin-yang-mod2-real-logical+prime-parity-and-prime-mod3-are-load-bearing+quants-are-address-and-evidence-classes-not-raw-material+all-agent-artifact-system-addresses-get-PID-or-handle+live-control-and-mint-and-launch-defer-to-operator|json=0
 FABPRELOADWORKFLOW|cadence=memory-index-plan-memory-index-respond-execute-memory-index|operator_rule=respond-before-live-control-and-log-after-execute|json=0
 FABPRELOADROUTE|id=bus-health|method=GET|endpoint=http://127.0.0.1:4947/behcs/health|payload=none|verdict=READ_READY|use=preflight-local-bus|json=0
 FABPRELOADROUTE|id=send-hbp|method=POST|endpoint=http://127.0.0.1:4947/behcs/send-hbp|payload=single-HBP-pipe-row-ending-json0|verdict=HBP_ROW_READY|use=hot-path-single-row|json=0
 FABPRELOADROUTE|id=send-json|method=POST|endpoint=http://127.0.0.1:4947/behcs/send|payload=JSON-envelope-may-carry-exact-operator-packet-lines|verdict=ENVELOPE_READY|use=packet-burst-and-legacy-envelope|json=0
 FABPRELOADROUTE|id=supervisors-hbp|method=GET|endpoint=mcp-asolaria-fabric-supervisors-hbp|payload=HBP-feed|verdict=READ_READY|use=roster-and-tier-preload|json=0
-FABPRELOADROUTE|id=bus-health-mcp|method=GET|endpoint=mcp-asolaria-fabric-bus-health|payload=HBP-tuple-feed|verdict=READ_READY|use=cross-vantage-bus-status|json=0
+FABPRELOADROUTE|id=bus-health-mcp|method=GET|endpoint=mcp-asolaria-fabric-bus-health|payload=HBP-tuple-feed|verdict=READ_READY|use=cross-vantage-bus-status-NOTE-proxies-through-4949-may-fetch-fail|json=0
+FABPRELOADROUTE|id=super-os-4949|method=GET|endpoint=http://127.0.0.1:4949|payload=none|verdict=RESPAWN_FLAP_DO_NOT_TRUST|use=acer-local-super-os-and-mcp-proxy-base-in-watchdog-respawn-flap-the-mcp-routes-proxy-through-this-and-may-fetch-fail|json=0
 FABPRELOADTOOL|id=pixel-room-handle|path=tools/behcs/pixel-room-handle.mjs|provides=8-byte-room-handle+identity16+PIXFOLDERHOST|gate=process_launch-0-live_control-gated|tag=PROVEN+tool-level|json=0
 FABPRELOADTOOL|id=github-pid-register|path=tools/behcs/github-pid-register.mjs|provides=open-runtime-PID-register+0x1F-tuple-identity|gate=github-PID-proposed-until-live-reconciled|tag=PROVEN+tool-level|json=0
 FABPRELOADTOOL|id=github-live-pid-reconcile|path=tools/behcs/github-live-pid-reconcile.mjs|provides=github-vs-live-office-snapshot-status|gate=unknown-PENDING-OFFICE-SNAPSHOT|tag=PROVEN+tool-level|json=0
@@ -36,5 +37,5 @@ FABPRELOADROLE|id=scout|must_do=read-laws+probe-health+load-roster+emit-no-launc
 FABPRELOADROLE|id=spindle|must_do=work-one-section+emit-HBP-rows+attach-room-handle|forbidden=raw-pixels+DOM-authority+unbounded-context|json=0
 FABPRELOADROLE|id=flywheel|must_do=attack-spindle-output+compare-to-acer-local-truth+name-catches|forbidden=rubber-stamp+delete-mistakes|json=0
 FABPRELOADROLE|id=dispatcher|must_do=route-by-catalog+respect-operator-gates+log-acks|forbidden=wrong-route-packet-to-send-hbp+daemon-restart-without-gate|json=0
-FABPRELOADGATE|live_control=DEFER_TO_OPERATOR|process_launch=0|mint=OPERATOR_COSIGN|raw_pixels=0|dom_authority=0|unknown_office_pid=PENDING-OFFICE-SNAPSHOT|json=0
+FABPRELOADGATE|live_control=DEFER_TO_OPERATOR|process_launch=0|mint=OPERATOR_COSIGN|raw_pixels=0|dom_authority=0|unknown_office_pid=PENDING-OFFICE-SNAPSHOT|physical_control=HARNESS-CLASSIFIER-BLOCKED-orthogonal-runtime-gate-NOT-liftable-by-operator-authorization-supervised-keyboard-route-required|json=0
 FABPRELOADFTR|state=SEALED-PRELOAD-CATALOG|next=agents-load-this-before-fabric-work|nothing_minted=1|nothing_launched=1|json=0
