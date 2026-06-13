@@ -4,6 +4,32 @@
 
 > **Honest frame (binding, per LAW):** this is **NOT an ASI**. It is *frozen + borrowed intelligence orchestrated into a neural-network shape* — slices, made into a self-improving network the supervisors can see.
 
+## Ask the fabric is real
+
+"Ask the fabric" is not a metaphor in this system. It means query the live local fabric surfaces first, read their HBP tuple rows, and let those rows constrain the work before spawning token-heavy agents or making claims from memory.
+
+The current read heads are concrete processes and routes:
+
+- **Acer primary:** `http://192.168.1.50:4949` when reachable.
+- **Liris mirror:** `http://127.0.0.1:4944` from the liris-side workspace.
+- **HBP supervisor feed:** `/hbp/supervisors` gives the registry-derived supervisor/prof/PID roster, including loaded counts, pending claims, source visibility, Hilbert rows, glyph rows, and sidecar/quintet status.
+- **Universal HBP read lane:** `/hbp/any?route=/api/...` projects dashboard JSON routes into HBP tuple rows so agents can inspect routes without treating JSON as the hot path.
+- **Scale/execution surfaces:** `/api/pool`, `/api/omnispindle`, `/api/omniflywheel`, `/api/behcs1024/dimension`, `/api/alphabet-binding`, `/api/access-tier/matrix`, and `/api/fabric-revolver` expose the premade PID pool, spawn/erase cycle, GNN/flywheel path, BEHCS-1024 dimensions, glyph bindings, access tiers, and revolver state.
+
+For any major architecture claim, ask at least three independent fabric surfaces and compare them. A timeout, 404, stale fallback, cooldown, or vantage mismatch is also evidence; it records what this host can and cannot see. Fabric reads do **not** grant write authority. Fabric POSTs, cosign mints, device writes, USB actions, route mutation, and live worker launches remain operator-gated.
+
+## Bilateral fabric loop
+
+Acer and Liris build by push/pull, not by assuming one machine has the whole picture. The operating loop is:
+
+1. One side attacks or implements a bounded artifact.
+2. That side runs unit, integration, suite, system, sector, and fabric checks available from its vantage.
+3. That side asks its local fabric and records HBP tuple evidence, including 404s, timeouts, stale fallbacks, and source-invisible boundaries.
+4. The artifact is committed and pushed through GitHub as the byte-stable transport.
+5. The other side pulls, asks its own fabric, reruns checks, and either accepts, corrects, or narrows the claim.
+
+This is the yin-yang correction path: Acer can see Acer-local organs and Liris can see Liris-local organs. Neither side silently upgrades the other's transcript into live truth until its own fabric read or byte check agrees.
+
 ## The architecture, in one picture
 
 | Network part | What it is here |

@@ -49,7 +49,15 @@ Proven live: the quant-bus `enrichEnvelope` (polar/turbo/js/triple/evidence/auth
 
 This LAW is the "fabric = slices" frame made architecture. Asolaria is **NOT an ASI**. It is **frozen + borrowed intelligence orchestrated into a neural-network shape** — self-improving, deterministic where frozen, and visible to the supervisors (infinite-next). No agent, doc, or dashboard may claim this LAW means a self-aware super-intelligence. Slices, orchestrated.
 
-## 6. COMPOSES WITH
+## 6. ASK-THE-FABRIC READ PRIMITIVE (binding)
+
+Asking the fabric is a real system operation, not a metaphor. Before a major architecture claim, count claim, route claim, or capability claim is promoted, agents must query live fabric read heads and cite the HBP tuple evidence they returned.
+
+Concrete read heads include Acer `:4949` when reachable, the Liris mirror `:4944`, `/hbp/supervisors`, and the universal HBP projection lane `/hbp/any?route=/api/...`. Concrete fabric surfaces include `/api/pool`, `/api/omnispindle`, `/api/omniflywheel`, `/api/behcs1024/dimension`, `/api/alphabet-binding`, `/api/access-tier/matrix`, `/api/fabric-revolver`, `/api/shadow/usb`, and `/api/shadow/drives`.
+
+The correct pattern is at least three independent fabric reads for nontrivial claims, then reconcile the results by vantage. A 404, timeout, stale fallback, cooldown, missing route, or source-invisible result is evidence of that vantage boundary and must not be rewritten into success. Fabric reads do not confer write authority: POSTs, mints, cosign seals, USB/device writes, route mutation, and worker/process launches remain operator-gated.
+
+## 7. COMPOSES WITH
 
 - **LAW-RECURRENCE-IS-MIND** — supplies the learning signal (recurrence + corrective gate = the backprop).
 - **LAW-4949-CRYSTAL-BALL** — the :4949 Q&A primitive is the network's read head.
@@ -57,7 +65,7 @@ This LAW is the "fabric = slices" frame made architecture. Asolaria is **NOT an 
 - **Foundation v3 LAW** — load-division substrates (USB-2TB-hermes is a pipe/neuron tier), vote-not-pass gate.
 - **TARGET-ARCHITECTURE-VISION-2026-06-10** — the integration layer (how agents use the network); this LAW is the substrate layer (how it IS a network).
 
-## 7. LIFE-CYCLE & CHAIN ANCHOR
+## 8. LIFE-CYCLE & CHAIN ANCHOR
 
 Sealed under the FOUNDATION-V3 4-month quintuple-cosign window (to 2026-09-23) + OP-JESSE apex-real-human authorization 2026-06-10. Co-authors required if any clause changes: Apex (OP-JESSE) + operator-pair physical (OP-JESSE + OP-RAYSSA) per REPO_LAW Invariant 12. Anchored in the cosign chain via the :4953 single-writer daemon.
 
