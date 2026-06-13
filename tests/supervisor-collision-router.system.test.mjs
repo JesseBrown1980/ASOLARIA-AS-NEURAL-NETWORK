@@ -17,6 +17,7 @@ function sidecarHash(rel) {
 
 const sealedFiles = [
   'README.md',
+  'canon/laws/LAW-SLICE-ENGINE.md',
   'docs/ASOLARIA-AS-NEURAL-NETWORK.hbp',
   'docs/BILATERAL-VANTAGE-ISOLATION-SEED-2026-06-12.hbp',
   'docs/ACER-BILATERAL-VANTAGE-ISOLATION-READBACK-2026-06-12.hbp',
@@ -86,6 +87,7 @@ const sealedFiles = [
   'docs/ACER-PRE-EXISTENCE-GRAPH-EXPORTER-2026-06-13.hbp',
   'docs/ACER-TRIAD-NEST-REFERENCE-2026-06-13.hbp',
   'docs/LIRIS-MLC-LINE-WATCHER-2026-06-13.hbp',
+  'docs/LIRIS-SLICE-ENGINE-LAW-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',

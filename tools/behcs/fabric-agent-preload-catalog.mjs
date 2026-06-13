@@ -10,6 +10,7 @@ export const LAWS = Object.freeze([
   'prime-parity-and-prime-mod3-are-load-bearing',
   'quants-are-address-and-evidence-classes-not-raw-material',
   'all-agent-artifact-system-addresses-get-PID-or-handle',
+  'slice-engine-law-fabric-is-frozen-position-space-until-spawner-pid-emits',
   'live-control-and-mint-and-launch-defer-to-operator',
 ]);
 
@@ -220,6 +221,7 @@ export function emitPreloadRows() {
     `FABPRELOADHDR|tool=${CATALOG_ID}|purpose=preload-agents-with-laws-routes-tools-gates-and-workflow-before-fabric-use|laws=${LAWS.length}|routes=${ROUTES.length}|tools=${TOOLS.length}|emitters=${EMITTERS.length}|levels=${LEVEL_INDEX.length}|roles=${ROLES.length}|json=0`,
     `FABPRELOADLAW|laws=${LAWS.join('+')}|json=0`,
     `FABPRELOADWORKFLOW|cadence=${WORKFLOW.join('-')}|operator_rule=respond-before-live-control-and-log-after-execute|json=0`,
+    'FABPRELOADSLICEENGINE|law=SLICE-ENGINE-LAW|scope=all-supervisor-operator-level-agents+SUP-HELM-AGT-L3-H8EF7+ASOLARIA-root-profile|rule=fabric-is-frozen-positional-slice-field-engine-drive-is-the-only-mover|materialization=spawner-PID-emits-then-PID_SIGNAL-to-AGENT_ROOM-to-GULP-to-ERASE|pid_registration=repo-side-HBP-receipt-until-live-office-ingest|cube_mint=operator-gated-runtime-action-not-implied-by-doc|engine_crank=operator-gated-RUN_HERMES_SPINDLE-or-equivalent|json=0',
   ];
   for (const r of ROUTES) {
     rows.push(`FABPRELOADROUTE|id=${r.id}|method=${r.method}|endpoint=${token('endpoint', r.endpoint)}|payload=${r.payload}|verdict=${r.verdict}|use=${r.use}|json=0`);
@@ -251,6 +253,8 @@ export function selfTest() {
   add('packet-lines-use-json-envelope', classifyPayloadForRoute({ route_id: 'send-json', payload_kind: 'operator-packet-lines' }) === 'ACCEPT_JSON_ENVELOPE');
   add('packet-lines-rejected-on-hbp-lane', classifyPayloadForRoute({ route_id: 'send-hbp', payload_kind: 'operator-packet-lines' }) === 'REJECT_WRONG_ROUTE');
   add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile'));
+  add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
+    && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
   add('levels-cover-16', LEVEL_INDEX.length === 16 && LEVEL_INDEX[0].tier === 'A00' && LEVEL_INDEX[15].translate_down === 'physical-cap');
   add('acer-local-4949-flap-route', routeById('super-os-4949').verdict === 'RESPAWN_FLAP_DO_NOT_TRUST');
