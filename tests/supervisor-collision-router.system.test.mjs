@@ -80,6 +80,7 @@ const sealedFiles = [
   'docs/QUANTFIDELITYSPEC4-2026-06-13.hbp',
   'docs/QUANT4-FIDELITY-PILOT-BASELINE-2026-06-13.hbp',
   'docs/LIRIS-QUANTFIDELITYSPEC4-BUILD-2026-06-13.hbp',
+  'docs/LIRIS-FABRIC-VAULT-USB-ACCESS-MAP-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
