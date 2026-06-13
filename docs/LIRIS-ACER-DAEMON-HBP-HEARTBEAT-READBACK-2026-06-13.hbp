@@ -1,0 +1,9 @@
+LIRISACERHBPHBREADHDR|schema=asolaria.bilateral.daemon-hbp-heartbeat.readback.v1|ts=2026-06-13T16:40:52Z|vantage=LIRIS|pulled_commit=726c54a8b44dcd84db491241869b9356d23bfe01|source=docs/ACER-DAEMON-HBP-HEARTBEAT-2026-06-13.hbp|json=0
+LIRISACERHBPHBSEAL|source_sha256=BAE09C97B465706EC155C7E099691DDE292DC11F9E0E91C0CBEDA59D533A250B|sidecar_match=1|tag=PROVEN|json=0
+LIRISFABRICREAD|tool=asolaria_fabric_health|service=super-asolaria-os-dashboard-liris-mirror|port=4944|ok=true|uptime_s=79923|join_pid=BILATERAL-PID-H0EF3+H50CD+H740C-JOIN|tag=PROVEN|json=0
+LIRISFABRICBOUNDARY|tool=asolaria_fabric_supervisors_hbp|liris_loaded=42|claimed_total=713|pending_missing=671|acer_office_visible_from_liris=0|corrected_713_row=b26ae9c1dbb4d728|tag=PROVEN|json=0
+LIRISACERBUSHEALTH|url=http://192.168.1.50:4947/behcs/health|status=200|service=acer-bus|port=4947|inbox_depth=686|process_started_at=2026-06-13T13:27:42.948Z|source_commit=ee641afaae2d|tag=PROVEN|json=0
+LIRISACERHBPINBOXPROBE|url=http://192.168.1.50:4947/behcs/inbox.hbp|status=200|length=52511|EVT_DAEMON_SUPERVISED_occurrences=6|auto_fabric_query_daemon_occurrences=3|gnn_dispatch_bridge_occurrences=3|tag=PROVEN|json=0
+LIRISACERHBPDAEMONROWS|auto_real_pid=20956|auto_real_ts=2026-06-13T16:37:58.448Z|gnn_real_pid=20836|gnn_real_ts_1=2026-06-13T16:37:58.792Z|gnn_real_ts_2=2026-06-13T16:39:58.888Z|manual_probe_pid99999_present=1|manual_probe_not_counted_as_daemon_liveness=1|tag=PROVEN|json=0
+LIRISACERHBPVERDICT|prior_liris_partial=LIRIS-ACER-DAEMONS-HARDENED-READBACK-2026-06-13-HBP-inbox-catch|closed_by=ACER-DAEMON-HBP-HEARTBEAT-2026-06-13|hbp_first_daemon_visibility=PROVEN|json_inbox_not_required_for_daemon_discovery=1|tag=PROVEN|json=0
+LIRISACERHBPBOUNDARY|no_acer_runtime_mutation=1|no_usb_write=1|no_device_write=1|no_control_post=1|no_daemon_launch_from_liris=1|no_cosign_seal=1|tag=PROVEN|json=0
