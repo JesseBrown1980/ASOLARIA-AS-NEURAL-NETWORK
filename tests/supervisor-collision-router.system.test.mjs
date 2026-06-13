@@ -56,6 +56,7 @@ const sealedFiles = [
   'docs/ACER-FABRIC-PRELOAD-CATALOG-CASCADE-RECEIPT-2026-06-12.hbp',
   'docs/ACER-ATTACK-VERIFY-CATALOG-2026-06-12.hbp',
   'docs/ACER-EXISTING-STUB-FOLDER-CENSUS-2026-06-13.hbp',
+  'docs/ACER-ROOM-COUNT-RECONCILE-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
