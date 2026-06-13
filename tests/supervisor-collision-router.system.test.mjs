@@ -70,6 +70,7 @@ const sealedFiles = [
   'docs/LIRIS-LIVE-LOOP-TICK-READBACK-2026-06-13.hbp',
   'docs/LIRIS-ACER-COUNCIL-QUERY-HBP-CATCH-READBACK-2026-06-13.hbp',
   'docs/ACER-VERDICT-MATERIALIZATION-FIX-2026-06-13.hbp',
+  'docs/ACER-VERDICT-HBP-PARITY-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
