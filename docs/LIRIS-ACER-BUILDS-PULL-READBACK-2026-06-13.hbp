@@ -1,0 +1,14 @@
+LIRISACERBUILDHDR|schema=liris-acer-builds-pull-readback.v1|host=liris|ts=2026-06-13T14:58:06Z|pulled_commit=24fc74537a665bffc88ce0423b8675b444776d2d|mode=acer-half-readback-after-both-builds|json=0
+LIRISACERBUILDPULL|git_pull=fast_forward_7df0447_to_24fc745|new_receipt=docs/ACER-200STEP-PLAN-REFINEMENT-2026-06-13.hbp|sidecar_sha256=0DAEBEC5310BA91AFB57B599676A1A6FE4C3D1960BFAD43CCF9B1DE2D4D0ED97|tag=PROVEN|json=0
+LIRISACERBUILDSUITE|command=node--test|result=191of191_PASS|diff_check=not_run_this_receipt|tag=PROVEN|json=0
+LIRISACERBUILD713|probe=http://192.168.1.50:4949/hbp/supervisors|status=200|feed_ts=2026-06-13T14:23:46.517Z|office=D:/PID-Registration-Office|entries=713|cap_joined=37|raw_content_length=121587|tag=PROVEN|json=0
+LIRISACERBUILDLIRISREG|probe=liris_mcp_hbp_supervisors|loaded_total=42|claimed_total=713|pending_missing=671|acer_office_visible_from_liris=0|meaning=liris-confirms-claim-row-but-cannot-see-acer-D-office-files|tag=PROVEN|json=0
+LIRISACERBUILDGNN1|probe=http://192.168.1.50:4792/health|method=GET|result=501_UNSUPPORTED_METHOD|meaning=port-4792-answering-but-health-GET-not-supported|tag=PROVEN|json=0
+LIRISACERBUILDGNN2|probe=http://192.168.1.50:4792/infer|method=POST|payload_shape=nodes+edges+edge_features_3|status=200|ok=true|score=0.002488839440047741|meaning=L0-GNN-inference-live-from-liris|tag=PROVEN|json=0
+LIRISACERBUILDGNN3|probe=http://192.168.1.50:4949/api/gnn/topN|result=connection_reset_by_remote_host|meaning=dashboard-GNN-topN-route-still-heavy-or-unstable-from-liris|tag=PARTIAL|json=0
+LIRISACERBUILDBUS|probe=http://192.168.1.50:4949/api/bus-health|result=not_found_payload_with_behcs_route_catalog|routes=/behcs/health+/behcs/send+/behcs/send-hbp+/behcs/inbox+/behcs/inbox.hbp+/behcs/devices|tag=PARTIAL|json=0
+LIRISACERBUILDDAEMONS|probe=http://192.168.1.50:4949/api/daemons|status=200|agent_keyboard=unreachable_fetch_failed|canon_load=ok_hook_resident|snapshot_on_compact=ok_hook_resident|auto_fabric_query_daemon=not_listed_on_this_route|gnn_dispatch_bridge=not_listed_on_this_route|tag=PARTIAL|json=0
+LIRISACERBUILDFREEAGENTS|probe=http://192.168.1.50:4949/api/free-agents-pi-shannon|status=200|models=big-pickle_VERIFIED+hy3-preview-free_callable+ling-2.6-flash-free_callable+minimax-m2.5-free_callable+nemotron-3-super-free_callable|scale_runnable_now=5_models_CLI_callable_ed25519_signed_envelopes_0usd|tag=PROVEN|json=0
+LIRISACERBUILDACCEPT|build1_feeder_705_to_713=ACCEPTED_BY_DIRECT_ACER_HBP_READ|build2_L0_GNN_lit=ACCEPTED_BY_DIRECT_POST_INFER|daemon_watchers=ACER_TRANSCRIPT_ONLY_UNTIL_ROUTE_OR_LOG_RECEIPT_PUSHED|tag=PROVEN|json=0
+LIRISACERBUILDBOUNDARY|no_usb_write=1|no_device_write=1|no_post_to_control_routes=1|no_daemon_start_from_liris=1|no_cosign_seal=1|json=0
+LIRISACERBUILDNEXT|next=acer-push-build-receipt-with-daemon-log-hashes-or-route-exposes-watchers+then-liris-pulls-and-attacks|alternate=feed-one-fresh-FABRIC_QUERY_REQUEST-only-after-operator-confirms-control-scope|json=0
