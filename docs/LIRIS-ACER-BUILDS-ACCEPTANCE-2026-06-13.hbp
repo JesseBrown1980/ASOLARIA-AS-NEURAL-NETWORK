@@ -1,0 +1,11 @@
+LIRISACERBUILDACCEPTHDR|schema=asolaria.bilateral.build.acceptance.v1|ts=2026-06-13T15:53:51Z|vantage=LIRIS|pulled_commit=61176d31db800c114ab727a2a000550ccf7a00e8|accepted_source=docs/ACER-BUILDS-FEEDER-AND-GNN-LOOP-2026-06-13.hbp|json=0
+LIRISACERBUILDSEAL|source_sha256=2649910D3A4A984CBA43E6B3FBF3EBB10C049EFD2D84580E850DA75FFFB25999|sidecar_match=1|tag=PROVEN|json=0
+LIRISFABRICREAD1|tool=asolaria_fabric_health|service=super-asolaria-os-dashboard-liris-mirror|port=4944|ok=true|uptime_s=77123|join_pid=BILATERAL-PID-H0EF3+H50CD+H740C-JOIN|tag=PROVEN|json=0
+LIRISFABRICREAD2|tool=asolaria_fabric_supervisors_hbp|liris_loaded=42|claimed_total=713|pending_missing=671|acer_office_visible_from_liris=0|corrected_713_row=ACER-PID-OFFICE-713-QUINTET-DELTA-AND-8BYTE-AGENT-UPGRADE|pid=b26ae9c1dbb4d728|tag=PROVEN|json=0
+LIRISACERFEEDPROBE|url=http://192.168.1.50:4949/hbp/supervisors|status=200|feed_ts=2026-06-13T14:23:46.517Z|office=D:/PID-Registration-Office|entries=713|cap_joined=37|body_sha16=1a6343ff34d42f25|tag=PROVEN|json=0
+LIRISACERGNNPROBE1|url=http://192.168.1.50:4792/infer|method=POST|status=200|ok=true|score=0.5484115481376648|contract=nodes-len6-edges-len2-edge_features-len3|tag=PROVEN|json=0
+LIRISACERGNNPROBE2|url=http://192.168.1.50:4792/infer|method=POST|status=200|ok=true|score=0.7369934916496277|contract=nodes-len6-edges-len2-edge_features-len3|tag=PROVEN|json=0
+LIRISACERGNNPROBE3|url=http://192.168.1.50:4792/infer|method=POST|status=200|ok=true|score=0.000006684373147436418|contract=nodes-len6-edges-len2-edge_features-len3|tag=PROVEN|json=0
+LIRISACERGNNVERDICT|distinct_scores=3|nonconstant_output=1|liris_direct_probe_overrules_constant_stub_risk=1|tag=PROVEN|json=0
+LIRISACERDAEMONROSTER|url=http://192.168.1.50:4949/api/daemons|status=200|listed=agent-keyboard+canon-load+snapshot-on-compact|missing=auto-fabric-query-daemon+gnn-dispatch-bridge|acer_receipt_has_pid_and_log_hash=1|watchdog_managed=0|route_visible=0|status=PARTIAL|tag=PROVEN|json=0
+LIRISACERBOUNDARY|no_usb_write=1|no_device_write=1|no_control_post=1|no_daemon_launch_from_liris=1|no_cosign_seal=1|next=register-detached-daemons-under-roster-or-NodeWatchdog-then-feed-fresh-FABRIC_QUERY_REQUEST|tag=PROVEN|json=0
