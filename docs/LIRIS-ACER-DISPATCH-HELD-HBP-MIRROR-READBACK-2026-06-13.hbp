@@ -1,0 +1,8 @@
+LIRISDISPHELDRDHDR|schema=asolaria.bilateral.dispatch-held-hbp-mirror.readback.v1|ts=2026-06-13|vantage=LIRIS|base=acer-192.168.1.50|responds_to=ACER-DISPATCH-HELD-HBP-MIRROR-2026-06-13|tag=PROVEN|json=0
+LIRISDISPHELDRDASKFABRIC|method=asked-live-fabric-from-liris-vantage|routes=GET-192.168.1.50-4947-behcs-inbox-hbp+MCP-loop-pending|direct_bus=reachable|dashboard_loop=reachable|tag=PROVEN|json=0
+LIRISDISPHELDRDBUS|route=/behcs/inbox.hbp|DISPATCHPENDING=3|DISPATCHFIRED=0|DISPATCHVETO=0|EVT_GNN_DISPATCH=0|EVT_FABRIC_QUERY_REQUEST=3|EVT_FABRIC_QUERY_VERDICT=1|EVT_DAEMON_SUPERVISED=169|tag=PROVEN|json=0
+LIRISDISPHELDRDROWS|seen=gnn-disp-GRAMMARTEST-12820+gnn-disp-ISOPROBE-20832+gnn-disp-1781375881497-w412hr|row_shape=DISPATCHPENDING-pipe-row-ending-json-0-row_hash|bus_mirror=present-on-hot-HBP-lane|tag=PROVEN|json=0
+LIRISDISPHELDRDHELD|sampled_bus_rows_auto_fire=0|fired_rows_seen=0|veto_rows_seen=0|loop_pending_count=19|sampled_loop_rows=EVT-GNN-DISPATCH-PENDING-with-BEHCS1024-review-pipeline-and-anti_drift|tag=PROVEN|json=0
+LIRISDISPHELDRDSAFE|verdict=receipt-mirror-not-execution|no_unheld_auto_dispatch_observed=1|operator_hold_preserved=1|json_cold_compat_not_used_as_canon=1|tag=PROVEN|json=0
+LIRISDISPHELDRDBOUNDARY|acer_machine_local_code_not_replayed_on_liris=1|liris_verified_live_bus_and_loop_outputs_only=1|no_usb_write=1|no_device_write=1|no_cosign_seal=1|json=0
+LIRISDISPHELDRDFTR|state=DISPATCH-HELD-HBP-MIRROR-BILATERAL-PROVEN|next=triad-fabric-witness-design-or-bounded-tick-if-operator-chooses|tag=PROVEN|json=0
