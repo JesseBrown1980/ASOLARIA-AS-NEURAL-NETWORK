@@ -61,6 +61,7 @@ const sealedFiles = [
   'docs/ACER-200STEP-PLAN-REFINEMENT-2026-06-13.hbp',
   'docs/ACER-BUILDS-FEEDER-AND-GNN-LOOP-2026-06-13.hbp',
   'docs/LIRIS-ACER-BUILDS-ACCEPTANCE-2026-06-13.hbp',
+  'docs/ACER-DAEMONS-HARDENED-FABRIC-NATIVE-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
