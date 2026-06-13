@@ -75,6 +75,7 @@ const sealedFiles = [
   'docs/ACER-DISPATCH-HELD-HBP-MIRROR-2026-06-13.hbp',
   'docs/LIRIS-ACER-DISPATCH-HELD-HBP-MIRROR-READBACK-2026-06-13.hbp',
   'docs/FABRIC-WITNESS-TRIAD-LAW-2026-06-13.hbp',
+  'docs/LIRIS-LOCAL-HOW-10WAY-FABRIC-TEST-2026-06-13.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
