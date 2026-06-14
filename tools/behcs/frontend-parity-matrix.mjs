@@ -22,10 +22,10 @@ export const MATRIX_CELLS = Object.freeze([
   Object.freeze({
     id: 'M',
     name: 'model_selector',
-    status: 'RED',
-    source: 'CANNOT_SEE',
-    evidence: 'no-model-selector-or-model-role-routing-artifact-yet',
-    required_next: 'create-model-selector-M-artifact-with-visible-slice-role-routing',
+    status: 'PARTIAL',
+    source: 'tools/behcs/model-selector-matrix.mjs',
+    evidence: 'model-selector-M-artifact-now-routes-visible-needs-to-receipted-roles-but-live-model-invocation-remains-gated',
+    required_next: 'bind-selector-into-front-end-control-and-add-live-runtime-proof-before-green',
   }),
   Object.freeze({
     id: 'T',
@@ -207,7 +207,7 @@ export function selfTest() {
   const rows = emitRows();
   add('all-required-cells-present', matrix.summary.required === 10 && matrix.summary.missing_required.length === 0);
   add('c015-partial-not-closed', matrix.summary.c015_status === 'PARTIAL_MATRIX_BUILT_GAPS_REMAIN' && matrix.summary.cutover_ready === false);
-  add('mtp-gaps-visible', matrix.cells.find((c) => c.id === 'M').status === 'RED' && matrix.cells.find((c) => c.id === 'T').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'P').status === 'RED');
+  add('mtp-gaps-visible', matrix.cells.find((c) => c.id === 'M').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'T').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'P').status === 'RED');
   add('every-cell-has-pointer-or-cannot-see', matrix.summary.all_have_pointer === true && matrix.cells.every((c) => c.has_pointer));
   add('gate-holds-cutover', rows.some((row) => row.startsWith('FEPMGATE|') && row.includes('cutover=HOLD')));
   add('rows-hbp-only', rows.every((row) => row.endsWith('|json=0') && !/[{\r\n]/.test(row)));

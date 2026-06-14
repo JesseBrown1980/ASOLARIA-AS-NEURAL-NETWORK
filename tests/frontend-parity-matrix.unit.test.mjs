@@ -31,9 +31,18 @@ test('matrix is explicit about M/T/P gaps and does not claim cutover readiness',
   assert.equal(matrix.tool, MATRIX_ID);
   assert.equal(matrix.summary.cutover_ready, false);
   assert.equal(matrix.summary.c015_status, 'PARTIAL_MATRIX_BUILT_GAPS_REMAIN');
-  assert.equal(matrix.cells.find((cell) => cell.id === 'M').status, 'RED');
+  assert.equal(matrix.cells.find((cell) => cell.id === 'M').status, 'PARTIAL');
   assert.equal(matrix.cells.find((cell) => cell.id === 'T').status, 'PARTIAL');
   assert.equal(matrix.cells.find((cell) => cell.id === 'P').status, 'RED');
+});
+
+test('model_selector cell M is PARTIAL after selector artifact, not GREEN live model readiness', () => {
+  const matrix = buildMatrix();
+  const m = matrix.cells.find((cell) => cell.id === 'M');
+  assert.equal(m.status, 'PARTIAL');
+  assert.equal(m.source, 'tools/behcs/model-selector-matrix.mjs');
+  assert.match(m.evidence, /live-model-invocation-remains-gated/);
+  assert.equal(matrix.summary.cutover_ready, false);
 });
 
 test('every cell has a route/file/sha pointer or explicit CANNOT_SEE', () => {
