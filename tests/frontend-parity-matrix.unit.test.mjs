@@ -66,6 +66,15 @@ test('emitted rows are HBP-only and cutover is held', () => {
   assert.ok(rows.some((row) => row.startsWith('FEPMSUM|') && row.includes('C015_status=PARTIAL_MATRIX_BUILT_GAPS_REMAIN')));
 });
 
+test('council_vote cell C is PARTIAL not GREEN — verdict-read lane availability is flaky (acer review 7cbb7e2)', () => {
+  const matrix = buildMatrix();
+  const c = matrix.cells.find((cell) => cell.id === 'C');
+  assert.equal(c.status, 'PARTIAL');
+  assert.match(c.evidence, /availability-not-green|all_bases_unavailable/);
+  // an overclaimed GREEN would have inflated cutover-readiness; it must stay held
+  assert.equal(matrix.summary.cutover_ready, false);
+});
+
 test('tool imports no spawn/write/network/live cutover capability', () => {
   const src = readFileSync(join(repo, 'tools/behcs/frontend-parity-matrix.mjs'), 'utf8');
   assert.equal(/child_process|spawnSync|\.spawn\(|execSync|writeFileSync|appendFileSync|fetch\(|http\.request|https\.request|Start-Process|Stop-Process/.test(src), false);

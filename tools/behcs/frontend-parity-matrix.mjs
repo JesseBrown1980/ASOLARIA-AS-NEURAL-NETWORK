@@ -46,10 +46,10 @@ export const MATRIX_CELLS = Object.freeze([
   Object.freeze({
     id: 'C',
     name: 'council_vote',
-    status: 'GREEN',
+    status: 'PARTIAL',
     source: 'mcp-asolaria-fabric-council-query+/api/council-verdicts',
-    evidence: 'council-query-and-verdict-loop-signed-and-verified-in-recent-cycles',
-    required_next: 'display-draft-only-live-council-actions-stay-gated',
+    evidence: 'query+verdict-loop-PROVEN-WHEN-UP-CONVERGE-signed-but-verdict-read-lane-repeatedly-all_bases_unavailable-timeout-this-session-availability-not-green',
+    required_next: 'cold-path-verdict-cache-or-fallback-so-front-end-not-blocked-when-bus-flaps-then-green',
   }),
   Object.freeze({
     id: 'Q',
