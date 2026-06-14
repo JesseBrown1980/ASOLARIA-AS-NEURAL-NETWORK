@@ -178,6 +178,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-live_execution-0-cutover-0-phone_render_proven_here-0',
   }),
   Object.freeze({
+    id: 'odysseus-scientific-3d-field',
+    path: 'tools/behcs/odysseus-scientific-3d-field.mjs',
+    provides: 'scientific-3d-PID-coordinate-field-with-real-BH-coordinates-and-cross-check-replay',
+    gate: 'descriptor-only-process_launch-0-live_pid_telemetry-0-device_effect-0',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -351,7 +357,7 @@ export function selfTest() {
     && !!toolById('agent-cost-layer-boundary') && !!toolById('triad-host-router-gulp-pipeline')
     && !!toolById('pid-emitter-cost-envelope') && !!toolById('cellphone-host-bridge-boundary')
     && !!toolById('frozen-slice-city-signal-lifecycle') && !!toolById('eight-byte-host-process-upgrade')
-    && !!toolById('odysseus-mtp-control-surface'));
+    && !!toolById('odysseus-mtp-control-surface') && !!toolById('odysseus-scientific-3d-field'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));

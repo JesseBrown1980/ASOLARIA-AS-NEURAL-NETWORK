@@ -1,0 +1,7 @@
+ODYSCI3DCANONHDR|doc=LIRIS-ODYSSEUS-SCIENTIFIC-3D-FIELD-2026-06-14|date=2026-06-14|owner=liris|scope=odysseus-mtp-scientific-3d-pid-field-for-acer-cross-check|tag=DESCRIPTOR-ONLY|json=0
+ODYSCI3DCANONMATH|source=tools/behcs/pre-existence-graph-exporter.mjs|formula=bh_index-sector*3072+lane*1024+glyph|cylinder_phase=bh_index-mod-6|cylinder_ring=floor-bh_index-div-6|distance=abs-delta-bh_index|json=0
+ODYSCI3DCANONVIEW|viewer=reports/odysseus-mtp-scientific-3d.html|shows=real-coordinate-voxels+host-PID-descriptor-voxels+six-cylinder-phases+prime-cube-anchors+watcher-lanes+coordinate-table|json=0
+ODYSCI3DCANONEVENTS|event_feed=deterministic-coordinate-replay-manifest|not_live_pid_telemetry=1|not_nanosecond_process-tracking=1|process_launch=0|json=0
+ODYSCI3DCANONACER|cross_check=run-tools/behcs/odysseus-scientific-3d-field.mjs-and-compare-ODYSCI3D-rows|acer_may_add=live-telemetry-contract-or-phone-render-needs-after-attack|json=0
+ODYSCI3DCANONGATE|provider_terms_apply=1|device_effect=0|cutover=0|process_launch=0|phone_render_not_claimed_by-this-descriptor=1|json=0
+ODYSCI3DCANONFTR|status=SEALED-SCIENTIFIC-3D-FIELD-DESCRIPTOR|next=acer-cross-check-then-add-live-telemetry-needs-if-real|json=0

@@ -38,6 +38,7 @@ test('preload catalog includes the laws, tools, roles, and cadence agents need',
   assert.ok(TOOLS.some((t) => t.id === 'frozen-slice-city-signal-lifecycle' && t.gate.includes('measured_200ns-0')));
   assert.ok(TOOLS.some((t) => t.id === 'eight-byte-host-process-upgrade' && t.gate.includes('provider_compute_replaced-0')));
   assert.ok(TOOLS.some((t) => t.id === 'odysseus-mtp-control-surface' && t.gate.includes('phone_render_proven_here-0')));
+  assert.ok(TOOLS.some((t) => t.id === 'odysseus-scientific-3d-field' && t.gate.includes('live_pid_telemetry-0')));
   assert.ok(ROLES.some((r) => r.id === 'flywheel' && r.must_do.includes('compare-to-acer-local-truth')));
   assert.ok(WORKFLOW.join('-').includes('memory-index-plan'));
   assert.equal(toolById('token-cube-catalog-binder').gate, 'mint-write-live-DEFER_TO_OPERATOR');
