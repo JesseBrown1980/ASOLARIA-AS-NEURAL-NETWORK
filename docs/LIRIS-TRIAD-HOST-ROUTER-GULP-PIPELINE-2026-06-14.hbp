@@ -1,0 +1,8 @@
+TRIADROUTCANONHDR|doc=LIRIS-TRIAD-HOST-ROUTER-GULP-PIPELINE-2026-06-14|date=2026-06-14|owner=liris|scope=8-byte-host-router-rule-of-three-gulp-gc-cube-feedback|tag=DESCRIPTOR-ONLY|json=0
+TRIADROUTCANONHOST|host_handle_bytes=8|meaning=local-host-process-or-portal-descriptor|not_meaning=message-size-or-free-provider-compute|node_per_agent=0|process_launch=0|json=0
+TRIADROUTCANONROUTERS|surfaces=opencode+openai+codex+gemini+claude+anthropic+big-pickle+registered-cli|rule=registered-descriptor-before-use;provider-terms-and-auth-apply;billing-bypass-0|remote_call=0|json=0
+TRIADROUTCANONTHREE|roles=real-agent+self-reflect-agent+fabric-reflect-agent|supervisor=sees-all-three|nesting=allowed-as-descriptor-recursion-only-until-emitter-cosign|json=0
+TRIADROUTCANONGC|gulp_messages=2000|super_gulp_messages=50000|after_processing=1|message_body_retention=0|summary_hash_retention=1|json=0
+TRIADROUTCANONCUBE|watchers=gnn+reverse-sieve-gnn+omnishannon+white-room|output=cube-catalog-feedback|self_improvement=bounded-by-tests-sidecars-cosign|json=0
+TRIADROUTCANONTOOL|tool=tools/behcs/triad-host-router-gulp-pipeline.mjs|test=tests/triad-host-router-gulp-pipeline.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+TRIADROUTCANONFTR|status=SEALED-HOST-ROUTER-GULP-PIPELINE|next=use-before-scaling-router-agent-claims|json=0
