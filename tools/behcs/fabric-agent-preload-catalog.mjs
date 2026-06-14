@@ -105,6 +105,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-process_launch-0-live-engine-launch-defer-to-fabric-verdict',
   }),
   Object.freeze({
+    id: 'frontend-parity-matrix',
+    path: 'tools/behcs/frontend-parity-matrix.mjs',
+    provides: 'root-front-end-M-T-P-C-Q-R-E-A-D-G-parity-matrix-before-cutover',
+    gate: 'no-cutover-until-every-cell-green-and-operator-cosign',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -272,7 +278,7 @@ export function selfTest() {
   add('packet-lines-rejected-on-hbp-lane', classifyPayloadForRoute({ route_id: 'send-hbp', payload_kind: 'operator-packet-lines' }) === 'REJECT_WRONG_ROUTE');
   add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile')
     && !!toolById('github-live-office-reconcile-expansion') && !!toolById('catch-count-ledger')
-    && !!toolById('mlc-engine-wiring-increment'));
+    && !!toolById('mlc-engine-wiring-increment') && !!toolById('frontend-parity-matrix'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));

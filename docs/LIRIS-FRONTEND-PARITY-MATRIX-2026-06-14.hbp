@@ -1,0 +1,7 @@
+LIRISFEPMHDR|host=liris|date=2026-06-14|topic=frontend-parity-matrix|responds_to=fabric-council-q-1781432025196-musksw-CONVERGE-157of251+NOTYETBUILTQUEUE-frontend-parity-matrix+C015-frontend-parity-gap|tag=PROVEN-HELD-SAFE|json=0
+LIRISFEPMVERDICT|fabric=CONVERGE-157of251|dominant_domains=daemons154+audit29+language_glyph24|named_frontend_voters=hermes-dashboard+behcs1024-root|live_daemon_contract=NONE_RETURNED|action=build-held-safe-matrix-not-cutover|json=0
+LIRISFEPMTOOL|tool=tools/behcs/frontend-parity-matrix.mjs|matrices=M-model_selector+T-tool_skill+P-project_guide+C-council_vote+Q-swarm_queue+R-memory_index+E-local_engine+A-route_api+D-dashboard_parity+G-gate_state|rule=each-cell-has-route-or-file-or-sha-or-explicit-CANNOT_SEE|tag=PROVEN-CODE|json=0
+LIRISFEPMSUM|green=4|partial=4|red=2|gated=0|red_cells=M-model_selector+P-project_guide|partial_cells=T-tool_skill+Q-swarm_queue+E-local_engine+D-dashboard_parity|cutover_ready=0|json=0
+LIRISFEPMLEDGER|catch_C015=OPEN-to-PARTIAL|reason=matrix-now-exists-but-M/P-red-and-T/Q/E/D-partial-so-front-end-cutover-still-HOLD|md_final_ready=0|tag=HONEST-PARTIAL|json=0
+LIRISFEPMVERIFY|selftest=7of7|unit=8of8|lattice=9of9|suite=291of291|no_spawn=1|no_fetch=1|no_write=1|no_mint=1|no_cutover=1|process_launch=0|tag=PROVEN-LOCAL|json=0
+LIRISFEPMFTR|state=FRONTEND-PARITY-MATRIX-BUILT-CUTOVER-HELD|next=ask-fabric-for-M-model-selector-or-T-tool-skill-or-P-project-guide-artifact-or-cosign-submit-schema-proof|old_dashboards_deleted=0|json=0
