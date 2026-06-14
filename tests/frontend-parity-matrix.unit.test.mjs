@@ -33,7 +33,7 @@ test('matrix is explicit about M/T/P gaps and does not claim cutover readiness',
   assert.equal(matrix.summary.c015_status, 'PARTIAL_MATRIX_BUILT_GAPS_REMAIN');
   assert.equal(matrix.cells.find((cell) => cell.id === 'M').status, 'PARTIAL');
   assert.equal(matrix.cells.find((cell) => cell.id === 'T').status, 'PARTIAL');
-  assert.equal(matrix.cells.find((cell) => cell.id === 'P').status, 'RED');
+  assert.equal(matrix.cells.find((cell) => cell.id === 'P').status, 'PARTIAL');
 });
 
 test('model_selector cell M is PARTIAL after selector artifact, not GREEN live model readiness', () => {
@@ -42,6 +42,15 @@ test('model_selector cell M is PARTIAL after selector artifact, not GREEN live m
   assert.equal(m.status, 'PARTIAL');
   assert.equal(m.source, 'tools/behcs/model-selector-matrix.mjs');
   assert.match(m.evidence, /live-model-invocation-remains-gated/);
+  assert.equal(matrix.summary.cutover_ready, false);
+});
+
+test('project_guide cell P is PARTIAL after guide artifact, not GREEN workflow readiness', () => {
+  const matrix = buildMatrix();
+  const p = matrix.cells.find((cell) => cell.id === 'P');
+  assert.equal(p.status, 'PARTIAL');
+  assert.equal(p.source, 'tools/behcs/project-guide-matrix.mjs');
+  assert.match(p.evidence, /submit-schema-remain-gated/);
   assert.equal(matrix.summary.cutover_ready, false);
 });
 

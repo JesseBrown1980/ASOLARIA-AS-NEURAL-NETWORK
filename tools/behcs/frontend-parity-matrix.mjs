@@ -38,10 +38,10 @@ export const MATRIX_CELLS = Object.freeze([
   Object.freeze({
     id: 'P',
     name: 'project_guide',
-    status: 'RED',
-    source: 'CANNOT_SEE',
-    evidence: 'only-200-step-plan-exists-no-per-project-guide-artifact-yet',
-    required_next: 'create-project-guide-P-artifact-with-agent-workflow-binding',
+    status: 'PARTIAL',
+    source: 'tools/behcs/project-guide-matrix.mjs',
+    evidence: 'project-guide-P-artifact-now-points-front-end-sections-at-sealed-artifacts-but-workflow-binding-and-submit-schema-remain-gated',
+    required_next: 'bind-guide-into-front-end-view-and-build-cosign-submit-schema-proof-before-green',
   }),
   Object.freeze({
     id: 'C',
@@ -207,7 +207,7 @@ export function selfTest() {
   const rows = emitRows();
   add('all-required-cells-present', matrix.summary.required === 10 && matrix.summary.missing_required.length === 0);
   add('c015-partial-not-closed', matrix.summary.c015_status === 'PARTIAL_MATRIX_BUILT_GAPS_REMAIN' && matrix.summary.cutover_ready === false);
-  add('mtp-gaps-visible', matrix.cells.find((c) => c.id === 'M').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'T').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'P').status === 'RED');
+  add('mtp-gaps-visible', matrix.cells.find((c) => c.id === 'M').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'T').status === 'PARTIAL' && matrix.cells.find((c) => c.id === 'P').status === 'PARTIAL');
   add('every-cell-has-pointer-or-cannot-see', matrix.summary.all_have_pointer === true && matrix.cells.every((c) => c.has_pointer));
   add('gate-holds-cutover', rows.some((row) => row.startsWith('FEPMGATE|') && row.includes('cutover=HOLD')));
   add('rows-hbp-only', rows.every((row) => row.endsWith('|json=0') && !/[{\r\n]/.test(row)));
