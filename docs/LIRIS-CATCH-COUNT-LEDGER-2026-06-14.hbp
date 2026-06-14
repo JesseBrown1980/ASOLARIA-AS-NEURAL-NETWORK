@@ -1,0 +1,7 @@
+LIRISCATCHLEDGERHDR|host=liris|date=2026-06-14|topic=catch-count-ledger|responds_to=fabric-council-q-1781428700135-958n4w+LIRISCATCHCOUNTGATE+PLANALIGNDEF8|mode=repo-only-held-safe|tag=PROVEN-BUILD|json=0
+LIRISCATCHLEDGERWHY|gate=README-18-vs-session-circa34-must-not-be-silently-picked|required_fields=date+vantage+file_or_test+defect_class+fix_commit+owner+open_closed_status|tool=tools/behcs/catch-count-ledger.mjs|test=tests/catch-count-ledger.unit.test.mjs|tag=PROVEN|json=0
+LIRISCATCHLEDGERRESULT|expected_floor=34|total=37|closed=24|partial=8|open=5|meets_floor=1|md_final_ready=0|release_claims=HOLD|reason=open-or-partial-catches-remain|tag=PROVEN-COUNT|json=0
+LIRISCATCHLEDGERRECENT|covered_commits=e352bcb+3d35a0a+56142b7+2e556f8+7952cf6|covered_lanes=heal-envelope-emitter+route-health-baseline+bus-health-contract+github-live-office-reconcile-expansion+acer-review-hardening|tag=PROVEN|json=0
+LIRISCATCHLEDGERPRELOAD|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|descriptor=tools/behcs/fabric-agent-preload-catalog.hbp|added_tool_id=catch-count-ledger|agent_rule=load-ledger-before-final-MD-or-release-claim|tag=PROVEN-CATALOG-WIRED|json=0
+LIRISCATCHLEDGERSAFETY|read_only=1|append_only_descriptor=1|process_launch=0|no_D_write=1|no_office_write=1|no_mint=1|no_cutover=1|nothing_launched=1|tag=HELD-SAFE|json=0
+LIRISCATCHLEDGERFTR|state=CATCH-COUNT-LEDGER-BUILT-FLOOR-MET-BUT-MD-FINAL-STILL-HELD|next=ask-fabric-after-push-for-next-authorized-delta|json=0

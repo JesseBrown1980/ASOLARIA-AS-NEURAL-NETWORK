@@ -23,6 +23,7 @@ test('preload catalog includes the laws, tools, roles, and cadence agents need',
   assert.ok(LAWS.includes('quants-are-address-and-evidence-classes-not-raw-material'));
   assert.ok(TOOLS.some((t) => t.id === 'pixel-room-handle'));
   assert.ok(TOOLS.some((t) => t.id === 'github-live-pid-reconcile'));
+  assert.ok(TOOLS.some((t) => t.id === 'catch-count-ledger' && t.gate.includes('md-final-release-claims-held')));
   assert.ok(ROLES.some((r) => r.id === 'flywheel' && r.must_do.includes('compare-to-acer-local-truth')));
   assert.ok(WORKFLOW.join('-').includes('memory-index-plan'));
   assert.equal(toolById('token-cube-catalog-binder').gate, 'mint-write-live-DEFER_TO_OPERATOR');
