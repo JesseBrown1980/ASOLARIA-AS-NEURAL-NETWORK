@@ -85,6 +85,19 @@ test('probeTarget turns fetch failures into DOWN/TIMEOUT observations, not throw
   assert.equal(timeout.state, 'TIMEOUT');
 });
 
+test('the :4947 bus probes its canonical /behcs/health contract, not /health (fabric-confirmed)', async () => {
+  const bus = ROUTE_TARGETS.find((t) => t.id === 'behcs_bus_4947');
+  assert.equal(bus.path, '/behcs/health'); // /health is a route boundary on the bus; /behcs/health is UP
+  assert.equal(ROUTE_TARGETS.find((t) => t.id === 'acer_fabric_4949').path, '/health'); // dashboards keep /health
+  const r = await probeTarget(bus, {
+    fetcher: async (url) => {
+      assert.equal(url, 'http://127.0.0.1:4947/behcs/health');
+      return { ok: true, status: 200, text: async () => '{"ok":true,"service":"acer-bus"}' };
+    },
+  });
+  assert.equal(r.state, 'UP');
+});
+
 test('tool has no spawn/exec/write/mint/restart capability', () => {
   const src = readFileSync(join(repo, 'tools/behcs/route-health-baseline.mjs'), 'utf8');
   assert.equal(/child_process|spawnSync|\.spawn\(|execSync|writeFileSync|appendFileSync|mintPid|Start-Process|Stop-Process/.test(src), false);

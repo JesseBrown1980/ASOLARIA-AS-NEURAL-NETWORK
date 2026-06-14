@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 export const TOOL_ID = 'route-health-baseline.v1';
 export const ROUTE_TARGETS = Object.freeze([
   Object.freeze({ id: 'liris_mirror_4944', role: 'liris-mirror-dashboard', base: 'http://127.0.0.1:4944', path: '/health' }),
-  Object.freeze({ id: 'behcs_bus_4947', role: 'behcs-bus', base: 'http://127.0.0.1:4947', path: '/health' }),
+  Object.freeze({ id: 'behcs_bus_4947', role: 'behcs-bus', base: 'http://127.0.0.1:4947', path: '/behcs/health' }),
   Object.freeze({ id: 'acer_fabric_4949', role: 'acer-fabric-dashboard', base: 'http://192.168.1.50:4949', path: '/health' }),
 ]);
 
