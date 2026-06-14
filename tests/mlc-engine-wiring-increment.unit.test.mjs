@@ -66,6 +66,14 @@ test('emitted rows are HBP-only and carry the live-launch gate', () => {
   assert.ok(rows.some((row) => row.startsWith('MLCEWIRELANES|') && row.includes('fischer_score_kind=DRAFT_STANDIN_NOT_FISCHER')));
 });
 
+test('cap=0 emits zero MLCEWIRE detail rows (not the 12 default); lane overlay is labeled non-signal (acer review 95bc522)', () => {
+  const rows0 = emitRows({ nodes: 18, cap: 0 });
+  assert.equal(rows0.filter((row) => row.startsWith('MLCEWIRE|')).length, 0);
+  assert.ok(rows0.some((row) => row.startsWith('MLCEWIRESUM|') && row.includes('emitted=0')));
+  const rows = emitRows({ nodes: 12, cap: 5 });
+  assert.ok(rows.some((row) => row.startsWith('MLCEWIRELANES|') && row.includes('overlay_lanes=') && row.includes('not-signal')));
+});
+
 test('tool imports no spawn/write/network/live engine capability', () => {
   const src = readFileSync(join(repo, 'tools/behcs/mlc-engine-wiring-increment.mjs'), 'utf8');
   assert.equal(/child_process|spawnSync|\.spawn\(|execSync|writeFileSync|appendFileSync|fetch\(|http\.request|https\.request|Start-Process|Stop-Process/.test(src), false);

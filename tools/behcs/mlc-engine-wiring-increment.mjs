@@ -179,12 +179,13 @@ export function buildWiring(input = {}) {
 export function emitRows(input = {}) {
   try {
     const opts = isObj(input) ? input : {};
-    const cap = Math.max(0, Math.min(Number.parseInt(String(prop(opts, 'cap', 12)), 10) || 12, 64));
+    const capN = Number.parseInt(String(prop(opts, 'cap', 12)), 10);
+    const cap = Math.max(0, Math.min(Number.isFinite(capN) ? capN : 12, 64)); // cap=0 means 0 rows, not the 12 default
     const built = buildWiring(opts);
     const counts = built.summary.engine_counts;
     const rows = [
       `MLCEWIREHDR|tool=${WIRING_ID}|source=${WATCHER_ID}|stage=C036-increment-1-descriptor-matrix|fabric_request_id=${safe(built.fabric_request_id)}|read_only=1|hbp_rows_only=1|process_launch=0|no_spawn=1|no_fetch=1|no_write=1|no_mint=1|no_live_engine=1|json=0`,
-      `MLCEWIRELANES|mtp=${safe(counts.mtp)}|hrm=${safe(counts.hrm)}|gnn=${safe(counts.gnn)}|fischer=${safe(counts.fischer)}|mamba=${safe(counts.mamba)}|aot=${safe(counts.aot)}|fischer_score_kind=${FISCHER_SCORE_KIND}|json=0`,
+      `MLCEWIRELANES|mtp=${safe(counts.mtp)}|hrm=${safe(counts.hrm)}|gnn=${safe(counts.gnn)}|fischer=${safe(counts.fischer)}|mamba=${safe(counts.mamba)}|aot=${safe(counts.aot)}|fischer_score_kind=${FISCHER_SCORE_KIND}|primary_partition=mtp_hrm_gnn-sum-eq-entries|overlay_lanes=fischer_mamba_aot-per-line-overlay-count-eq-entries-not-signal|json=0`,
       `MLCEWIREGATE|C036_status=OPEN_LIVE_ENGINE_NOT_LAUNCHED|live_launch=${LIVE_GATE}|reason=descriptor-matrix-only-until-fabric-ranks-daemon-contract|process_launch=0|json=0`,
     ];
     for (const entry of built.entries.slice(0, cap)) {

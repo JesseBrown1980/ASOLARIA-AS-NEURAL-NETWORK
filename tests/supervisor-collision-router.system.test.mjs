@@ -98,6 +98,7 @@ const sealedFiles = [
   'docs/LIRIS-CATCH-COUNT-LEDGER-2026-06-14.hbp',
   'docs/ACER-SLICE-ENGINE-COSIGN-MINT-2026-06-14.hbp',
   'docs/LIRIS-MLC-ENGINE-WIRING-INCREMENT-2026-06-14.hbp',
+  'docs/ACER-ATTACK-LIRIS-MLC-ENGINE-WIRING-2026-06-14.hbp',
   'docs/acer-ecosystem-fullbody-receipt-20260612.hbp',
   'docs/CLAIMSLEDGER-2026-06-12.hbp',
   'docs/CLAIMSGATE-PARITY-BASELINE-2026-06-12.hbp',
