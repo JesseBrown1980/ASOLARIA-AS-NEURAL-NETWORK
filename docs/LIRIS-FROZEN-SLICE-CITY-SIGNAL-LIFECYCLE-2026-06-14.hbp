@@ -1,0 +1,9 @@
+FROZENCITYCANONHDR|doc=LIRIS-FROZEN-SLICE-CITY-SIGNAL-LIFECYCLE-2026-06-14|date=2026-06-14|owner=liris|scope=frozen-slice-city-room-emitter-cube-signal-loop|tag=DESCRIPTOR-ONLY|json=0
+FROZENCITYCANONFLOW|stages=signal-enters-city->room-triggers-emitter->ephemeral-host-triad->cube-memory-proposal->host-release->provider-router-request->return-signal-ingest->gnn-attack-review->shannon-white-room->cube-catalog-feedback|json=0
+FROZENCITYCANONHOST|host_handle_bytes=8|ephemeral=descriptor-only|room=file-backed|host_release=after-summary-hash|process_launch=0|json=0
+FROZENCITYCANONPROVIDER|provider_router_request=routed-decision-request-not-unauthorized-control|provider_terms_apply=1|provider_bypass=0|remote_call=0|json=0
+FROZENCITYCANONWATCHERS|gnn=proposal-not-proof|reverse_sieve_gnn=proposal-not-proof|omnishannon=novelty-gate|white_room=held-review|trained_status_requires=separate-artifact-proof|json=0
+FROZENCITYCANONCADENCE|claimed_cadence_ns=200|measured_200ns=0|status=CLAIMED_UNVERIFIED_UNTIL_BENCHMARK|benchmark_required=1|json=0
+FROZENCITYCANONGATE|cube_write=0|live_city_update=0|free_external_compute_claim=0|provider_bypass=0|process_launch=0|json=0
+FROZENCITYCANONTOOL|tool=tools/behcs/frozen-slice-city-signal-lifecycle.mjs|test=tests/frozen-slice-city-signal-lifecycle.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+FROZENCITYCANONFTR|status=SEALED-FROZEN-SLICE-CITY-SIGNAL-LIFECYCLE|next=use-before-any-live-tick-or-200ns-city-update-claim|json=0

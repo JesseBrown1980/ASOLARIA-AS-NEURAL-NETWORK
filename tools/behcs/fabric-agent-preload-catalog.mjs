@@ -159,6 +159,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-provider_bypass-0-radio_bypass-0-process_launch-0',
   }),
   Object.freeze({
+    id: 'frozen-slice-city-signal-lifecycle',
+    path: 'tools/behcs/frozen-slice-city-signal-lifecycle.mjs',
+    provides: 'frozen-slice-city-room-emitter-cube-signal-lifecycle-with-200ns-benchmark-gate',
+    gate: 'descriptor-only-measured_200ns-0-provider_bypass-0-cube_write-0-process_launch-0',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -330,7 +336,8 @@ export function selfTest() {
     && !!toolById('model-selector-matrix') && !!toolById('project-guide-matrix')
     && !!toolById('tool-skill-registry-matrix') && !!toolById('program-cube-ingestion-map')
     && !!toolById('agent-cost-layer-boundary') && !!toolById('triad-host-router-gulp-pipeline')
-    && !!toolById('pid-emitter-cost-envelope') && !!toolById('cellphone-host-bridge-boundary'));
+    && !!toolById('pid-emitter-cost-envelope') && !!toolById('cellphone-host-bridge-boundary')
+    && !!toolById('frozen-slice-city-signal-lifecycle'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
