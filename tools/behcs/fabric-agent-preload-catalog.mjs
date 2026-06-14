@@ -99,6 +99,12 @@ export const TOOLS = Object.freeze([
     gate: 'md-final-release-claims-held-until-open-partial-catches-close',
   }),
   Object.freeze({
+    id: 'mlc-engine-wiring-increment',
+    path: 'tools/behcs/mlc-engine-wiring-increment.mjs',
+    provides: 'C036-increment-1-MTP-HRM-GNN-Fischer-Mamba-AoT-descriptor-wiring-matrix',
+    gate: 'descriptor-only-process_launch-0-live-engine-launch-defer-to-fabric-verdict',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -265,7 +271,8 @@ export function selfTest() {
   add('packet-lines-use-json-envelope', classifyPayloadForRoute({ route_id: 'send-json', payload_kind: 'operator-packet-lines' }) === 'ACCEPT_JSON_ENVELOPE');
   add('packet-lines-rejected-on-hbp-lane', classifyPayloadForRoute({ route_id: 'send-hbp', payload_kind: 'operator-packet-lines' }) === 'REJECT_WRONG_ROUTE');
   add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile')
-    && !!toolById('github-live-office-reconcile-expansion') && !!toolById('catch-count-ledger'));
+    && !!toolById('github-live-office-reconcile-expansion') && !!toolById('catch-count-ledger')
+    && !!toolById('mlc-engine-wiring-increment'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
