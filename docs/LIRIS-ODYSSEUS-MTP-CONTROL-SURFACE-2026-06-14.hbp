@@ -1,0 +1,7 @@
+ODYSSEUSMTPCANONHDR|doc=LIRIS-ODYSSEUS-MTP-CONTROL-SURFACE-2026-06-14|date=2026-06-14|owner=liris|scope=odysseus-pattern-absorption-MTP-plus-v8-map3d-control-surface|tag=DESCRIPTOR-ONLY|json=0
+ODYSSEUSMTPCANONSOURCE|source=docs/LIRIS-ODYSSEUS-CHATOS-FRONTEND-ABSORPTION-2026-06-12.hbp|mode=pattern-absorption-not-code-copy|invariant=every-visible-cell-has-route-file-sha-or-explicit-CANNOT-SEE|json=0
+ODYSSEUSMTPCANONBANDS|bands=M-model-selector+T-tool-skill+P-project-guide+MAP3D-v8-real-graph|M=tools/behcs/model-selector-matrix.mjs|T=tools/behcs/tool-skill-registry-matrix.mjs|P=tools/behcs/project-guide-matrix.mjs|MAP3D=tools/behcs/eight-byte-host-process-upgrade.mjs|json=0
+ODYSSEUSMTPCANONSTATUS|mtp_descriptor_backed=3|map3d_real_math_descriptor_backed=1|phone_render_proven_here=0|cutover_ready=0|live_execution_ready=0|json=0
+ODYSSEUSMTPCANONGATES|live_model_invocation=0|live_tool_execution=0|workflow_execution=0|process_launch=0|provider_terms_apply=1|operator_cosign_required_for_live_actions=1|json=0
+ODYSSEUSMTPCANONTOOL|tool=tools/behcs/odysseus-mtp-control-surface.mjs|test=tests/odysseus-mtp-control-surface.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+ODYSSEUSMTPCANONFTR|state=SEALED-ODYSSEUS-MTP-CONTROL-SURFACE|next=use-before-claiming-odysseus-upgraded-ui-or-MTP-green-cutover|json=0
