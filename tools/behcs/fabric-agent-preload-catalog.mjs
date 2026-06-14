@@ -87,6 +87,12 @@ export const TOOLS = Object.freeze([
     gate: 'unknown-PENDING-OFFICE-SNAPSHOT',
   }),
   Object.freeze({
+    id: 'github-live-office-reconcile-expansion',
+    path: 'tools/behcs/github-live-office-reconcile-expansion.mjs',
+    provides: 'github-vs-live-726-office-alias-map',
+    gate: 'descriptor-only-no-mint-no-cutover',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -252,7 +258,8 @@ export function selfTest() {
   add('routes-include-two-send-lanes', routeById('send-hbp').payload.includes('single-HBP') && routeById('send-json').payload.includes('operator-packet'));
   add('packet-lines-use-json-envelope', classifyPayloadForRoute({ route_id: 'send-json', payload_kind: 'operator-packet-lines' }) === 'ACCEPT_JSON_ENVELOPE');
   add('packet-lines-rejected-on-hbp-lane', classifyPayloadForRoute({ route_id: 'send-hbp', payload_kind: 'operator-packet-lines' }) === 'REJECT_WRONG_ROUTE');
-  add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile'));
+  add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile')
+    && !!toolById('github-live-office-reconcile-expansion'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
