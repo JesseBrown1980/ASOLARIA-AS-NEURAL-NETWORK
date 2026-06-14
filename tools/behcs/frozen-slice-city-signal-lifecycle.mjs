@@ -91,6 +91,8 @@ export const SIGNAL_STAGES = Object.freeze([
 const sha16 = (text) => createHash('sha256').update(String(text), 'utf8').digest('hex').slice(0, 16);
 const isObj = (x) => x !== null && typeof x === 'object';
 const safe = (x) => String(x ?? '').replace(/[|\r\n]/g, '_').replace(/[^A-Za-z0-9._:/+@=()-]+/g, '-').replace(/^-|-$/g, '') || 'empty';
+const FREE_COMPUTE_RE = /\b(free|bypass|unlimited|no-cost|gratis|zero-cost|zero-token|tokens?|credits?|billing|quota)\b/;
+const PROVIDER_RE = /\b(provider|openai|anthropic|claude|google|gemini|supercomputer|api|llm|gpt|model|compute)\b/;
 const prop = (obj, key, fallback = '') => {
   try { return isObj(obj) ? obj[key] : fallback; } catch { return fallback; }
 };
@@ -135,9 +137,9 @@ export function normalizeStage(input = {}) {
 
 export function classifyLifecycleClaim(input = {}) {
   const claim = safe(isObj(input) ? prop(input, 'claim', '') : input).toLowerCase();
+  if (FREE_COMPUTE_RE.test(claim) && PROVIDER_RE.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/200.*nano|200ns|nano.*second/.test(claim)) return 'CADENCE_CLAIM_REQUIRES_BENCHMARK';
   if (/force|forcing/.test(claim) && /openai|anthropic|provider|supercomputer|model/.test(claim)) return 'ROUTED_REQUEST_NOT_UNAUTHORIZED_CONTROL';
-  if (/free|bypass|unlimited|no-cost/.test(claim) && /provider|openai|anthropic|google|supercomputer|api/.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/frozen.*slice|slice.*city/.test(claim)) return 'FROZEN_SLICE_CITY_DESCRIPTOR';
   if (/gnn|shannon|white.*room/.test(claim)) return 'WATCHER_REVIEW_PROPOSAL_NOT_PROOF';
   return 'LIFECYCLE_DESCRIPTOR_REVIEW';
@@ -196,6 +198,7 @@ export function selfTest() {
   add('no-live-effects', built.stages.every((s) => s.process_launch === 0 && s.remote_call === 0 && s.cube_write === 0 && s.provider_bypass === 0));
   add('claim-router-gates-200ns', classifyLifecycleClaim({ claim: 'updates city every 200 nano seconds' }) === 'CADENCE_CLAIM_REQUIRES_BENCHMARK');
   add('claim-router-gates-forcing-provider', classifyLifecycleClaim({ claim: 'forcing OpenAI supercomputer to decide' }) === 'ROUTED_REQUEST_NOT_UNAUTHORIZED_CONTROL');
+  add('claim-router-rejects-free-provider-before-frozen-label', classifyLifecycleClaim({ claim: 'frozen slice city gives gratis GPT tokens' }) === 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   const hostile = emitRows([{ id: 'x|bad', lane: 'l\nbad', action: 'a', status: 'LIVE', gate: 'g\nFROZENCITYGATE|remote_call=1' }], { claim: 'bad|claim\nFROZENCITYGATE|cube_write=1' });
   add('rows-hbp-only', hostile.every((row) => row.endsWith('|json=0') && !/[\r\n]/.test(row)));
   add('total-never-throws', (() => { try { normalizeStage({ get id() { throw new Error('boom'); } }); buildLifecycle(null); emitRows(null); classifyLifecycleClaim(null); return true; } catch { return false; } })());

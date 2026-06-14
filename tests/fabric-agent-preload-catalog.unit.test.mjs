@@ -20,6 +20,7 @@ test('preload catalog teaches the send-hbp vs send-json route split', () => {
 
 test('preload catalog includes the laws, tools, roles, and cadence agents need', () => {
   assert.ok(LAWS.includes('all-agent-artifact-system-addresses-get-PID-or-handle'));
+  assert.ok(LAWS.includes('8-byte-host-process-replaces-node-per-agent-only-where-proven'));
   assert.ok(LAWS.includes('quants-are-address-and-evidence-classes-not-raw-material'));
   assert.ok(TOOLS.some((t) => t.id === 'pixel-room-handle'));
   assert.ok(TOOLS.some((t) => t.id === 'github-live-pid-reconcile'));
@@ -35,6 +36,7 @@ test('preload catalog includes the laws, tools, roles, and cadence agents need',
   assert.ok(TOOLS.some((t) => t.id === 'pid-emitter-cost-envelope' && t.gate.includes('physics_break-0')));
   assert.ok(TOOLS.some((t) => t.id === 'cellphone-host-bridge-boundary' && t.gate.includes('radio_bypass-0')));
   assert.ok(TOOLS.some((t) => t.id === 'frozen-slice-city-signal-lifecycle' && t.gate.includes('measured_200ns-0')));
+  assert.ok(TOOLS.some((t) => t.id === 'eight-byte-host-process-upgrade' && t.gate.includes('provider_compute_replaced-0')));
   assert.ok(ROLES.some((r) => r.id === 'flywheel' && r.must_do.includes('compare-to-acer-local-truth')));
   assert.ok(WORKFLOW.join('-').includes('memory-index-plan'));
   assert.equal(toolById('token-cube-catalog-binder').gate, 'mint-write-live-DEFER_TO_OPERATOR');

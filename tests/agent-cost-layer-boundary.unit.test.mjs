@@ -31,6 +31,8 @@ test('claim classifier separates message-size confusion from host-handle doctrin
   assert.equal(classifyClaim({ claim: '8 byte portal handle' }), 'HOST_HANDLE_DESCRIPTOR_ONLY');
   assert.equal(classifyClaim({ claim: 'message payload context tokens' }), 'MESSAGE_PAYLOAD_VARIABLE');
   assert.equal(classifyClaim({ claim: 'free unlimited Google model compute bypass' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  assert.equal(classifyClaim({ claim: '8 byte host gets gratis Claude tokens' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  assert.equal(classifyClaim({ claim: 'zero-cost GPT API credits' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
 });
 
 test('hostile layers emit HBP-only rows and stay non-executing', () => {

@@ -41,6 +41,7 @@ test('real cost envelope includes emitter spin, planning, cube templating, paylo
 test('claim classifier blocks literal physics and provider bypass claims', () => {
   assert.equal(classifyCostClaim({ claim: 'breaks physics kind of feel' }), 'METAPHOR_ONLY_REJECT_LITERAL_PHYSICS_BREAK');
   assert.equal(classifyCostClaim({ claim: 'free unlimited OpenAI supercomputer compute bypass' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  assert.equal(classifyCostClaim({ claim: '8 byte host process gives zero-cost Gemini tokens' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   assert.equal(classifyCostClaim({ claim: 'O(1) host handle addressing' }), 'O1_SHAPED_ADDRESSING_NOT_TOTAL_WORK');
   assert.equal(classifyCostClaim({ claim: '8 byte host process' }), 'HOST_HANDLE_DESCRIPTOR_ONLY');
 });

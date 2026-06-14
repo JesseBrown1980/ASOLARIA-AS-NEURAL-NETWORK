@@ -1,0 +1,9 @@
+HOSTUPGRADECANONHDR|doc=LIRIS-EIGHT-BYTE-HOST-PROCESS-UPGRADE-2026-06-14|date=2026-06-14|owner=liris|scope=v8-real-8-byte-host-process-upgrade-and-real-graph-math|tag=DESCRIPTOR-ONLY|json=0
+HOSTUPGRADECANONPOLICY|replace=node-per-agent-runtime-conductor-where-proven|keep=node-for-repo-verifier-build-test-static-provider-adapter-until-host-replacement-proof|not_replace=provider-brain-compute|provider_terms_apply=1|json=0
+HOSTUPGRADECANONMATH|bh_index=sector*3072+lane*1024+glyph|sector=sha256-name-mod113|lane=sha256-name-mod3|glyph=sha256-name-mod1024|cylinder=phase-bh_index-mod6+ring-floor-bh_index-div6|distance=abs-delta-bh_index-not-3d-euclidean|json=0
+HOSTUPGRADECANONPRIME|real_tiers=p+p2+p3|folded_tiers=p5+p7+p9-to-pk|p5_materialized=0|status=PROPOSAL_UNTIL_DISTINCT_RANGE_TAG_AND_TEST|json=0
+HOSTUPGRADECANONSYSTEMS|systems=LOGICAL-WAVE+FROZEN-BRAIN+REAL-FREE|rule_of_three=hookwall+gnn+shannon|yin_yang=logical-circle+real-square|mod6_integrity=necessary-not-sufficient|json=0
+HOSTUPGRADECANONROUTES|route_types=device-to-hardware+agent-to-agent+agent-to-device+agent-to-human+human-to-agent+provider-router|all_routes=descriptor-first|device_effects=operator-cosign|provider_router=gated|json=0
+HOSTUPGRADECANONGATES|free_provider_compute_claim=0|billing_bypass=0|global_node_removed_today=0|process_launch=0|usb_write=0|radio_bypass=0|cadence_200ns=end-to-end-benchmark-required|json=0
+HOSTUPGRADECANONTOOL|tool=tools/behcs/eight-byte-host-process-upgrade.mjs|test=tests/eight-byte-host-process-upgrade.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+HOSTUPGRADECANONFTR|state=SEALED-EIGHT-BYTE-HOST-PROCESS-UPGRADE|next=use-before-claiming-node-replacement-real-prime-graphs-or-phone-world-model-upgrades|json=0

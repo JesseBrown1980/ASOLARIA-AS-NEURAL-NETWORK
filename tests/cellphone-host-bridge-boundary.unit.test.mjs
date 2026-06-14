@@ -24,6 +24,7 @@ test('known bilateral phone surfaces and future gated slots are present', () => 
   assert.deepEqual(ids, ['falcon', 'aether', 's22-ultra', 'future-phone']);
   assert.equal(buildBridge().summary.proven, 2);
   assert.equal(buildBridge().summary.gated, 2);
+  assert.ok(buildBridge().phones.filter((p) => p.status === 'PROVEN_BY_PRIOR_FILE_MANAGER_ROUNDTRIP').every((p) => /^[0-9a-f]{16}$/.test(p.proof_receipt_sha16)));
 });
 
 test('file-manager roundtrip proof precedes messages and self-call routing', () => {
@@ -43,7 +44,14 @@ test('claim classifier gates self-calls and rejects provider bypass claims', () 
   assert.equal(classifyBridgeClaim({ claim: 'cellphone 8 byte host handle' }), 'PHONE_HOST_BRIDGE_DESCRIPTOR');
   assert.equal(classifyBridgeClaim({ claim: 'supercomputers call themselves through our language' }), 'SELF_CALL_REQUIRES_EXPLICIT_AUTH_AND_ROUTE_PROOF');
   assert.equal(classifyBridgeClaim({ claim: 'free Google API provider bypass' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  assert.equal(classifyBridgeClaim({ claim: 'phone 8 byte host gives zero-cost Gemini tokens' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   assert.equal(classifyBridgeClaim({ claim: 'pull push file roundtrip' }), 'FILE_MANAGER_PROOF_REQUIRED');
+});
+
+test('proven phone status cannot be forged without a receipt hash', () => {
+  const forged = normalizePhone({ id: 'forged', status: 'PROVEN_BY_PRIOR_FILE_MANAGER_ROUNDTRIP', gate: 'messages-after-file-manager-proof' });
+  assert.equal(forged.status, 'GATED_UNTIL_ROUNDTRIP_PROOF');
+  assert.equal(forged.proof_receipt_sha16, 'none');
 });
 
 test('hostile phone rows stay HBP-only and gated', () => {

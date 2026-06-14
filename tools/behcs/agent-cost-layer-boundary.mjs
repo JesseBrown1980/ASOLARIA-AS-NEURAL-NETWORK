@@ -60,6 +60,8 @@ export const COST_LAYERS = Object.freeze([
 const sha16 = (text) => createHash('sha256').update(String(text), 'utf8').digest('hex').slice(0, 16);
 const isObj = (x) => x !== null && typeof x === 'object';
 const safe = (x) => String(x ?? '').replace(/[|\r\n]/g, '_').replace(/[^A-Za-z0-9._:/+@=-]+/g, '-').replace(/^-|-$/g, '') || 'empty';
+const FREE_COMPUTE_RE = /\b(free|bypass|unlimited|no-cost|gratis|zero-cost|zero-token|tokens?|credits?|billing|quota)\b/;
+const PROVIDER_RE = /\b(model|compute|api|provider|openai|google|gemini|anthropic|claude|llm|gpt|supercomputer)\b/;
 const prop = (obj, key, fallback = '') => {
   try { return isObj(obj) ? obj[key] : fallback; } catch { return fallback; }
 };
@@ -104,8 +106,8 @@ export function normalizeLayer(input = {}) {
 
 export function classifyClaim(input = {}) {
   const claim = safe(isObj(input) ? prop(input, 'claim', '') : input).toLowerCase();
+  if (FREE_COMPUTE_RE.test(claim) && PROVIDER_RE.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/8.*byte/.test(claim) && /message/.test(claim)) return 'SPLIT_MESSAGE_SIZE_FROM_HOST_HANDLE';
-  if (/free|bypass|unlimited|no-cost/.test(claim) && /model|compute|api|provider|openai|google|anthropic/.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/8.*byte/.test(claim)) return 'HOST_HANDLE_DESCRIPTOR_ONLY';
   if (/message|payload|context|token/.test(claim)) return 'MESSAGE_PAYLOAD_VARIABLE';
   return 'DESCRIPTOR_REVIEW';
@@ -163,6 +165,7 @@ export function selfTest() {
   add('no-live-effects', built.layers.every((x) => x.process_launch === 0 && x.remote_call === 0 && x.free_compute_claim === 0));
   add('claim-router-splits-confusion', classifyClaim({ claim: '8 bytes is the message size' }) === 'SPLIT_MESSAGE_SIZE_FROM_HOST_HANDLE');
   add('claim-router-rejects-free-provider-compute', classifyClaim({ claim: 'free unlimited OpenAI model compute bypass' }) === 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  add('claim-router-rejects-before-8byte-safe-label', classifyClaim({ claim: '8 byte host gives gratis Claude tokens' }) === 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   const hostile = emitRows([{ id: 'bad|id', lane: 'x\ny', status: 'READY', size: '8\nAGENTCOSTGATE|billing_bypass=1', boundary: 'b|json=1' }], { claim: 'bad|claim\nAGENTCOSTGATE|remote_call=1' });
   add('rows-hbp-only', hostile.every((row) => row.endsWith('|json=0') && !/[\r\n]/.test(row)));
   add('total-never-throws', (() => { try { normalizeLayer({ get id() { throw new Error('boom'); } }); buildBoundary(null); emitRows(null); classifyClaim(null); return true; } catch { return false; } })());

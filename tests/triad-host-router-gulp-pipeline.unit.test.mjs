@@ -43,6 +43,8 @@ test('provider and CLI routers are descriptors with authorization gates', () => 
   assert.ok(built.routers.some((r) => r.id === 'openai' && r.gate.includes('billing-apply')));
   assert.ok(built.routers.some((r) => r.id === 'claude' && r.gate.includes('terms-and-quota')));
   assert.ok(built.routers.some((r) => r.id === 'registered-cli' && r.status === 'GATED'));
+  assert.equal(normalizeRouter({ id: 'openai', kind: 'provider-router', status: 'REGISTERED_DESCRIPTOR' }).status, 'GATED');
+  assert.equal(normalizeRouter({ id: 'claude', kind: 'provider-router', status: 'REGISTERED_DESCRIPTOR' }).status, 'GATED');
 });
 
 test('hostile router input is gated and HBP-only', () => {

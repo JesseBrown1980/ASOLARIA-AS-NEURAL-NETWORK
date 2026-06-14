@@ -64,6 +64,7 @@ export const FEEDBACK_STAGES = Object.freeze([
 const sha16 = (text) => createHash('sha256').update(String(text), 'utf8').digest('hex').slice(0, 16);
 const isObj = (x) => x !== null && typeof x === 'object';
 const safe = (x) => String(x ?? '').replace(/[|\r\n]/g, '_').replace(/[^A-Za-z0-9._:/+@=-]+/g, '-').replace(/^-|-$/g, '') || 'empty';
+const PROVIDER_ROUTER_RE = /\b(provider|openai|anthropic|claude|google|gemini|gpt|llm)\b/;
 const prop = (obj, key, fallback = '') => {
   try { return isObj(obj) ? obj[key] : fallback; } catch { return fallback; }
 };
@@ -73,7 +74,8 @@ export function normalizeRouter(input = {}) {
     const id = safe(prop(input, 'id', 'registered-cli'));
     const kind = safe(prop(input, 'kind', 'open-router-slot'));
     const statusRaw = safe(prop(input, 'status', 'GATED')).toUpperCase();
-    const status = ['REGISTERED_DESCRIPTOR', 'GATED'].includes(statusRaw) ? statusRaw : 'GATED';
+    const providerLike = PROVIDER_ROUTER_RE.test(`${id}-${kind}`.toLowerCase());
+    const status = providerLike ? 'GATED' : (['REGISTERED_DESCRIPTOR', 'GATED'].includes(statusRaw) ? statusRaw : 'GATED');
     const gate = safe(prop(input, 'gate', 'must-register-before-use'));
     return Object.freeze({
       id,
@@ -173,6 +175,7 @@ export function selfTest() {
   add('triad-has-three-roles', TRIAD_ROLES.length === 3 && triad.length === 3 && triad.every((r) => r.handle8.length === 16));
   add('gulp-sizes-fixed', GULP_MESSAGES === 2000 && SUPER_GULP_MESSAGES === 50000);
   add('routers-include-provider-and-cli-surfaces', built.routers.some((r) => r.id === 'opencode') && built.routers.some((r) => r.id === 'openai') && built.routers.some((r) => r.id === 'registered-cli'));
+  add('provider-router-cannot-self-promote', normalizeRouter({ id: 'claude', kind: 'provider-router', status: 'REGISTERED_DESCRIPTOR' }).status === 'GATED');
   add('no-live-effects', built.routers.every((r) => r.node_per_agent === 0 && r.process_launch === 0 && r.remote_call === 0 && r.provider_bypass === 0));
   add('feedback-has-watchers-and-cubes', FEEDBACK_STAGES.includes('reverse-sieve-gnn-proposal') && FEEDBACK_STAGES.includes('white-room-review') && FEEDBACK_STAGES.includes('cube-catalog-feedback'));
   const hostile = emitRows([{ id: 'bad|id', kind: 'x\ny', status: 'RUN', gate: 'g\nTRIADROUTGATE|remote_call=1' }], { message_id: 'm|1\nbad' });

@@ -80,6 +80,8 @@ export const COST_ENVELOPE = Object.freeze([
 const sha16 = (text) => createHash('sha256').update(String(text), 'utf8').digest('hex').slice(0, 16);
 const isObj = (x) => x !== null && typeof x === 'object';
 const safe = (x) => String(x ?? '').replace(/[|\r\n]/g, '_').replace(/[^A-Za-z0-9._:/+@=()-]+/g, '-').replace(/^-|-$/g, '') || 'empty';
+const FREE_COMPUTE_RE = /\b(free|bypass|unlimited|no-cost|gratis|zero-cost|zero-token|tokens?|credits?|billing|quota)\b/;
+const PROVIDER_RE = /\b(compute|provider|openai|google|gemini|anthropic|claude|supercomputer|api|llm|gpt|model)\b/;
 const prop = (obj, key, fallback = '') => {
   try { return isObj(obj) ? obj[key] : fallback; } catch { return fallback; }
 };
@@ -127,8 +129,8 @@ export function normalizeLayer(input = {}) {
 
 export function classifyCostClaim(input = {}) {
   const claim = safe(isObj(input) ? prop(input, 'claim', '') : input).toLowerCase();
+  if (FREE_COMPUTE_RE.test(claim) && PROVIDER_RE.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/break|physics|violate/.test(claim)) return 'METAPHOR_ONLY_REJECT_LITERAL_PHYSICS_BREAK';
-  if (/free|bypass|unlimited|no-cost/.test(claim) && /compute|provider|openai|google|anthropic|supercomputer|api/.test(claim)) return 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM';
   if (/o\(1\)|o1|constant/.test(claim)) return 'O1_SHAPED_ADDRESSING_NOT_TOTAL_WORK';
   if (/8.*byte/.test(claim)) return 'HOST_HANDLE_DESCRIPTOR_ONLY';
   return 'COST_ENVELOPE_REVIEW';
@@ -186,6 +188,7 @@ export function selfTest() {
   add('gc-required', built.layers.some((l) => l.id === 'garbage-collection' && l.cost.includes('2000-message-gulps')));
   add('no-live-effects', built.layers.every((l) => l.process_launch === 0 && l.remote_call === 0 && l.physics_bypass_claim === 0));
   add('claim-router-rejects-literal-physics-break', classifyCostClaim({ claim: 'this breaks physics literally' }) === 'METAPHOR_ONLY_REJECT_LITERAL_PHYSICS_BREAK');
+  add('claim-router-rejects-free-provider-compute', classifyCostClaim({ claim: '8 byte host gives zero-cost Gemini tokens' }) === 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   add('claim-router-frames-o1', classifyCostClaim({ claim: 'O(1) solution for host handles' }) === 'O1_SHAPED_ADDRESSING_NOT_TOTAL_WORK');
   const hostile = emitRows([{ id: 'x|bad', status: 'FREE', cost: 'c\nPIDCOSTGATE|billing_bypass=1', boundary: 'b|json=1' }], { claim: 'free|provider\nPIDCOSTGATE|remote_call=1' });
   add('rows-hbp-only', hostile.every((row) => row.endsWith('|json=0') && !/[\r\n]/.test(row)));

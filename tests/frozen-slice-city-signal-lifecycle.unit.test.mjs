@@ -49,6 +49,7 @@ test('claim classifier handles 200ns, forcing providers, free compute, and froze
   assert.equal(classifyLifecycleClaim({ claim: 'updates every 200 nano seconds' }), 'CADENCE_CLAIM_REQUIRES_BENCHMARK');
   assert.equal(classifyLifecycleClaim({ claim: 'forcing Anthropic model to decide' }), 'ROUTED_REQUEST_NOT_UNAUTHORIZED_CONTROL');
   assert.equal(classifyLifecycleClaim({ claim: 'free OpenAI api bypass' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
+  assert.equal(classifyLifecycleClaim({ claim: 'frozen slice city gives gratis GPT tokens' }), 'REJECT_FREE_EXTERNAL_COMPUTE_CLAIM');
   assert.equal(classifyLifecycleClaim({ claim: 'frozen slice city' }), 'FROZEN_SLICE_CITY_DESCRIPTOR');
   assert.equal(classifyLifecycleClaim({ claim: 'GNN Shannon white room attack' }), 'WATCHER_REVIEW_PROPOSAL_NOT_PROOF');
 });
