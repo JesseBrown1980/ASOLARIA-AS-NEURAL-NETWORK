@@ -54,6 +54,15 @@ test('project_guide cell P is PARTIAL after guide artifact, not GREEN workflow r
   assert.equal(matrix.summary.cutover_ready, false);
 });
 
+test('tool_skill cell T is PARTIAL after registry artifact, not GREEN live tool execution', () => {
+  const matrix = buildMatrix();
+  const t = matrix.cells.find((cell) => cell.id === 'T');
+  assert.equal(t.status, 'PARTIAL');
+  assert.equal(t.source, 'tools/behcs/tool-skill-registry-matrix.mjs');
+  assert.match(t.evidence, /live-tool-execution-submit-schema-and-live-daemon-contract-remain-gated/);
+  assert.equal(matrix.summary.cutover_ready, false);
+});
+
 test('every cell has a route/file/sha pointer or explicit CANNOT_SEE', () => {
   const matrix = buildMatrix();
   assert.equal(matrix.summary.all_have_pointer, true);

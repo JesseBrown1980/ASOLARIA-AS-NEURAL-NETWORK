@@ -31,9 +31,9 @@ export const MATRIX_CELLS = Object.freeze([
     id: 'T',
     name: 'tool_skill',
     status: 'PARTIAL',
-    source: 'tools/behcs/fabric-agent-preload-catalog.mjs',
-    evidence: 'tools-preloaded-but-front-end-skill-registry-not-yet-first-class',
-    required_next: 'promote-tool-skill-registry-to-front-end-visible-artifact',
+    source: 'tools/behcs/tool-skill-registry-matrix.mjs',
+    evidence: 'tool-skill-registry-T-artifact-now-front-end-visible-but-live-tool-execution-submit-schema-and-live-daemon-contract-remain-gated',
+    required_next: 'bind-registry-into-front-end-control-and-build-submit-schema-or-cold-path-execution-proof-before-green',
   }),
   Object.freeze({
     id: 'P',

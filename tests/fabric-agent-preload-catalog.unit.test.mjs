@@ -28,6 +28,7 @@ test('preload catalog includes the laws, tools, roles, and cadence agents need',
   assert.ok(TOOLS.some((t) => t.id === 'frontend-parity-matrix' && t.gate.includes('no-cutover')));
   assert.ok(TOOLS.some((t) => t.id === 'model-selector-matrix' && t.gate.includes('live-model-invocation-0')));
   assert.ok(TOOLS.some((t) => t.id === 'project-guide-matrix' && t.gate.includes('no-cutover')));
+  assert.ok(TOOLS.some((t) => t.id === 'tool-skill-registry-matrix' && t.gate.includes('live-tool-execution-0')));
   assert.ok(ROLES.some((r) => r.id === 'flywheel' && r.must_do.includes('compare-to-acer-local-truth')));
   assert.ok(WORKFLOW.join('-').includes('memory-index-plan'));
   assert.equal(toolById('token-cube-catalog-binder').gate, 'mint-write-live-DEFER_TO_OPERATOR');

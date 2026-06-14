@@ -123,6 +123,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-process_launch-0-no-cutover',
   }),
   Object.freeze({
+    id: 'tool-skill-registry-matrix',
+    path: 'tools/behcs/tool-skill-registry-matrix.mjs',
+    provides: 'front-end-T-cell-tool-skill-registry-no-live-tool-execution',
+    gate: 'descriptor-only-process_launch-0-live-tool-execution-0',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -291,7 +297,8 @@ export function selfTest() {
   add('tools-include-room-and-pid', !!toolById('pixel-room-handle') && !!toolById('github-live-pid-reconcile')
     && !!toolById('github-live-office-reconcile-expansion') && !!toolById('catch-count-ledger')
     && !!toolById('mlc-engine-wiring-increment') && !!toolById('frontend-parity-matrix')
-    && !!toolById('model-selector-matrix') && !!toolById('project-guide-matrix'));
+    && !!toolById('model-selector-matrix') && !!toolById('project-guide-matrix')
+    && !!toolById('tool-skill-registry-matrix'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
