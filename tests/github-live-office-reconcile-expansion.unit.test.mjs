@@ -81,6 +81,15 @@ test('limit controls alias row volume but not summary math', () => {
   assert.ok(rows.some((row) => row.startsWith('GLORECSUM|') && row.includes('entries=6') && row.includes('emitted=2')));
 });
 
+test('exported reconcile API is TOTAL against throwing-getter / hostile inputs (acer attack on 2e556f8)', () => {
+  const evilName = Object.defineProperty({}, 'name', { get() { throw new Error('boom'); }, enumerable: true });
+  assert.doesNotThrow(() => reconcileEntry(evilName));
+  assert.equal(reconcileEntry(evilName).state, RECONCILE_STATES.INVALID_OFFICE_ROW);
+  const hostile = { toString() { throw new Error('boom'); } };
+  assert.doesNotThrow(() => parseSupervisorFeed(hostile));
+  assert.doesNotThrow(() => reconcileSupervisorFeed(hostile));
+});
+
 test('tool has no live mutation or network capability', () => {
   const src = readFileSync(join(repo, 'tools/behcs/github-live-office-reconcile-expansion.mjs'), 'utf8');
   assert.equal(/child_process|spawnSync|\.spawn\(|execSync|writeFileSync|appendFileSync|fetch\(|Invoke-WebRequest|Start-Process|Stop-Process/.test(src), false);

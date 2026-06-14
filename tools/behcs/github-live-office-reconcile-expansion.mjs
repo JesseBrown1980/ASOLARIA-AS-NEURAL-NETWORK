@@ -37,7 +37,8 @@ function fieldMap(row) {
 }
 
 export function parseSupervisorFeed(input = '') {
-  const text = String(input ?? '');
+  let text = '';
+  try { text = String(input ?? ''); } catch { text = ''; } // total against a hostile toString
   const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
   const header = {};
   const footer = {};
@@ -90,7 +91,8 @@ function cleanHex16(s) {
 }
 
 export function reconcileEntry(entry = {}, opts = {}) {
-  const e = isObj(entry) ? entry : {};
+  try {
+    const e = isObj(entry) ? entry : {};
   const duplicateNameCount = Number(opts.duplicateNameCount || 1);
   const role = roleForLayer(e.layer);
   const tier = tierForLayer(e.layer);
@@ -141,6 +143,16 @@ export function reconcileEntry(entry = {}, opts = {}) {
     state,
     error,
   };
+  } catch {
+    // total against a throwing-getter / hostile-object entry (exported API; acer cross-vantage catch wf_5c81a46f)
+    return {
+      name: '', layer: '', class: '', status: '', hilbert: 0, office_pid: '', office_g1024: '',
+      github_role: 'SUP', github_pid: 'none', github_name: 'none', github_sha16: 'none', github_g1024: '',
+      sha_match: false, glyph_match: false, name_canonical: false, duplicate_name: false,
+      duplicate_name_count: 1, registered_not_canonical: false,
+      state: RECONCILE_STATES.INVALID_OFFICE_ROW, error: 'reconcile-threw-on-hostile-input',
+    };
+  }
 }
 
 export function reconcileSupervisorFeed(input = '') {
