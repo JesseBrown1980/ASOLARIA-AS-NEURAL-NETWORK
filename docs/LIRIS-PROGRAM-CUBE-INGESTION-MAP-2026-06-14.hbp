@@ -1,0 +1,6 @@
+PROGCANONHDR|doc=LIRIS-PROGRAM-CUBE-INGESTION-MAP-2026-06-14|date=2026-06-14|owner=liris|scope=local-programs-to-cubes-before-any-update|tag=DESCRIPTOR-ONLY|json=0
+PROGCANONLAW|claim=every-local-program-surface-can-be-ingested-as-cube-descriptor-but-not-blindly-mutated|required_order=census->map3->cube3->hookwall->gnn->omnishannon->white-room->gc->promotion-gate|process_launch=0|live_patch=0|json=0
+PROGCANONSURFACES|owned=ASOLARIA-AS-NEURAL-NETWORK+Asolaria-ASI-On-Metal-Fabric-and-matrix|external=live-node-processes+codex-session+browser-webview|devices=2TB-SOVLINUX+128GB-USB+Falcon+Aether|cloud=35TB-Google+NotebookLM-copy|json=0
+PROGCANONGATE|rule=owned-repo-edits-may-advance-through-tests-and-sidecars;external-programs-read-only-until-owner-proof;devices-read-only-walk-before-write;cloud-copy-not-primary-authority|operator_cosign_required=1|json=0
+PROGCANONTOOL|tool=tools/behcs/program-cube-ingestion-map.mjs|test=tests/program-cube-ingestion-map.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+PROGCANONFTR|status=SEALED-INTAKE-MAP|next=use-map-to-plan-owned-upgrades-then-ask-fabric-before-any-live-patch|json=0
