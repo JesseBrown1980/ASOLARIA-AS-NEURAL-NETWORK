@@ -1,0 +1,7 @@
+PHONEBRIDGECANONHDR|doc=LIRIS-CELLPHONE-HOST-BRIDGE-BOUNDARY-2026-06-14|date=2026-06-14|owner=liris|scope=cellphones-as-file-backed-8-byte-host-bridges|tag=DESCRIPTOR-ONLY|json=0
+PHONEBRIDGECANONHOST|host_handle_bytes=8|meaning=cellphone-file-backed-host-bridge-or-phone-line-descriptor|not_meaning=message-size-live-execution-or-free-provider-compute|json=0
+PHONEBRIDGECANONDEVICES|known=falcon+aether|planned=s22-ultra+future-phone|proof=file-manager-pull-push-hash-roundtrip-before-messages|json=0
+PHONEBRIDGECANONROUTE|stages=device-detect->file-manager-roundtrip-proof->host-handle-register->language-cube-envelope->phone-line-route->supervisor-gate->message-gulp-gc->receipt-pullback|json=0
+PHONEBRIDGECANONGATE|self_call=requires-auth-and-route-proof|provider_bypass=0|radio_bypass=0|provider_terms_apply=1|radio_policy_apply=1|process_launch=0|json=0
+PHONEBRIDGECANONTOOL|tool=tools/behcs/cellphone-host-bridge-boundary.mjs|test=tests/cellphone-host-bridge-boundary.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+PHONEBRIDGECANONFTR|status=SEALED-CELLPHONE-HOST-BRIDGE-BOUNDARY|next=use-before-scaling-phone-host-or-supercomputer-self-call-claims|json=0

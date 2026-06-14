@@ -153,6 +153,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-physics_break-0-billing_bypass-0-provider_terms_apply-1',
   }),
   Object.freeze({
+    id: 'cellphone-host-bridge-boundary',
+    path: 'tools/behcs/cellphone-host-bridge-boundary.mjs',
+    provides: 'cellphones-as-file-backed-8-byte-host-bridges-with-self-call-and-radio-gates',
+    gate: 'descriptor-only-provider_bypass-0-radio_bypass-0-process_launch-0',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -324,7 +330,7 @@ export function selfTest() {
     && !!toolById('model-selector-matrix') && !!toolById('project-guide-matrix')
     && !!toolById('tool-skill-registry-matrix') && !!toolById('program-cube-ingestion-map')
     && !!toolById('agent-cost-layer-boundary') && !!toolById('triad-host-router-gulp-pipeline')
-    && !!toolById('pid-emitter-cost-envelope'));
+    && !!toolById('pid-emitter-cost-envelope') && !!toolById('cellphone-host-bridge-boundary'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));

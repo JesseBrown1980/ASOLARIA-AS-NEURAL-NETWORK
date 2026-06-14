@@ -33,6 +33,7 @@ test('preload catalog includes the laws, tools, roles, and cadence agents need',
   assert.ok(TOOLS.some((t) => t.id === 'agent-cost-layer-boundary' && t.gate.includes('free_compute_claim-0')));
   assert.ok(TOOLS.some((t) => t.id === 'triad-host-router-gulp-pipeline' && t.gate.includes('provider_bypass-0')));
   assert.ok(TOOLS.some((t) => t.id === 'pid-emitter-cost-envelope' && t.gate.includes('physics_break-0')));
+  assert.ok(TOOLS.some((t) => t.id === 'cellphone-host-bridge-boundary' && t.gate.includes('radio_bypass-0')));
   assert.ok(ROLES.some((r) => r.id === 'flywheel' && r.must_do.includes('compare-to-acer-local-truth')));
   assert.ok(WORKFLOW.join('-').includes('memory-index-plan'));
   assert.equal(toolById('token-cube-catalog-binder').gate, 'mint-write-live-DEFER_TO_OPERATOR');
