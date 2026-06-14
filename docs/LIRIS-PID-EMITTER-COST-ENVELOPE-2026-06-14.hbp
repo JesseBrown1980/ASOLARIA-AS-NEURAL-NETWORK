@@ -1,0 +1,8 @@
+PIDCOSTCANONHDR|doc=LIRIS-PID-EMITTER-COST-ENVELOPE-2026-06-14|date=2026-06-14|owner=liris|scope=city-phone-line-router-cost-model|tag=DESCRIPTOR-ONLY|json=0
+PIDCOSTCANONLANG|stack=binary+hex+sha256+hash256+BEHCS256+BEHCS1024+BEHCS2048+17-engine-auto-translation+MCP-level-routing+cube-template-language|role=addressing+translation+evidence|json=0
+PIDCOSTCANONHOST|host_handle_bytes=8|meaning=local-host-process-or-portal-phone-line-descriptor|stub_room=zero-live-ram-until-activated|not_meaning=message-size-or-total-work-or-free-provider-compute|json=0
+PIDCOSTCANONREALCOST|costs=electricity+cpu-scheduling+pid-emitter-spin+envelope-planning+cube-templating+message-payload+network-io+provider-terms+gc|o1_scope=addressing-shape-not-total-work|json=0
+PIDCOSTCANONGC|after_processing=1|message_body_retention=0|summary_hash_retention=1|flows=2000-message-gulps+50000-message-super-gulps|json=0
+PIDCOSTCANONGATE|physics_break=0|billing_bypass=0|provider_terms_apply=1|remote_call=0|process_launch=0|json=0
+PIDCOSTCANONTOOL|tool=tools/behcs/pid-emitter-cost-envelope.mjs|test=tests/pid-emitter-cost-envelope.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+PIDCOSTCANONFTR|status=SEALED-PID-EMITTER-COST-ENVELOPE|next=use-before-any-city-router-scale-claim|json=0
