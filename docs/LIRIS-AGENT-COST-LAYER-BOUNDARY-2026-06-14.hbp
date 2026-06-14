@@ -1,0 +1,6 @@
+AGENTCOSTCANONHDR|doc=LIRIS-AGENT-COST-LAYER-BOUNDARY-2026-06-14|date=2026-06-14|owner=liris|scope=8-byte-agent-handle-vs-message-and-compute-cost|tag=DESCRIPTOR-ONLY|json=0
+AGENTCOSTCANONLAW|claim=8-byte-agent-is-local-host-handle-or-portal-descriptor-not-message-size|required_split=host-handle+local-stub-room+message-payload+codec-language-stack+network-portal+remote-model-call|process_launch=0|remote_call=0|json=0
+AGENTCOSTCANONBOUNDARY|message_payload=VARIABLE|network_io=GATED|remote_model_call=GATED|provider_terms_apply=1|billing_bypass=0|free_external_compute_claim=0|json=0
+AGENTCOSTCANONSTACK|languages=binary+hex+sha256+BEHCS256+BEHCS1024+BEHCS2048+17-engines|role=addressing+evidence+translation|not_role=free-remote-execution|json=0
+AGENTCOSTCANONTOOL|tool=tools/behcs/agent-cost-layer-boundary.mjs|test=tests/agent-cost-layer-boundary.unit.test.mjs|catalog=tools/behcs/fabric-agent-preload-catalog.mjs|json=0
+AGENTCOSTCANONFTR|status=SEALED-COST-LAYER-BOUNDARY|next=use-boundary-before-scaling-8-byte-host-process-claims|json=0

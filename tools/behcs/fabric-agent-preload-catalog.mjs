@@ -135,6 +135,12 @@ export const TOOLS = Object.freeze([
     gate: 'descriptor-only-process_launch-0-live_patch-0-blind_mutation-0',
   }),
   Object.freeze({
+    id: 'agent-cost-layer-boundary',
+    path: 'tools/behcs/agent-cost-layer-boundary.mjs',
+    provides: '8-byte-host-handle-vs-message-payload-and-remote-compute-cost-boundary',
+    gate: 'descriptor-only-process_launch-0-remote_call-0-free_compute_claim-0',
+  }),
+  Object.freeze({
     id: 'token-cube-catalog-binder',
     path: 'tools/behcs/token-cube-catalog-binder.mjs',
     provides: 'sha16-token-to-BH-address-draft-binding',
@@ -304,7 +310,8 @@ export function selfTest() {
     && !!toolById('github-live-office-reconcile-expansion') && !!toolById('catch-count-ledger')
     && !!toolById('mlc-engine-wiring-increment') && !!toolById('frontend-parity-matrix')
     && !!toolById('model-selector-matrix') && !!toolById('project-guide-matrix')
-    && !!toolById('tool-skill-registry-matrix') && !!toolById('program-cube-ingestion-map'));
+    && !!toolById('tool-skill-registry-matrix') && !!toolById('program-cube-ingestion-map')
+    && !!toolById('agent-cost-layer-boundary'));
   add('slice-engine-law-preloaded', LAWS.some((law) => law.startsWith('slice-engine-law-'))
     && emitPreloadRows().some((row) => row.startsWith('FABPRELOADSLICEENGINE|')));
   add('emitters-pipe-hookwall-gnn', EMITTERS.some((e) => e.id === 'hookwall') && EMITTERS.some((e) => e.id === 'gnn-edge'));
