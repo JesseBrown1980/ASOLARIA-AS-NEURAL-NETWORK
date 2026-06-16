@@ -73,8 +73,8 @@ test('claim classifier rejects automatic compression and proofless summary claim
 test('emitted rows are HBP-only, json=0 terminated, and injection-safe', () => {
   const rows = emitRows({
     cap: 3,
-    claim: 'semantic summary\nWATERFALLGATE|process_launch=1',
-    engine_slots: [{ slot: 'W0|bad', role: 'role\nWATERFALLSURFACE|provider_calls=1' }],
+    claim: 'semantic {summary}\nWATERFALLGATE|process_launch=1',
+    engine_slots: [{ slot: 'W0|{bad}', role: 'role{\n}WATERFALLSURFACE|provider_calls=1' }],
   });
   assert.ok(rows.every((row) => row.endsWith('|json=0') && !/[{\r\n]/.test(row)));
   assert.equal(rows.filter((row) => row.startsWith('WATERFALLSAFETY|')).length, 1);

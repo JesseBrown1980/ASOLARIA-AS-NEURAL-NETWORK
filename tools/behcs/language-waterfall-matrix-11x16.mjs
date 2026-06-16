@@ -40,7 +40,7 @@ const toBig = (value) => (typeof value === 'bigint' ? value : BigInt(value));
 const sha16 = (text) => createHash('sha256').update(String(text), 'utf8').digest('hex').slice(0, 16);
 const safe = (value) => {
   try {
-    return String(value == null ? '' : value).replace(/[|\r\n]/g, '_');
+    return String(value == null ? '' : value).replace(/[|{}\r\n]/g, '_');
   } catch {
     return '_';
   }
@@ -289,8 +289,8 @@ export function selfTest() {
   add('claim-rejects-auto-compression', classifyWaterfallClaim({ claim: 'free compression without loss' }) === 'MORE_REVERSIBLE_PATHS_INCREASE_MDL_CHOICES_NOT_AUTO_COMPRESSION');
   add('claim-o1-bounded-only', classifyWaterfallClaim({ claim: 'O(1) tail when bounded active paths' }) === 'O1_IN_N_ONLY_AFTER_ONCE_HEAD_AND_BOUNDED_ACTIVE_PATHS');
   const hostile = emitRows({
-    engine_slots: [{ slot: 'W0|bad', role: 'x\nWATERFALLGATE|process_launch=1' }],
-    claim: 'semantic summary\nWATERFALLSAFETY|provider_calls=1',
+    engine_slots: [{ slot: 'W0|{bad}', role: 'x{\n}WATERFALLGATE|process_launch=1' }],
+    claim: 'semantic {summary}\nWATERFALLSAFETY|provider_calls=1',
     cap: 2,
   });
   add('rows-hbp-only', hostile.every((row) => row.endsWith('|json=0') && !/[{\r\n]/.test(row)));
