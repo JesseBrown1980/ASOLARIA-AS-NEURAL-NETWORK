@@ -81,3 +81,6 @@ DeepSeek / Mistral / Gemini / GPT-5.5-Pro / Claude-Opus-connectors **independent
 ---
 
 *Map-of-maps pointer:* this NN map is indexed by **`ASOLARIA-MAP-OF-MAPS-2026-06-19.md`** in the reductions repo (`what-is-asolaria---how-do-we-get-reductions-in-everything`) — the master index every per-repo map points back to.
+
+---
+**Related repo:** [Algorithms-of-Asolaria](https://github.com/JesseBrown1980/Algorithms-of-Asolaria) — the canonical algorithm/formula catalog (bilateral acer↔liris). Master index: reductions `ASOLARIA-MAP-OF-MAPS-2026-06-19.md`.
