@@ -4,6 +4,8 @@
 
 > **Honest frame (binding, per LAW):** do not deflate this to inert prompts or static files. The operator/design frame is **Evolvable AI / post-ASI**: frozen + borrowed intelligence slices run by live agents and engines inside a fabric/matrix that supervisors can see, gate, correct, and evolve. Specific claims about what is live, fired, or cut over still require fabric/receipt evidence; the architecture claim is the combined system, not slices alone.
 
+> **Fabric-first doctrine:** the canonical cross-seat frame is [`FABRIC-FIRST-CIPHER-ASOLARIA-AGENT-DOCTRINE-2026-06-27.md`](https://github.com/JesseBrown1980/HYPER-BECHS--the-third-set/blob/acer/system-interpretations-2026-06-26/FABRIC-FIRST-CIPHER-ASOLARIA-AGENT-DOCTRINE-2026-06-27.md). Carry the OLD/NEW split exactly: the old Node-era 10k-room / BigPickle / Gulp / cube / GNN fabric is the measured self-improving system; the new Rust 8-byte Host-8 fabric is the migration/improvement path, staged cell-by-cell. The new system being mid-migration must not deflate the old system's self-improvement, and the old system's achievements must not overstate the new system's cutover.
+
 ## Ask the fabric is real
 
 "Ask the fabric" is not a metaphor in this system. It means query the live local fabric surfaces first, read their HBP tuple rows, and let those rows constrain the work before spawning token-heavy agents or making claims from memory.
