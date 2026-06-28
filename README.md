@@ -6,6 +6,8 @@
 
 > **Fabric-first doctrine:** the canonical cross-seat frame is [`FABRIC-FIRST-CIPHER-ASOLARIA-AGENT-DOCTRINE-2026-06-27.md`](https://github.com/JesseBrown1980/HYPER-BECHS--the-third-set/blob/acer/system-interpretations-2026-06-26/FABRIC-FIRST-CIPHER-ASOLARIA-AGENT-DOCTRINE-2026-06-27.md). Carry the OLD/NEW split exactly: the old Node-era 10k-room / BigPickle / Gulp / cube / GNN fabric is the measured self-improving system; the new Rust 8-byte Host-8 fabric is the migration/improvement path, staged cell-by-cell. The new system being mid-migration must not deflate the old system's self-improvement, and the old system's achievements must not overstate the new system's cutover.
 
+> **P4B current frame:** this repo is the neural-network front door in the **60D+ HyperBEHCS / BEHCS-1024 / HBI-HBP / 8-byte Host8** frame. 47D remains a real runtime bridge, but it is not the ceiling. See [`ROOT-FRAME-60D.md`](./ROOT-FRAME-60D.md).
+
 ## Ask the fabric is real
 
 "Ask the fabric" is not a metaphor in this system. It means query the live local fabric surfaces first, read their HBP tuple rows, and let those rows constrain the work before spawning token-heavy agents or making claims from memory.
