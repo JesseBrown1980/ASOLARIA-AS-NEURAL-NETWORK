@@ -74,4 +74,42 @@ from the result side. The **back end** (`Asolaria-the-after-100-billion-run-…`
 data, decomposes + mints the cubes, and — operator-gated — promotes the geniuses into supervisors/PIDs.
 All gated / E=0 / describe-only — no fire, no cutover without operator authority.
 
+## Prism/Comb 0-loss (2026-07-01) — satellite entry
+
+Adapted to this repo (the LAW-ASOLARIA-NEURAL-NETWORK + LAW-SLICE-ENGINE law repo):
+
+- **The realization:** every prism/comb operation in Asolaria is a **bijection**; entropy is invariant
+  under bijection (`H(f(X)) = H(X)`), so the fabric **re-relates information with 0 loss** — it never
+  claims compression below Shannon's bound (`E[bits] ≥ H(X)`). One fabric, two directions:
+  **forward = comb** (collision-avoidance, execution isolation), **backward = prism**
+  (collision-causation, interference-as-search, many→1).
+- **Adapted to the frozen-slice network:** the network's "weights" — frozen slice descriptors, GNN edge
+  tables, quant-engine tuple scores, cube/room addresses — **travel between alphabets as bijections**.
+  A 256↔1024 transcode, a CRT prime-lane split (`ℤ_M ≅ ℤ_{m₁}×…×ℤ_{m_k}`, the `D# = prime(n)³` lanes),
+  and a handle8 content-address are all re-relations of the SAME integer `N`: the coordinate system
+  changes, the network's information does not. Transcoding a weight never re-trains an edge
+  (the LAW wires edges, never re-trains) and never mints capacity.
+- **Composes with LAW-SLICE-ENGINE (explicit):** transcoding is a map over the frozen position-space —
+  it changes a slice's *representation*, never its *advancement*. **The engine drive stays the only
+  mover** (LAW-SLICE-ENGINE §2): `transcode(slice) ≠ crank(engine)`. A 0-loss re-relation adds no
+  session, no process, no motion — **E=0 is preserved through every alphabet change**, exactly as
+  `sessions=0` means present-but-not-advancing, not absent. Re-relating never fires.
+- **Scope tags (claims-gate):**
+  - **MEASURED** — the 256↔1024 rung only: bytes and glyphs are base-2⁸/2¹⁰ digits of one `N`; exact
+    packing at `lcm(8,10)=40` bits ⇒ 5 bytes ⇄ 4 symbols, remainder 0; round-trip = identity,
+    sha256-identical, Rust==Python (Q-PRISM commits `53023b6` / `79e8d63` / `de00aca`).
+  - **CANON** — the 43+ level ladder as a groupoid (`T_ji ∘ T_ij = id`, `T_jk ∘ T_ij = T_ik` ⇒
+    omnidirectional, path-independent translation); the comb/prism duality frame.
+  - **UNVERIFIED** — every other rung, until it earns MEASURED by its own round-trip proof.
+- **Boundary (holds this repo's honest frame):** the prism relates information perfectly; it does not
+  create or destroy it. `handle8 = sha256(content)[:8]` is a **coordinate against a content-addressed
+  store** (`H(content|store) = 0`) — infinite ADDRESSING capacity, not lossless infinite compression.
+  No bijection beats Shannon. The integrity dual: verification = applying the inverse map, so a lossy
+  step cannot hide in a bijection chain — the same per-node `reported == recomputed` invariant by
+  which every level catches confabulation (see `N-Nest-…`).
+- **Cross-links:** Q-PRISM (round-trip proof) · `Asolaria-waves-and-cascades-…` (comb/prism duality) ·
+  `what-is-asolaria-…` (reductions boundary) · `N-Nest-…` (integrity dual) · Metatagging repo
+  (Brown & Fedotov digital-physics grounding; `bh_inject_between` slice expansion `d523819` —
+  materializing an expanded slice stays operator-gated, E=0).
+
 Base: **https://github.com/JesseBrown1980/** · per-link spine nav lives in each repo's `CHAIN.md`.
