@@ -1,3 +1,7 @@
 # Bytes are the receipt: sha256 sidecars must verify identically on acer and liris.
 # Disable all end-of-line normalization so repo blobs == working-copy bytes on every machine.
 * -text
+.gitattributes text eol=lf
+docs/session-2026-07-03-fable5/*.hbp text eol=lf
+docs/session-2026-07-03-fable5/*.md text eol=lf
+docs/session-2026-07-03-fable5/*.sha256 text eol=lf
