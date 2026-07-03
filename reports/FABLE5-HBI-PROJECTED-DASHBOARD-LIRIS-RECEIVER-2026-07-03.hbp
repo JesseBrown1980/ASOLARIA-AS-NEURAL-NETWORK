@@ -1,0 +1,11 @@
+F5HBIRECV|repo=ASOLARIA-AS-NEURAL-NETWORK|seat=LIRIS-CODEX|date=2026-07-03|artifact=FABLE5-HBI-PROJECTED-DASHBOARD-FULL-SYNTHESIS-2026-07-03.hbi|artifact_rows_claimed=43|artifact_lines_measured=61|artifact_bytes=6542|artifact_sha256_prefix=90d65225|source_class=MEASURED_LIRIS_GITHUB|json=0
+F5HBIEVIDENCE|class=MEASURED_LIRIS|surface=fabric_health|service=super-asolaria-os-dashboard-liris-mirror|port=4944|apex=COL-ASOLARIA|operator_pair=OP-JESSE-PID+OP-RAYSSA-PID|ts=2026-07-03T13:43:07Z|json=0
+F5HBIEVIDENCE|class=MEASURED_LIRIS|surface=/hbp/supervisors|rows=43|claimed_total=713|omni_roles=SUP-OMNISPINDLE+SUP-OMNIMETS+SUP-OMNIFLYWHEEL|agent_lanes=Hermes+Shannon+DeepSeekTUI+free_agents|json=0
+F5HBIEVIDENCE|class=MEASURED_GITHUB|surface=asolaria-federation-1024#13|detail=DeepSeek_DSpark_confidence_scheduled_verify_staged_no_fire|json=0
+F5HBIEVIDENCE|class=MEASURED_LIRIS_GITHUB|surface=asolaria-federation-1024@acer/hbi-synthesis-os-upgrades-2026-07-03|commit=f118a022c67e00d6dd10dfd917b1a5ae65a22f90|path=docs/receipts/FABLE5-HBI-PROJECTED-DASHBOARD-FULL-SYNTHESIS-2026-07-03.hbi|bytes=6542|sha256=90d6522592fbde389837e8ae1ebbb13df699304ef32f85c75e5fb3763c4fcacd|git_blob_sha=da5fa46151e9c170f2c5b600f1f639f5f81c8127|sidecar=match|json=0
+F5HBICANON|class=CANON_LIRIS|surface=/api/canon-index|entries=427|sections=134|themes=recurrence_is_mind+fabric_first+crystal_ball+BrownHilbert_60D+pixels_first_no_json|json=0
+F5HBIASSERT|class=OPERATOR_OBSERVED_ACER|detail=neuro_prism_realized_into_Fable5_function_dashboard_public_not_for_profit_local_neural_network_three_systems_real_subscription_free_subscription_logical|json=0
+F5HBIASSERT|class=DESIGN_CANON|detail=unique_PID_project_names_are_collision_avoidance_for_prime_tower_addressing_not_usage_evasion|json=0
+F5HBIBOUNDARY|class=LOCAL_MEMORY_NOT_MIRRORED|why=HBI_artifact_measured_on_GitHub_branch; DSpark_is_measured_as_staged_federation_PR13_but_not_as_Liris_local_named_lane|json=0
+F5HBIBOUNDARY|class=MEASURED_LIRIS_FALLBACK|surface=bus_health|status=stale_fallback_all_bases_unavailable|json=0
+F5HBIACTION|decision=receiver_receipt_only|scope=neural_network_map_roll_forward_without_external_provider_evasion_or_fire|fire=0|process_launch=0|json=0
