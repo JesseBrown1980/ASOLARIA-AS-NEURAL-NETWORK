@@ -106,3 +106,33 @@ architectural analogy unless a claim-specific physical receipt exists.
 This commit performs zero model-training calls, process launches, fabric writes, device writes,
 checkpoint mutations, or engine promotions. Acer, Liris, and Relic must issue independent owning
 receipts; normalized invariants may agree while raw hashes remain seat-specific.
+
+## Omnidispatcher control plane
+
+The owning published runtime description is
+[JesseBrown1980/omni-dispatcher](https://github.com/JesseBrown1980/omni-dispatcher/blob/main/README.md),
+pinned here by README blob SHA-1 `9ded35670112123e662ac04a96fcfa33dc4498d7`.
+It defines one type-blind parent dispatcher with a 1,000-slot PID table, FEDENV-v1 ingress on
+`:4950`, four priority queues, Brown-Hilbert/slot/PID resolution, passive bus subscription, lazy
+workers and ports, RAM-pressure backpressure, and a receipt-bearing return path.
+
+The resulting control law is:
+
+```text
+FEDENV validate and cosign
+  -> resolve PID, slot, or Brown-Hilbert coordinate
+  -> choose priority lane and room
+  -> energize an emitter body only when cranked
+  -> route downstream
+  -> return back_address, bus receipt, convergence, and lineage
+```
+
+Room identity is persistent; an emitter is a temporarily energized function. The dispatcher can
+therefore address a large room space without materializing every room at once. The Omega/OmniGNN
+layer selects and relates typed rooms; it does not replace dispatcher authority, queueing, or
+backpressure.
+
+The 2026-07-15 operator session measured the BEHCS backend on `:4947/behcs/health` live while the
+`:4949` dashboard fan-in was unreliable and restarting. That measurement establishes a crucial
+projection boundary: a red or unreachable dashboard card does not prove its backend room is down.
+It does not, by itself, prove that `:4950` is live or authorize an emitter crank.
